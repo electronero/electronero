@@ -3248,12 +3248,6 @@ bool BlockchainLMDB::is_read_only() const
   return false;
 }
 
-void BlockchainLMDB::fixup()
-{
-  LOG_PRINT_L3("BlockchainLMDB::" << __func__);
-  // Always call parent as well
-  BlockchainDB::fixup();
-}
 
 #define RENAME_DB(name) \
     k.mv_data = (void *)name; \
