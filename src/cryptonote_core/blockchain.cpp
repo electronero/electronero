@@ -77,7 +77,8 @@ extern "C" void slow_hash_allocate_state();
 extern "C" void slow_hash_free_state();
 
 DISABLE_VS_WARNINGS(4267)
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239927))
 #define MERROR_VER(x) MCERROR("verify", x)
 
 // used to overestimate the block reward when estimating a per kB to use
@@ -93,24 +94,24 @@ static const struct {
   { 1, 1, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, 1009827, 0, 1442763710 },
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1442763710 },
 
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, 1141317, 0, 1458558528 },
+//   // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
+//   { 3, 1141317, 0, 1458558528 },
   
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, 1220516, 0, 1483574400 },
+//   // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
+//   { 4, 1220516, 0, 1483574400 },
   
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, 1288616, 0, 1489520158 },  
+//   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
+//   { 5, 1288616, 0, 1489520158 },  
 
-  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, 1400000, 0, 1503046577 },
+//   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1503046577 },
 
-  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, 1546000, 0, 1521303150 },
+//   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+//   { 7, 1546000, 0, 1521303150 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = 1009826;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -755,6 +756,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();
+  // Reset network hashrate to 333.0 MHz when hardfork v2 comes
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT){
+    return (difficulty_type) 19924656977;
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and

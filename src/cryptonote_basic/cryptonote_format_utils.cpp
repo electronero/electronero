@@ -671,11 +671,7 @@ namespace cryptonote
   {
     switch (decimal_point)
     {
-      case 12:
-      case 9:
-      case 6:
-      case 3:
-      case 0:
+      case 2:
         default_decimal_point = decimal_point;
         break;
       default:
@@ -694,16 +690,10 @@ namespace cryptonote
       decimal_point = default_decimal_point;
     switch (std::atomic_load(&default_decimal_point))
     {
-      case 12:
-        return "monero";
-      case 9:
-        return "millinero";
-      case 6:
-        return "micronero";
-      case 3:
-        return "nanonero";
+      case 2:
+        return "electronero";
       case 0:
-        return "piconero";
+        return "ecent";
       default:
         ASSERT_MES_AND_THROW("Invalid decimal point specification: " << default_decimal_point);
     }
@@ -847,7 +837,7 @@ namespace cryptonote
   //---------------------------------------------------------------
   bool calculate_block_hash(const block& b, crypto::hash& res)
   {
-        bool hash_result = get_object_hash(get_block_hashing_blob(b), res);
+    bool hash_result = get_object_hash(get_block_hashing_blob(b), res);
     return hash_result;
   }
   //---------------------------------------------------------------
@@ -880,7 +870,7 @@ namespace cryptonote
   //---------------------------------------------------------------
   bool get_block_longhash(const block& b, crypto::hash& res, uint64_t height)
   {
-       blobdata bd = get_block_hashing_blob(b);
+    blobdata bd = get_block_hashing_blob(b);
     crypto::cn_slow_hash(bd.data(), bd.size(), res);
     return true;
   }
