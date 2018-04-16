@@ -767,7 +767,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
 
   // Reset network hashrate to 1.0 Hz until hardfork v2 comes
-  if ((uint64_t)height >= MAINNET_HARDFORK_V6_HEIGHT-10 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + 1){
+  if (version == 1 || (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + 1){
     return (difficulty_type) 100;
   }
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
