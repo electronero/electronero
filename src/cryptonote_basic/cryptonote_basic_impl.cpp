@@ -45,7 +45,7 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
-#define FINITE_SUBSIDY (FINAL_SUBSIDY_PER_MINUTE*target_minutes+1)
+#define FINITE_SUBSIDY (1)
 
 namespace cryptonote {
 
@@ -92,7 +92,12 @@ namespace cryptonote {
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-
+   
+    const uint64_t premine = 1260000000000U;
+    if (median_size > 0 && already_generated_coins < premine) {
+      reward = premine;
+      return true;
+    }
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;    
     const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
     const uint64_t bonus_magic = bonus * 10000000U; // limited bonus reward for bonus round
