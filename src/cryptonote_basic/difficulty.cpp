@@ -136,9 +136,6 @@ namespace cryptonote {
     if (length <= 1) {
       return 1;
     }
-    if (length >= 239900 && length <= 241499) {
-      return 1000;
-    }
     static_assert(DIFFICULTY_WINDOW >= 2, "Window is too small");
     assert(length <= DIFFICULTY_WINDOW);
     sort(timestamps.begin(), timestamps.end());
