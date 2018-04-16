@@ -58,7 +58,12 @@
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
-
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
+#define MAINNET_HARDFORK_V3_HEIGHT  ((uint64_t)(239950))
+#define MAINNET_HARDFORK_V4_HEIGHT  ((uint64_t)(239960))
+#define MAINNET_HARDFORK_V5_HEIGHT  ((uint64_t)(239970))
+#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239930))
+#define MAINNET_HARDFORK_V7_HEIGHT  ((uint64_t)(239949))
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
 using namespace crypto;
@@ -77,8 +82,7 @@ extern "C" void slow_hash_allocate_state();
 extern "C" void slow_hash_free_state();
 
 DISABLE_VS_WARNINGS(4267)
-#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(241499))
-#define MAINNET_HARDFORK_V6_HEIGHT  ((uint64_t)(239927))
+
 #define MERROR_VER(x) MCERROR("verify", x)
 
 // used to overestimate the block reward when estimating a per kB to use
@@ -352,19 +356,14 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   m_offline = offline;
   if (m_hardfork == nullptr)
   {
-    if (m_nettype ==  FAKECHAIN || m_nettype == STAGENET)
+    if (m_nettype == STAGENET)
       m_hardfork = new HardFork(*db, 1, 0);
     else if (m_nettype == TESTNET)
       m_hardfork = new HardFork(*db, 1, testnet_hard_fork_version_1_till);
     else
       m_hardfork = new HardFork(*db, 1, mainnet_hard_fork_version_1_till);
   }
-  if (m_nettype == FAKECHAIN)
-  {
-    for (size_t n = 0; test_options->hard_forks[n].first; ++n)
-      m_hardfork->add_fork(test_options->hard_forks[n].first, test_options->hard_forks[n].second, 0, n + 1);
-  }
-  else if (m_nettype == TESTNET)
+  if (m_nettype == TESTNET)
   {
     for (size_t n = 0; n < sizeof(testnet_hard_forks) / sizeof(testnet_hard_forks[0]); ++n)
       m_hardfork->add_fork(testnet_hard_forks[n].version, testnet_hard_forks[n].height, testnet_hard_forks[n].threshold, testnet_hard_forks[n].time);
@@ -413,7 +412,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   {
   }
 
-  if (m_nettype != FAKECHAIN)
+  if (m_nettype != TESTNET)
   {
     // ensure we fixup anything we found and fix in the future
     m_db->set_batch_transactions(true);
