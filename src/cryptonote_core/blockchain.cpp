@@ -94,7 +94,7 @@ static const struct {
   { 1, 1, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1442763710 },
+//   { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1442763710 },
 
 //   // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
 //   { 3, 1141317, 0, 1458558528 },
@@ -111,7 +111,7 @@ static const struct {
 //   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
 //   { 7, 1546000, 0, 1521303150 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V2_HEIGHT-1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V6_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -767,7 +767,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
 
-
+  // Reset network hashrate to 333.0 MHz when hardfork v2 comes
+  if ((uint64_t)height >= MAINNET_HARDFORK_V6_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V6_HEIGHT + (uint64_t)difficulty_blocks_count){
+    return (difficulty_type) 100;
+  }
   // Reset network hashrate to 333.0 MHz when hardfork v2 comes
   if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)difficulty_blocks_count){
     return (difficulty_type) 19924656977;
