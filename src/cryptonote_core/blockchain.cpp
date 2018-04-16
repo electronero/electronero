@@ -1096,7 +1096,7 @@ bool Blockchain::validate_miner_transaction(const block& b, size_t cumulative_bl
     MERROR_VER("block size " << cumulative_block_size << " is bigger than allowed for this blockchain");
     return false;
   }
-  if(base_reward + fee < money_in_use)
+  if(base_reward + fee < money_in_use && already_generated_coins > 0)
   {
     MERROR_VER("coinbase transaction spend too much money (" << print_money(money_in_use) << "). Block reward is " << print_money(base_reward + fee) << "(" << print_money(base_reward) << "+" << print_money(fee) << ")");
     return false;
@@ -1104,7 +1104,7 @@ bool Blockchain::validate_miner_transaction(const block& b, size_t cumulative_bl
   // From hard fork 2, we allow a miner to claim less block reward than is allowed, in case a miner wants less dust
   if (m_hardfork->get_current_version() < 2)
   {
-    if(base_reward + fee != money_in_use)
+    if(base_reward + fee != money_in_use && already_generated_coins > 0)
     {
       MDEBUG("coinbase transaction doesn't use full amount of block reward:  spent: " << money_in_use << ",  block reward " << base_reward + fee << "(" << base_reward << "+" << fee << ")");
       return false;
@@ -3022,13 +3022,13 @@ bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
       return false;
     fee_per_kb = get_dynamic_per_kb_fee(base_reward, median, version);
   }
-  MDEBUG("Using " << print_money(fee_per_kb) << "/kB fee");
+  MDEBUG("Using " << print_money(fee) << "/kB fee");
 
   uint64_t needed_fee = blob_size / 1024;
   needed_fee += (blob_size % 1024) ? 1 : 0;
   needed_fee *= fee_per_kb;
 
-  if (fee < needed_fee - needed_fee / 50) // keep a little 2% buffer on acceptance - no integer overflow
+  if (fee < needed_fee * 0.98) // keep a little 2% buffer on acceptance - no integer overflow
   {
     MERROR_VER("transaction fee is not enough: " << print_money(fee) << ", minimum fee: " << print_money(needed_fee));
     return false;
@@ -4413,7 +4413,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "4b553162ee4e7af3c53666506591489c68560b9175e6e941dc96c89f96f0e35c";
+static const char expected_block_hashes_hash[] = "559434eeff469e41272f40820960242dfd4de43c89ea7c7a63c9d4d8f0e54552";
 void Blockchain::load_compiled_in_block_hashes()
 {
   const bool testnet = m_nettype == TESTNET;
