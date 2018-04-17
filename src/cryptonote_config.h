@@ -150,9 +150,22 @@
 // New constants are intended to go here
 namespace config
 {
+  std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
-  std::string const RINGDB_DIR = ".ringdb";
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
+  
+  uint64_t const ELECTRONERO_HARDFORK = ((uint64_t)(239930)); // first planned fork
+  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)(239921)); // initial fork height
+  
+  uint64_t const MAINNET_HARDFORK_V1_HEIGHT = ((uint64_t)(1)); // v1
+  uint64_t const MAINNET_HARDFORK_V2_HEIGHT = ((uint64_t)(241501)); // v2
+  uint64_t const MAINNET_HARDFORK_V3_HEIGHT = ((uint64_t)(239950)); // v3
+  uint64_t const MAINNET_HARDFORK_V4_HEIGHT = ((uint64_t)(239960)); // v4
+  uint64_t const MAINNET_HARDFORK_V5_HEIGHT = ((uint64_t)(239970)); // v5
+  uint64_t const MAINNET_HARDFORK_V6_HEIGHT = ((uint64_t)(239930)); // v6
+  uint64_t const MAINNET_HARDFORK_V7_HEIGHT = ((uint64_t)(239949)); // v7
+  uint64_t const MAINNET_HARDFORK_V8_HEIGHT = ((uint64_t)(242000)); // v8
+  
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 500; // Just a placeholder!  Change me!
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
