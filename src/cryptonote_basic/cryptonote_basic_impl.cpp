@@ -100,13 +100,12 @@ namespace cryptonote {
     }
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;    
     const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
-    const uint64_t bonus_round = 160000000000U; // limited bonus reward for bonus round
-    const uint64_t projected = already_generated_coins + bonus_round; // project bonus cap
-    const uint64_t bonus_round = bonus_round + projected; // bonus round and project fee cap
+    const uint64_t bonus_reward = 160000000000U; // limited bonus reward for bonus round
+    const uint64_t bonus_round = already_generated_coins + bonus_reward; // bonus round cap
     
     // project bonus for dev team. 
     if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       base_reward = bonus_round; // reward project bonus_magic
+       base_reward = bonus_reward; // reward project bonus_magic
        reward = base_reward; 
        return true;
      }    
