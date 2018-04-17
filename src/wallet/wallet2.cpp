@@ -110,9 +110,6 @@ using namespace cryptonote;
 
 #define MULTISIG_EXPORT_FILE_MAGIC "Monero multisig export\001"
 
-#define SEGREGATION_FORK_HEIGHT 1564965
-#define TESTNET_SEGREGATION_FORK_HEIGHT 1000000
-#define STAGENET_SEGREGATION_FORK_HEIGHT 1000000
 #define SEGREGATION_FORK_VICINITY 1500 /* blocks */
 
 
@@ -121,9 +118,9 @@ namespace
   std::string get_default_ringdb_path()
   {
     boost::filesystem::path dir = tools::get_default_data_dir();
-    // remove .bitmonero, replace with .shared-ringdb
+    // remove .electronero, replace with .ringdb
     dir = dir.remove_filename();
-    dir /= ".shared-ringdb";
+    dir /= ".ringdb";
     return dir.string();
   }
 }
@@ -10327,9 +10324,9 @@ std::vector<std::pair<uint64_t, uint64_t>> wallet2::estimate_backlog(uint64_t mi
 uint64_t wallet2::get_segregation_fork_height() const
 {
   if (m_nettype == TESTNET)
-    return TESTNET_SEGREGATION_FORK_HEIGHT;
+    return config::testnet::TESTNET_SEGREGATION_FORK_HEIGHT;
   if (m_nettype == STAGENET)
-    return STAGENET_SEGREGATION_FORK_HEIGHT;
+    return config::stagenet::STAGENET_SEGREGATION_FORK_HEIGHT;
   THROW_WALLET_EXCEPTION_IF(m_nettype != MAINNET, tools::error::wallet_internal_error, "Invalid network type");
 
   if (m_segregation_height > 0)
@@ -10340,10 +10337,10 @@ uint64_t wallet2::get_segregation_fork_height() const
   {
     // All four MoneroPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
-        "segheights.moneropulse.org",
-        "segheights.moneropulse.net",
-        "segheights.moneropulse.co",
-        "segheights.moneropulse.se"
+        "segheights.electroneropulse.org",
+        "segheights.electroneropulse.net",
+        "segheights.electroneropulse.com",
+        "segheights.electroneropulse.info"
     };
 
     const uint64_t current_height = get_blockchain_current_height();
@@ -10373,7 +10370,7 @@ uint64_t wallet2::get_segregation_fork_height() const
         return best_height;
     }
   }
-  return SEGREGATION_FORK_HEIGHT;
+  return config::SEGREGATION_FORK_HEIGHT;
 }
 //----------------------------------------------------------------------------------------------------
 void wallet2::generate_genesis(cryptonote::block& b) const {
