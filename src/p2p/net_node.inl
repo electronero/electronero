@@ -64,6 +64,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "net.p2p"
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
+#define MIN_WANTED_SEED_NODES 6
 
 namespace nodetool
 {
@@ -492,7 +493,7 @@ namespace nodetool
       }
 
       // append the fallback nodes if we have too few seed nodes to start with
-      if (full_addrs.size() < ::config::MIN_WANTED_SEED_NODES)
+      if (full_addrs.size() < MIN_WANTED_SEED_NODES)
       {
         if (full_addrs.empty())
           MINFO("DNS seed node lookup either timed out or failed, falling back to defaults");
