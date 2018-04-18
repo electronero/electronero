@@ -155,17 +155,7 @@ namespace config
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
   uint16_t const MIN_WANTED_SEED_NODES = 6; // seeds
-  uint64_t const ELECTRONERO_HARDFORK = ((uint64_t)(239930)); // first planned fork
-  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)(239921)); // initial fork height
-  
-  uint64_t const MAINNET_HARDFORK_V1_HEIGHT = ((uint64_t)(1)); // v1
-  uint64_t const MAINNET_HARDFORK_V2_HEIGHT = ((uint64_t)(239965)); // v2
-  uint64_t const MAINNET_HARDFORK_V3_HEIGHT = ((uint64_t)(239970)); // v3
-  uint64_t const MAINNET_HARDFORK_V4_HEIGHT = ((uint64_t)(239975)); // v4
-  uint64_t const MAINNET_HARDFORK_V5_HEIGHT = ((uint64_t)(239980)); // v5
-  uint64_t const MAINNET_HARDFORK_V6_HEIGHT = ((uint64_t)(239930)); // v6
-  uint64_t const MAINNET_HARDFORK_V7_HEIGHT = ((uint64_t)(239949)); // v7
-  uint64_t const MAINNET_HARDFORK_V8_HEIGHT = ((uint64_t)(239960)); // v8
+  uint64_t const HARDFORK_HEIGHT = ((uint64_t)(239921)); // hard fork control
   
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
