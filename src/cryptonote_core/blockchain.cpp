@@ -59,16 +59,16 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK = ((uint64_t)(239930)); // first fork 
-#define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239921)); // initial electronero height
-#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)); // v1
-#define MAINNET_HARDFORK_V2_HEIGHT ((uint64_t)(239965)); // v2
-#define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239970)); // v3
-#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239975)); // v4
-#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239980)); // v5
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239930)); // v6
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239949)); // v7
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239960)); // v8
+#define ELECTRONERO_HARDFORK = ((uint64_t)(239930)) // first fork 
+#define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239921)) // initial electronero height
+#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
+#define MAINNET_HARDFORK_V2_HEIGHT ((uint64_t)(239965)) // v2
+#define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239970)) // v3
+#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239975)) // v4
+#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239980)) // v5
+#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239930)) // v6
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239949)) // v7
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239960)) // v8
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
