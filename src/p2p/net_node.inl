@@ -492,7 +492,7 @@ namespace nodetool
       }
 
       // append the fallback nodes if we have too few seed nodes to start with
-      if (full_addrs.size() < config::MIN_WANTED_SEED_NODES)
+      if (full_addrs.size() < ::config::MIN_WANTED_SEED_NODES)
       {
         if (full_addrs.empty())
           MINFO("DNS seed node lookup either timed out or failed, falling back to defaults");
