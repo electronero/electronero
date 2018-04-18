@@ -358,7 +358,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
     else
       m_hardfork = new HardFork(*db, 1, mainnet_hard_fork_version_1_till);
   }
-  if (m_nettype == TESTNET)
+  else if (m_nettype == TESTNET)
   {
     for (size_t n = 0; n < sizeof(testnet_hard_forks) / sizeof(testnet_hard_forks[0]); ++n)
       m_hardfork->add_fork(testnet_hard_forks[n].version, testnet_hard_forks[n].height, testnet_hard_forks[n].threshold, testnet_hard_forks[n].time);
@@ -430,6 +430,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
 /// off for now, until we remake blocks.dat
 // #if defined(PER_BLOCK_CHECKPOINT)
 //   if (m_nettype != FAKECHAIN)
+// 	m_db->set_batch_transactions(true);
 //     load_compiled_in_block_hashes();
 // #endif
 
