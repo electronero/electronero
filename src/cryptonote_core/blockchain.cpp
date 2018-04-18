@@ -59,7 +59,7 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK = ((uint64_t)(239930)) // first fork 
+#define ELECTRONERO_HARDFORK ((uint64_t)(239930)) // first fork 
 #define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239921)) // initial electronero height
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
 #define MAINNET_HARDFORK_V2_HEIGHT ((uint64_t)(239965)) // v2
