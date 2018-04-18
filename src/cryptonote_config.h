@@ -154,7 +154,6 @@ namespace config
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
-  uint16_t const MIN_WANTED_SEED_NODES = 6; // seeds
   uint64_t const HARDFORK_HEIGHT = ((uint64_t)(239921)); // hard fork control
   
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
