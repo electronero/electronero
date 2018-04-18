@@ -142,7 +142,7 @@
 #define HF_VERSION_MIN_MIXIN_6                  7
 #define HF_VERSION_ENFORCE_RCT                  6
 
-#define PER_KB_FEE_QUANTIZATION_DECIMALS        2
+#define PER_KB_FEE_QUANTIZATION_DECIMALS        1
 
 #define HASH_OF_HASHES_STEP                     256
 
