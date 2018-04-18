@@ -155,7 +155,7 @@ namespace config
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
   
   uint64_t const ELECTRONERO_HARDFORK = ((uint64_t)(239930)); // first planned hard fork
-  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)(241525)); // initial fork height
+  uint64_t const ELECTRONERO_HARDFORK_HEIGHT = ((uint64_t)(239921)); // initial fork height
   
   uint64_t const MAINNET_HARDFORK_V1_HEIGHT = ((uint64_t)(1)); // v1
   uint64_t const MAINNET_HARDFORK_V2_HEIGHT = ((uint64_t)(239965)); // v2
