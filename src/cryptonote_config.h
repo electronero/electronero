@@ -70,7 +70,7 @@
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .2 * pow(10, 1)
 #define FEE_PER_KB                                      ((uint64_t)20) // .2 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)20) // .2 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)30) // .3 * pow(10, 1)
+#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)15) // .15 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)20 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
