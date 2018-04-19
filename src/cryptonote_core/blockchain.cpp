@@ -61,14 +61,15 @@
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(239930)) // first fork 
 #define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239921)) // initial electronero height
+#define MAINNET_HARDFORK_V2 ((uint64_t)(239930)) // v2
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
-#define MAINNET_HARDFORK_V2_HEIGHT ((uint64_t)(239965)) // v2
-#define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239970)) // v3
-#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239975)) // v4
-#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239980)) // v5
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239930)) // v6
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239949)) // v7
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239960)) // v8
+#define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(239922)) // v2
+#define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239923)) // v3
+#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239924)) // v4
+#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239925)) // v5
+#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239926)) // v6
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239927)) // v7
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239928)) // v8
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -104,22 +105,22 @@ static const struct {
   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  // { 2, config::MAINNET_HARDFORK_V2_HEIGHT, 0, 1442763710 },
+  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1442763710 },
 
   // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  // { 3, config::MAINNET_HARDFORK_V3_HEIGHT, 0, 1458558528 },
+  // { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1458558528 },
 
   // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  // { 4, config::MAINNET_HARDFORK_V4_HEIGHT, 0, 1483574400 },
+  // { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1483574400 },
 
   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  // { 5, config::MAINNET_HARDFORK_V5_HEIGHT, 0, 1489520158 },
+  // { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1489520158 },
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524023737 },
+  // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524023737 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  // { 7, config::MAINNET_HARDFORK_V7_HEIGHT, 0, 1521303150 },
+  // { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1521303150 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
 
@@ -778,7 +779,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     return (difficulty_type) 1000;
   }
   // Reset network hashrate to 111.0 MHz when hardfork v2 comes
-  if ((uint64_t)height >= MAINNET_HARDFORK_V2_HEIGHT + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2_HEIGHT + (uint64_t)difficulty_blocks_count){
+  if ((uint64_t)height >= MAINNET_HARDFORK_V2 + 1 && (uint64_t)height <= MAINNET_HARDFORK_V2 + (uint64_t)difficulty_blocks_count){
     return (difficulty_type) 19924656977;
   }
   // ND: Speedup
