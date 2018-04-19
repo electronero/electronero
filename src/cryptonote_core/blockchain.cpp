@@ -100,7 +100,7 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-//   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
+  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
 //   { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
