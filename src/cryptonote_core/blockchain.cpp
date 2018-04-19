@@ -100,22 +100,22 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
+//   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
 
   // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
+//   { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
 
   // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1524104541 },
+//   { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1524104541 },
 
   // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105827 },
+//   { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105827 },
 
   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
+//   { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524106782 },
+//   { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524106782 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524110135 },
