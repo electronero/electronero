@@ -104,7 +104,6 @@ namespace cryptonote {
     const uint64_t bonus = 180000000000U; // project bonus 
     const uint64_t bonus_reward = base_reward + 500000U; // bonus reward
     const uint64_t bonus_round = bonus + already_generated_tokens; // bonus round cap
-    const uint64_t bonus_cap = 90000 * bonus_reward; // bonus round cap
 
     // project bonus for dev team. 
     if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
@@ -113,7 +112,7 @@ namespace cryptonote {
      }    
      
     // bonus rewarded to miners for fork efforts.
-    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_cap) {
+    if (version >= 6 && median_size > 0 && already_generated_tokens < bonus_round) {
        base_reward = bonus_reward; // reward bonus to miners 
        return true;
      }
