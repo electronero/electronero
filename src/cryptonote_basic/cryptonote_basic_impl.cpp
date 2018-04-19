@@ -111,7 +111,7 @@ namespace cryptonote {
     // project bonus for dev team. 
     if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
        reward = bonus; 
-       already_generated_tokens = already_generated_coins
+       already_generated_tokens = already_generated_coins;
        return true;
      }    
      
