@@ -92,29 +92,30 @@ namespace cryptonote {
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-   
+    const int emission_speed_factor_x2 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes);
+    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    uint64_t bonus_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor_x2;
+    
     const uint64_t premine = 1260000000000U;
     if (median_size > 0 && already_generated_coins < premine) {
       reward = premine;
       return true;
     }
-    const uint64_t block_height = m_db->height();
-    const uint64_t already_generated_tokens = m_db->get_block_already_generated_coins(block_height - 1);
-    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;    
-    const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
-    const uint64_t bonus_reward = 160000000000U; // limited bonus reward for bonus round
-    const uint64_t bonus_round = already_generated_tokens + 160000000000U; // bonus round cap
-    const uint64_t bonus_miner = already_generated_tokens + 160000000000U; // bonus round cap
+
+    const uint64_t already_generated_tokens = already_generated_coins;
+    const uint64_t bonus = 180000000000U; // limited bonus reward for bonus round
+    const uint64_t bonus_round = already_generated_tokens + bonus_reward; // bonus round cap
+    const uint64_t bonus_cap = bonus_round + bonus_reward; // bonus round cap
     
     // project bonus for dev team. 
-    if (version == 6 && median_size > 0 && already_generated_tokens < bonus_round) {
-       reward = bonus_reward; 
+    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
+       reward = bonus; 
        return true;
      }    
      
     // bonus rewarded to miners for fork efforts.
-    if (version == 6 && median_size > 0 && already_generated_coins < bonus_miner) {
-       base_reward = bonus; // reward bonus to miners 
+    if (version >= 6 && median_size > 0 && already_generated_tokens < bonus_cap) {
+       base_reward = bonus_reward; // reward bonus to miners 
        return true;
      }
     
