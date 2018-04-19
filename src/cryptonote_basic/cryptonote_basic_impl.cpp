@@ -101,7 +101,7 @@ namespace cryptonote {
     }
     
     const uint64_t already_generated_tokens = 1460000000000U;
-    const uint64_t bonus = 180000000000U // project bonus 
+    const uint64_t bonus = 180000000000U; // project bonus 
     const uint64_t bonus_reward = base_reward + 500000U; // bonus reward
     const uint64_t bonus_round = bonus + already_generated_tokens; // bonus round cap
     const uint64_t bonus_cap = 90000 * bonus_reward; // bonus round cap
