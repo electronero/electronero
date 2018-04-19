@@ -100,20 +100,21 @@ namespace cryptonote {
       return true;
     }
     
-    const uint64_t already_generated_tokens = 1450553168200U;
     const uint64_t bonus = 180000000000U; // project bonus 
     const uint64_t bonus_reward = 1800000U; // bonus reward
     const uint64_t bonus_round = 180000000000U + already_generated_tokens; // bonus round cap
 
     // project bonus for dev team. 
     if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       reward = bonus; 
+       base_reward = bonus; // reward project 
+       reward = base_reward;
        return true;
      }    
      
     // bonus rewarded to miners for fork efforts.
-    if (version >= 6 && median_size > 0 && already_generated_tokens < bonus_round) {
-       base_reward = bonus_reward; // reward bonus to miners 
+    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
+       base_reward = bonus_reward; // reward bonus to miners
+       reward = base_reward; 
        return true;
      }
     
