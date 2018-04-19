@@ -65,11 +65,11 @@
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
 #define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(239922)) // v2
 #define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239923)) // v3
-#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239924)) // v4
-#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239925)) // v5
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239926)) // v6
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239927)) // v7
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239929)) // v8
+#define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239925)) // v4
+#define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239926)) // v5
+#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239928)) // v6
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239930)) // v7
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239931)) // v8
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -111,7 +111,7 @@ static const struct {
   { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1524104541 },
 
   // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524104241 },
+  { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105541 },
 
   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
   // { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524103809 },
