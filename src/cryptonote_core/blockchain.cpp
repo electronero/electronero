@@ -114,10 +114,10 @@ static const struct {
   { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105827 },
 
   // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106027 },
+  { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524104209 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524106500 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
   // { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524104809 },
