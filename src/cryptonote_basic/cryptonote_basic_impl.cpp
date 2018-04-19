@@ -94,29 +94,26 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
     const int emission_speed_factor_x2 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
-
     
     const uint64_t premine = 1260000000000U;
     if (median_size > 0 && already_generated_coins < premine) {
       reward = premine;
       return true;
     }
-
-    const uint64_t already_generated_tokens = already_generated_coins;
+    
     const uint64_t bonus_reward = base_reward + 500000U; // bonus reward
-    const uint64_t bonus = 180000000000U; // limited bonus reward for bonus round
-    const uint64_t bonus_round = already_generated_tokens + bonus_reward; // bonus round cap
-    const uint64_t bonus_cap = bonus_round + bonus; // bonus round cap
+    const uint64_t bonus_round = 180000000000U; // bonus round cap
+    const uint64_t projected = bonus_round + (MONEY_SUPPLY - already_generated_coins);
+    const uint64_t bonus_cap = projected + (10 * bonus_reward); // bonus round cap
 
     // project bonus for dev team. 
-    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       reward = bonus; 
-       already_generated_tokens = already_generated_coins;
+    if (version >= 6 && median_size > 0 && already_generated_coins < projected) {
+       reward = bonus_round; 
        return true;
      }    
      
     // bonus rewarded to miners for fork efforts.
-    if (version >= 6 && median_size > 0 && already_generated_tokens < bonus_cap) {
+    if (version >= 6 && median_size > 0 && already_generated_coins < projected) {
        base_reward = bonus_reward; // reward bonus to miners 
        return true;
      }
