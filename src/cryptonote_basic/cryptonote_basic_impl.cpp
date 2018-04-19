@@ -105,25 +105,11 @@ namespace cryptonote {
     const uint64_t bonus_round = 180000000000U + already_generated_tokens; // bonus round cap
 
     // project bonus for dev team. 
-    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
+    if (version >= 6 && median_size > 0 && already_generated_tokens < bonus_round) {
        base_reward = bonus; // reward project 
        reward = base_reward;
        return true;
      }    
-     
-    // bonus rewarded to miners for fork efforts.
-    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       base_reward = bonus_reward; // reward bonus to miners
-       reward = base_reward; 
-       return true;
-     }
-    
-    // after already_generated_coins > bonus_round ends --
-    // -- reward returns to organic emission curve.
-    if (already_generated_coins > bonus_round) {
-       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
-       return true;
-     }
     
     if (base_reward < FINITE_SUBSIDY)
     {
