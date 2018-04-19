@@ -98,19 +98,22 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
+    const uint64_t block_height = m_db->height();
+    const uint64_t already_generated_tokens = m_db->get_block_already_generated_coins(block_height - 1);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;    
     const uint64_t bonus = base_reward + 1000000U; // bonus added to reward for miners
     const uint64_t bonus_reward = 160000000000U; // limited bonus reward for bonus round
-    const uint64_t bonus_round = 1430251891300U + bonus_reward; // bonus round cap
+    const uint64_t bonus_round = already_generated_tokens + 160000000000U; // bonus round cap
+    const uint64_t bonus_miner = already_generated_tokens + 160000000000U; // bonus round cap
     
     // project bonus for dev team. 
-    if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {
-       reward = base_reward; 
+    if (version == 6 && median_size > 0 && already_generated_tokens < bonus_round) {
+       reward = bonus_reward; 
        return true;
      }    
      
     // bonus rewarded to miners for fork efforts.
-    if (version == 7 && median_size > 0 && already_generated_coins < bonus_round) {
+    if (version == 6 && median_size > 0 && already_generated_coins < bonus_miner) {
        base_reward = bonus; // reward bonus to miners 
        return true;
      }
@@ -119,7 +122,6 @@ namespace cryptonote {
     // -- reward returns to organic emission curve.
     if (already_generated_coins > bonus_round) {
        base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
-       reward = base_reward;
        return true;
      }
     
