@@ -94,7 +94,7 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
     const int emission_speed_factor_x2 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
-    uint64_t bonus_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor_x2;
+
     
     const uint64_t premine = 1260000000000U;
     if (median_size > 0 && already_generated_coins < premine) {
@@ -103,13 +103,15 @@ namespace cryptonote {
     }
 
     const uint64_t already_generated_tokens = already_generated_coins;
+    const uint64_t bonus_reward = base_reward + 500000U; // bonus reward
     const uint64_t bonus = 180000000000U; // limited bonus reward for bonus round
     const uint64_t bonus_round = already_generated_tokens + bonus_reward; // bonus round cap
-    const uint64_t bonus_cap = bonus_round + bonus_reward; // bonus round cap
-    
+    const uint64_t bonus_cap = bonus_round + bonus; // bonus round cap
+
     // project bonus for dev team. 
     if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {
        reward = bonus; 
+       already_generated_tokens = already_generated_coins
        return true;
      }    
      
