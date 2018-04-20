@@ -105,10 +105,6 @@ namespace cryptonote {
        reward = base_reward;	
        return true;	
      } 	
-    if (version >= 7 && median_size > 0) {	
-       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;		
-       return true;	
-     } 
     const uint64_t FINITE_SUBSIDY = 100U;
     if (base_reward < FINITE_SUBSIDY)
     {
