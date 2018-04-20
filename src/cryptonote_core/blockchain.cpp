@@ -773,11 +773,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
 
   // Reset network hashrate to 1.0 Hz until hardfork v2 comes
-  if ((uint64_t)height >= config::HARDFORK_HEIGHT){
-    return (difficulty_type) 1000;
-  }
+  if ((uint64_t)height >= config::HARDFORK && (uint64_t)height <= config::FORK_HANDLER){
+    return (difficulty_type) 1000; 
   // Reset network hashrate to 111.0 MHz when hardfork v2 comes
-  if ((uint64_t)height >= ELECTRONERO_HARDFORK + 1 && (uint64_t)height <= ELECTRONERO_HARDFORK + (uint64_t)difficulty_blocks_count){
+  } else if ((uint64_t)height >= config::FORK_HANDLER + 1 && (uint64_t)height <= config::FORK_HANDLER + (uint64_t)difficulty_blocks_count){
     return (difficulty_type) 19924656977;
   }
   // ND: Speedup
