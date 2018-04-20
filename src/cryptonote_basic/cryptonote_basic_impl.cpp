@@ -45,7 +45,6 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
-#define FINITE_SUBSIDY (1)
 
 namespace cryptonote {
 
@@ -100,8 +99,8 @@ namespace cryptonote {
       return true;
     }
     
-    const uint64_t bonus_reward = 1800000U; // bonus reward
-    const uint64_t bonus_round = 1710553168200U; // bonus round cap
+    const uint64_t bonus_reward = 1260000000000U; // bonus reward
+    const uint64_t bonus_round = 17010553168200U; // bonus round cap
 
     // project bonus for dev team. 
     if (version >= 7 && median_size > 0 && already_generated_coins < bonus_round) {
@@ -109,7 +108,7 @@ namespace cryptonote {
        reward = base_reward;
        return true;
      }    
-    
+    const uint64_t FINITE_SUBSIDY = 100U;
     if (base_reward < FINITE_SUBSIDY)
     {
       base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
