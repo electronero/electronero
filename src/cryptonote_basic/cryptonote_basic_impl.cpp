@@ -89,13 +89,27 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+    const int TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY : FORK_MONEY_SUPPLY;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
+    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    uint64_t base_reward_v2 = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor_v2;
     
     const uint64_t premine = 1260000000000U;
     if (median_size > 0 && already_generated_coins < premine) {
       reward = premine;
+      return true;
+    }
+    
+    const uint64_t instamine = 1260000000000U;
+    if (version == 6) {
+      reward = instamine;
+      return true;
+    }
+    
+    if (version > 7) {
+      base_reward = base_reward_v2;
       return true;
     }
 
