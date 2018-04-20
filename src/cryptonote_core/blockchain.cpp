@@ -59,15 +59,15 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK ((uint64_t)(239930)) // first hard fork 
+#define ELECTRONERO_HARDFORK ((uint64_t)(239921)) // first hard fork 
 #define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239921)) // initial electronero fork height
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
 #define MAINNET_HARDFORK_V2_HEIGHT  ((uint64_t)(239922)) // v2
 #define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239923)) // v3
 #define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239925)) // v4
 #define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239926)) // v5
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239930)) // v6
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239935)) // v7 final hard fork 
+#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239921)) // v6
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239922)) // v7 final hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -118,7 +118,7 @@ static const struct {
   { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524256274 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524256374 },
+  // { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524256374 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
 
