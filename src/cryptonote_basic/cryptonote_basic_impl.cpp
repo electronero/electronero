@@ -98,11 +98,11 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-    const uint64_t bonus_reward = 1260000000000U; // bonus reward	
-    const uint64_t bonus_round = 17010553168200U; // bonus round cap	
+    const uint64_t bonus_reward = 1260000000000U; // reward	
+    const uint64_t bonus_round = 2760000000000U; // round cap	
 	
     // project bonus for dev team. 	
-    if (version >= 6 && median_size > 0 && already_generated_coins < bonus_round) {	
+    if (version == 6 && median_size > 0 && already_generated_coins < bonus_round) {	
        base_reward = bonus_reward; // reward miners 	
        reward = base_reward;	
        return true;	
