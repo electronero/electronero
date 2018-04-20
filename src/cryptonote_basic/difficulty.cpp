@@ -193,7 +193,6 @@ namespace cryptonote {
       if ( n < 6 ) { return  1; }
       // If height "n" is from 6 to N, then reset N to n-1.
       else if (n < N+1) { N=n-1; }
-
   		// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
       // adjust=0.99 for 90 < N < 130
   		const double adjust = 0.998;
@@ -221,10 +220,10 @@ namespace cryptonote {
   		nextDifficulty = harmonic_mean_D * T / LWMA;
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 
-      // you can also maintain the difficulty like this
-      //if(next_difficulty < 19924656977){
-      //  next_difficulty = 19924656977;
-      //}
+      // Reset network hashrate to 111.0 MHz when hardfork comes
+      if(n >= config::FORK_HANDLER + 1 && next_difficulty < config::FORK_NETWORK){
+       next_difficulty = config::FORK_NETWORK;
+      }
 
       return next_difficulty;
     }
