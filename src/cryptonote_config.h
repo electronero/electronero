@@ -50,7 +50,7 @@
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 
 // MONEY_SUPPLY - total number coins to be generated
-#define MONEY_SUPPLY                                    ((uint64_t)(2100000000000))
+#define MONEY_SUPPLY                                    ((uint64_t)(21000000000000))
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
 
@@ -153,9 +153,9 @@ namespace config
 {
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
-  uint64_t const SEGREGATION_FORK_HEIGHT = 241501; 
+  uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
   uint64_t const HARDFORK_HEIGHT = ((uint64_t)(239921)); // ease diff blocks >= ELECTRONERO_HARDFORK_HEIGHT
-  
+
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
   uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
