@@ -6,7 +6,7 @@
 // permitted provided that the following conditions are met:
 //
 // 1. Redistributions of source code must retain the above copyright notice, this list of
-//    conditions and the following disclaimer.
+//    conditions and the following disclaimer.FORK_HANDLER 
 //
 // 2. Redistributions in binary form must reproduce the above copyright notice, this list
 //    of conditions and the following disclaimer in the documentation and/or other
@@ -773,12 +773,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
 
   // Reset network hashrate to 1.0 Hz until hardfork v2 comes
-  if ((uint64_t)height >= config::HARDFORK && (uint64_t)height <= config::FORK_HANDLER){
+  if ((uint64_t)height >= config::HARDFORK && (uint64_t)height <= config::FORK_HANDLER)
+  {
     return (difficulty_type) 1000; 
-  // Reset network hashrate to 111.0 MHz when hardfork v2 comes
-  } else if ((uint64_t)height >= config::FORK_HANDLER + 1 && (uint64_t)height <= config::FORK_HANDLER + (uint64_t)difficulty_blocks_count){
-    return (difficulty_type) 19924656977;
-  }
+  } 
+
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
