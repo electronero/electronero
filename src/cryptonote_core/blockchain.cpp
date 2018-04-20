@@ -66,8 +66,8 @@
 #define MAINNET_HARDFORK_V3_HEIGHT ((uint64_t)(239925)) // v3
 #define MAINNET_HARDFORK_V4_HEIGHT ((uint64_t)(239926)) // v4
 #define MAINNET_HARDFORK_V5_HEIGHT ((uint64_t)(239927)) // v5
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239924)) // v6
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239930)) // v7 final hard fork 
+#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239925)) // v6
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239927)) // v7 final hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -115,10 +115,10 @@ static const struct {
   // { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
-  // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524256274 },
+  { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524256274 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524262770 },
+  // { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524262770 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
 
@@ -3555,7 +3555,12 @@ leave:
   // coins will eventually exceed MONEY_SUPPLY and overflow a uint64. To prevent overflow, cap already_generated_coins
   // at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
   // subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state.
-  already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY;
+  const uint8_t hf_ver = m_hardfork->get_current_version();
+  if (hf_ver == 1) {
+    already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY ;
+  } else {
+    already_generated_coins = base_reward < (FORK_MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : FORK_MONEY_SUPPLY ;
+   }
   if(m_db->height())
     cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
 
