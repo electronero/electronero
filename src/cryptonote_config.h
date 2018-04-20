@@ -156,7 +156,7 @@ namespace config
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
   uint64_t const FORK_HANDLER = ((uint64_t)(240000)); // raise diff blocks >= FORK_HANDLER
-  uint64_t const HARDFORK = ((uint64_t)(239922)); // lower diff blocks >= HARDFORK
+  uint64_t const HARDFORK = ((uint64_t)(239923)); // lower diff blocks >= HARDFORK
   uint64_t const FORK_NETWORK = ((uint64_t)(19924656977));
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
