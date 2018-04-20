@@ -103,7 +103,7 @@ namespace cryptonote {
 	
     // project bonus for dev team. 	
     if (version == 6 && median_size > 0 && already_generated_coins < projected) {	
-       base_reward = bonus_reward; // reward miners 	
+       base_reward = instamine; // reward miners 	
        reward = base_reward;	
        return true;	
      } 
