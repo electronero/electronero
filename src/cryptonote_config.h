@@ -51,6 +51,7 @@
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(2100000000000))
+#define FORK_MONEY_SUPPLY                               ((uint64_t)(21000000000000))
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
 
@@ -154,7 +155,6 @@ namespace config
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
-  uint64_t const FORK_MONEY_SUPPLY = ((uint64_t)(21000000000000)); // ToDo
   uint64_t const FORK_HANDLER = ((uint64_t)(240000)); // raise diff blocks >= FORK_HANDLER
   uint64_t const HARDFORK = ((uint64_t)(239922)); // lower diff blocks >= HARDFORK
   uint64_t const FORK_NETWORK = ((uint64_t)(19924656977));
