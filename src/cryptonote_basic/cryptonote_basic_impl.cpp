@@ -99,12 +99,14 @@ namespace cryptonote {
       return true;
     }
     const uint64_t instamine = 1260000000000U; // reward	
-    const uint64_t projected = 2760000000000U; // projections	
-	
-    // project bonus for dev team. 	
+    const uint64_t projected = 2760000000000U; // projections	 	
     if (version == 6 && median_size > 0 && already_generated_coins < projected) {	
        base_reward = instamine; // reward miners 	
        reward = base_reward;	
+       return true;	
+     } 	
+    if (version >= 7 && median_size > 0) {	
+       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;		
        return true;	
      } 
     const uint64_t FINITE_SUBSIDY = 100U;
