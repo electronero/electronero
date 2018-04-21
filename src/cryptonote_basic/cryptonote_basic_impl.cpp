@@ -93,7 +93,7 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
 
     const uint64_t premine = 1260000000000U;
-    if (height = 1 && already_generated_coins < premine) {
+    if (height == 1 && already_generated_coins < premine) {
       reward = premine;
       return true;
     }
