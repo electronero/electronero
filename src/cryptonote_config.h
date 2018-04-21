@@ -50,12 +50,14 @@
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 
 // MONEY_SUPPLY - total number coins to be generated
-#define MONEY_SUPPLY                                    ((uint64_t)(21000000000000))
+#define MONEY_SUPPLY                                    ((uint64_t)(2100000000000))
+#define FORK_MONEY_SUPPLY                               ((uint64_t)(21000000000000))
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
+ 
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V2    60000 //size of block (bytes) after which reward for block calculated using block size
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000 //size of block (bytes) after which reward for block calculated using block size - before first fork
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5    300000 //size of block (bytes) after which reward for block calculated using block size - second change, from v5
@@ -138,6 +140,16 @@
 
 #define THREAD_STACK_SIZE                       5 * 1024 * 1024
 
+
+// coin emission change interval/speed configs
+#define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE       240 * 1024    // 240kB, used for emissions
+#define BLOCK_SIZE_GROWTH_FAVORED_ZONE                  ((uint64_t) (CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4))
+#define DIFFICULTY_TARGET                               DIFFICULTY_TARGET_V2  // just alias, used for emissions
+#define COIN_EMISSION_MONTH_INTERVAL                    6  // months to change emission speed
+#define COIN_EMISSION_HEIGHT_INTERVAL                   ((uint64_t) (COIN_EMISSION_MONTH_INTERVAL * (30.4375 * 24 * 3600) / DIFFICULTY_TARGET)) // calculated to # of heights to change emission speed
+#define PEAK_COIN_EMISSION_YEAR                         2
+#define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
+
 #define HF_VERSION_DYNAMIC_FEE                  4
 #define HF_VERSION_MIN_MIXIN_4                  6
 #define HF_VERSION_MIN_MIXIN_6                  7
@@ -156,7 +168,7 @@ namespace config
   uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
   uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
   uint64_t const FORK_HANDLER = ((uint64_t)(240000)); // raise diff blocks >= FORK_HANDLER
-  uint64_t const HARDFORK = ((uint64_t)(239922)); // lower diff blocks >= HARDFORK
+  uint64_t const HARDFORK = ((uint64_t)(239923)); // lower diff blocks >= HARDFORK
   uint64_t const FORK_NETWORK = ((uint64_t)(19924656977));
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
