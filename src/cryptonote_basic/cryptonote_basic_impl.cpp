@@ -124,7 +124,7 @@ namespace cryptonote {
     const uint64_t FINITE_SUBSIDY = 100U;
     if (base_reward < FINITE_SUBSIDY){
       if (MONEY_SUPPLY > already_generated_coins){
-        base_reward = FINITE_SUBSIDY;
+        base_reward = FINAL_SUBSIDY_PER_MINUTE;
       }
       else{
         base_reward = FINITE_SUBSIDY/2;
