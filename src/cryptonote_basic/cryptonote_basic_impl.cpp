@@ -101,7 +101,7 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-
+    uint64_t base_reward;
     uint64_t round_factor = 10000000; // 1 * pow(10, 7)
     if (version >= 7 && height > 239924)
     {
