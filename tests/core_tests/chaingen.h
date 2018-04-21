@@ -195,7 +195,7 @@ public:
   uint64_t get_already_generated_coins(const cryptonote::block& blk) const;
 
   void add_block(const cryptonote::block& blk, size_t tsx_size, std::vector<size_t>& block_sizes, uint64_t already_generated_coins,
-    uint8_t hf_version = 1);
+    uint8_t hf_version = 1, uint64_t height = 0);
   bool construct_block(cryptonote::block& blk, uint64_t height, const crypto::hash& prev_id,
     const cryptonote::account_base& miner_acc, uint64_t timestamp, uint64_t already_generated_coins,
     std::vector<size_t>& block_sizes, const std::list<cryptonote::transaction>& tx_list);
