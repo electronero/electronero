@@ -221,8 +221,8 @@ namespace cryptonote {
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 
       // Reset network hashrate to 111.0 MHz when hardfork comes
-      if(n >= config::FORK_HANDLER + 1 && next_difficulty < config::FORK_NETWORK){
-       next_difficulty = config::FORK_NETWORK;
+      if(n >= (uint64_t)config::FORK_HANDLER + 1 && next_difficulty < (uint64_t)config::FORK_NETWORK){
+       next_difficulty = ((uint64_t)(config::FORK_NETWORK));
       }
 
       return next_difficulty;
