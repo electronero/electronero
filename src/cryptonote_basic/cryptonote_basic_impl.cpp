@@ -99,31 +99,54 @@ namespace cryptonote {
       return true;
     }
     if (height > 239923 && height <= 239924) {
-      reward = premine;
+      premine;
       return true;
     }
 
-    const uint64_t FINITE_SUBSIDY = 100U;
-    if (base_reward < FINITE_SUBSIDY)
+    uint64_t base_reward;
+    uint64_t round_factor = 10000000; // 1 * pow(10, 7)
+    if (version >= 7 && height > 239924)
     {
-      base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
+      if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
+        uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
+        double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
+        base_reward = ((uint64_t)(MONEY_SUPPLY * money_supply_pct)) >> emission_speed_factor;
+      }
+      else{
+        base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+      }
     }
-
-    uint64_t full_reward_zone = get_min_block_size(version);
+    else
+    {
+      // do something
+      base_reward = premine;
+    }
+    
+    if (base_reward < FINITE_SUBSIDY){
+      if (MONEY_SUPPLY > already_generated_coins){
+        base_reward = FINAL_SUBSIDY;
+      }
+      else{
+        base_reward = FINITE_SUBSIDY/2;
+      }
+    }
+    
+    // rounding (floor) base reward
+    base_reward = base_reward / round_factor * round_factor;
 
     //make it soft
-    if (median_size < full_reward_zone) {
-      median_size = full_reward_zone;
+    if (median_size < CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE) {
+      median_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE;
     }
 
-    if (current_block_size <= median_size) {
+    if (current_block_size > 2 * median_size) {
+      LOG_PRINT_L1("Block cumulative size is too big: " << current_block_size << ", expected less than " << 2 * median_size);
+      return false;
+    }
+
+    if (current_block_size <= (median_size < BLOCK_SIZE_GROWTH_FAVORED_ZONE ? median_size * 110 / 100 : median_size)) {
       reward = base_reward;
       return true;
-    }
-
-    if(current_block_size > 2 * median_size) {
-      MERROR("Block cumulative size is too big: " << current_block_size << ", expected less than " << 2 * median_size);
-      return false;
     }
 
     assert(median_size < std::numeric_limits<uint32_t>::max());
