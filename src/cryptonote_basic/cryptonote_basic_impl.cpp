@@ -131,8 +131,14 @@ namespace cryptonote {
     }
     
     // rounding (floor) base reward
+    if (version > 2)
+    {
     base_reward = base_reward / round_factor * round_factor;
-
+    }
+    if (version < 2) 
+    {
+     base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    }
     //make it soft
     if (median_size < CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE) {
       median_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE;
