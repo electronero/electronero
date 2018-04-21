@@ -99,12 +99,12 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-    if (height > 239923 && height <= 239924) {
+    if (version >= 7 && height == 239925) {
       reward = premine;
       return true;
     }
     uint64_t round_factor = 10000000; // 1 * pow(10, 7)
-    if (version >= 7 && height > 239924)
+    if (version >= 6 && height > 239924)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
