@@ -105,7 +105,7 @@ namespace cryptonote {
     uint64_t round_factor = 10000000; // 1 * pow(10, 7)
     if (version >= 7 && height > 239924)
     {
-      if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
+      if (height > 239924 && height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
         double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
         base_reward = ((uint64_t)(TOKEN_SUPPLY * money_supply_pct)) >> emission_speed_factor;
@@ -120,18 +120,18 @@ namespace cryptonote {
       base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     }
     
-    const uint64_t FINITE_SUBSIDY = 100U;
-    if (base_reward < FINITE_SUBSIDY){
-      if (MONEY_SUPPLY > already_generated_coins){
-        base_reward = FINAL_SUBSIDY_PER_MINUTE;
-      }
-      else{
-        base_reward = FINITE_SUBSIDY/2;
-      }
-    }
+  //  const uint64_t FINITE_SUBSIDY = 100U;
+  //  if (base_reward < FINITE_SUBSIDY){
+  //    if (MONEY_SUPPLY > already_generated_coins){
+  //      base_reward = FINAL_SUBSIDY_PER_MINUTE;
+  //    }
+  //    else{
+  //      base_reward = FINITE_SUBSIDY/2;
+  //    }
+  //  }
     
     // rounding (floor) base reward
-    if (version > 2)
+    if (version > 7)
     {
     base_reward = base_reward / round_factor * round_factor;
     }
