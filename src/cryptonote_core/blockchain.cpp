@@ -115,7 +115,7 @@ static const struct {
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524280224 },
-};3
+};
 static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
 
 static const struct {
