@@ -117,7 +117,7 @@ namespace cryptonote {
     else
     {
       // do something
-      base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
+      base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     }
     
     const uint64_t FINITE_SUBSIDY = 100U;
