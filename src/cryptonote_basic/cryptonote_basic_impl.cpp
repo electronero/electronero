@@ -88,8 +88,9 @@ namespace cryptonote {
   //-----------------------------------------------------------------------------------------------
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
+    static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-    const int TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY : FORK_MONEY_SUPPLY;
+    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY : FORK_MONEY_SUPPLY;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
@@ -105,13 +106,13 @@ namespace cryptonote {
     uint64_t round_factor = 10000000; // 1 * pow(10, 7)
     if (version >= 7 && height > 239924)
     {
-      if (height > 239924 && height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
+      if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
         double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
         base_reward = ((uint64_t)(TOKEN_SUPPLY * money_supply_pct)) >> emission_speed_factor;
       }
       else{
-        base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
+        base_reward = ((uint64_t)(TOKEN_SUPPLY - already_generated_coins)) >> emission_speed_factor;
       }
     }
     else
@@ -139,19 +140,21 @@ namespace cryptonote {
     {
      base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     }
+    uint64_t full_reward_zone = get_min_block_size(version);
+
     //make it soft
-    if (median_size < CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE) {
-      median_size = CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE;
+    if (median_size < full_reward_zone) {
+      median_size = full_reward_zone;
     }
 
-    if (current_block_size > 2 * median_size) {
-      LOG_PRINT_L1("Block cumulative size is too big: " << current_block_size << ", expected less than " << 2 * median_size);
-      return false;
-    }
-
-    if (current_block_size <= (median_size < BLOCK_SIZE_GROWTH_FAVORED_ZONE ? median_size * 110 / 100 : median_size)) {
+    if (current_block_size <= median_size) {
       reward = base_reward;
       return true;
+    }
+
+    if(current_block_size > 2 * median_size) {
+      MERROR("Block cumulative size is too big: " << current_block_size << ", expected less than " << 2 * median_size);
+      return false;
     }
 
     assert(median_size < std::numeric_limits<uint32_t>::max());
