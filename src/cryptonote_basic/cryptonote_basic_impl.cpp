@@ -99,11 +99,10 @@ namespace cryptonote {
       return true;
     }
     if (height > 239923 && height <= 239924) {
-      premine;
+      reward = premine;
       return true;
     }
 
-    uint64_t base_reward;
     uint64_t round_factor = 10000000; // 1 * pow(10, 7)
     if (version >= 7 && height > 239924)
     {
@@ -122,6 +121,7 @@ namespace cryptonote {
       base_reward = premine;
     }
     
+    const uint64_t FINITE_SUBSIDY = 100U;
     if (base_reward < FINITE_SUBSIDY){
       if (MONEY_SUPPLY > already_generated_coins){
         base_reward = FINAL_SUBSIDY;
