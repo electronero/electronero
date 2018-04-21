@@ -98,7 +98,7 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-    if (version > 1 && height >= 239923) {
+    if (height >= 239923 && height <= 239924) {
       reward = premine;
       return true;
     }
