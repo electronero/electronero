@@ -110,10 +110,10 @@ namespace cryptonote {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
         double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
-        base_reward = ((uint64_t)(MONEY_SUPPLY * money_supply_pct)) >> emission_speed_factor;
+        base_reward = ((uint64_t)(FORK_MONEY_SUPPLY * money_supply_pct)) >> emission_speed_factor;
       }
       else{
-        base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
+        base_reward = (FORK_MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
       }
     }
     else
