@@ -3295,14 +3295,6 @@ leave:
     MCLOG_RED(level, "global", "**********************************************************************");
   }
 
-  // this is a cheap test
-  if (!m_hardfork->check(bl))
-  {
-    MERROR_VER("Block with id: " << id << std::endl << "has old version: " << (unsigned)bl.major_version << std::endl << "current: " << (unsigned)m_hardfork->get_current_version());
-    bvc.m_verifivation_failed = true;
-    goto leave;
-  }
-
   TIME_MEASURE_FINISH(t1);
   TIME_MEASURE_START(t2);
 
