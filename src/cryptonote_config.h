@@ -150,10 +150,10 @@
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
-#define HF_VERSION_DYNAMIC_FEE                  4
-#define HF_VERSION_MIN_MIXIN_4                  6
-#define HF_VERSION_MIN_MIXIN_6                  7
+#define HF_VERSION_DYNAMIC_FEE                  10
 #define HF_VERSION_ENFORCE_RCT                  6
+#define HF_VERSION_MIN_MIXIN_4                  7
+#define HF_VERSION_MIN_MIXIN_6                  8
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
@@ -165,14 +165,14 @@
 namespace config
 {
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
-  uint64_t const SEGREGATION_FORK_VICINITY = 15000; // blocks
-  uint64_t const SEGREGATION_FORK_HEIGHT = 241501;
-  uint64_t const FORK_HANDLER = ((uint64_t)(239925)); // raise diff blocks >= FORK_HANDLER
+  uint64_t const SEGREGATION_FORK_VICINITY = 5000; // blocks
+  uint64_t const SEGREGATION_FORK_HEIGHT = 239925;
+  uint64_t const FORK_HANDLER = ((uint64_t)(239930)); // raise diff blocks >= FORK_HANDLER
   uint64_t const HARDFORK = ((uint64_t)(239922)); // lower diff blocks >= HARDFORK
   uint64_t const FORK_NETWORK = ((uint64_t)(19924656977));
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)2); // 2 * pow(10, 1)
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)1); // .01 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
