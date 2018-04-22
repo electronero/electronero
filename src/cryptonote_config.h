@@ -154,6 +154,8 @@
 #define HF_VERSION_ENFORCE_RCT                  6
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
+#define DEFAULT_MIXIN                           12     // default & minimum mixin allowed
+#define MAX_MIXIN                               240    
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
