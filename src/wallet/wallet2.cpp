@@ -110,6 +110,7 @@ using namespace cryptonote;
 
 #define MULTISIG_EXPORT_FILE_MAGIC "Monero multisig export\001"
 
+#define SEGREGATION_FORK_VICINITY 180000
 #define SEGREGATION_FORK_HEIGHT 239925
 #define TESTNET_SEGREGATION_FORK_HEIGHT 1000000
 #define STAGENET_SEGREGATION_FORK_HEIGHT 1000000
@@ -5782,7 +5783,7 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
     uint64_t height;
     boost::optional<std::string> result = m_node_rpc_proxy.get_height(height);
     throw_on_rpc_response_error(result, "get_info");
-    bool is_shortly_after_segregation_fork = height >= segregation_fork_height && height < segregation_fork_height + config::SEGREGATION_FORK_VICINITY;
+    bool is_shortly_after_segregation_fork = height >= segregation_fork_height && height < segregation_fork_height + SEGREGATION_FORK_VICINITY;
 
     // get histogram for the amounts we need
     cryptonote::COMMAND_RPC_GET_OUTPUT_HISTOGRAM::request req_t = AUTO_VAL_INIT(req_t);
