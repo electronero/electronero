@@ -3000,8 +3000,12 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
   MDEBUG("lo " << print_money(lo) << ", qlo " << print_money(qlo) << ", mask " << mask);
   double money_supply_pct = 0.10;
   uint64_t newlo = qlo * money_supply_pct;
+  if (version > 2)
+  {
+	  qlo = newlo; 
+  }
 	
-  return newlo;
+  return qlo;
 }
 
 //------------------------------------------------------------------
