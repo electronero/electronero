@@ -71,7 +71,7 @@
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)10000) // 100 * pow(10, 2)
+#define FEE_PER_KB                                      ((uint64_t)100000) // 10000 * pow(10, 2)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)10) // .1 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)10) // .10 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)10 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
@@ -147,7 +147,7 @@
 #define DIFFICULTY_TARGET                               DIFFICULTY_TARGET_V2  // just alias, used for emissions
 #define COIN_EMISSION_MONTH_INTERVAL                    6  // months to change emission speed
 #define COIN_EMISSION_HEIGHT_INTERVAL                   ((uint64_t) (COIN_EMISSION_MONTH_INTERVAL * (30.4375 * 24 * 3600) / DIFFICULTY_TARGET)) // calculated to # of heights to change emission speed
-#define PEAK_COIN_EMISSION_YEAR                         2
+#define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
 #define HF_VERSION_DYNAMIC_FEE                  4
@@ -155,7 +155,7 @@
 #define HF_VERSION_MIN_MIXIN_6                  7
 #define HF_VERSION_ENFORCE_RCT                  6
 
-#define PER_KB_FEE_QUANTIZATION_DECIMALS        4
+#define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
 #define HASH_OF_HASHES_STEP                     256
 
