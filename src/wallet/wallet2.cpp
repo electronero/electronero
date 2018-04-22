@@ -531,7 +531,9 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
 
   // vout
   size += n_outputs * (6+32);
-
+ 
+  if (!bulletproof)
+    extra_size = 40;
   // extra
   size += extra_size;
 
@@ -547,7 +549,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
     size += (2*64*32+32+64*32) * n_outputs;
 
   // MGs
-  size += n_inputs * (64 * (mixin+1) + 32);
+  size += n_inputs * (32 * (mixin+1) + 32);
 
   // mixRing - not serialized, can be reconstructed
   /* size += 2 * 32 * (mixin+1) * n_inputs; */
@@ -561,7 +563,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
   // txnFee
   size += 4;
 
-  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin+1) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
+  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
   return size;
 }
 
@@ -570,7 +572,7 @@ size_t estimate_tx_size(bool use_rct, int n_inputs, int mixin, int n_outputs, si
   if (use_rct)
     return estimate_rct_tx_size(n_inputs, mixin, n_outputs + 1, extra_size, bulletproof);
   else
-    return n_inputs * (mixin+1) * APPROXIMATE_INPUT_BYTES + extra_size;
+    return n_inputs * (mixin) * APPROXIMATE_INPUT_BYTES + extra_size;
 }
 
 uint8_t get_bulletproof_fork()
@@ -8093,14 +8095,14 @@ const wallet2::transfer_details &wallet2::get_transfer_details(size_t idx) const
 std::vector<size_t> wallet2::select_available_unmixable_outputs(bool trusted_daemon)
 {
   // request all outputs with less than 3 instances
-  const size_t min_mixin = use_fork_rules(7, 10) ? 4 : 2; // v7 increases min mixin from 2 to 4
-  return select_available_outputs_from_histogram(min_mixin + 1, false, true, false, trusted_daemon);
+  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
+  return select_available_outputs_from_histogram(min_mixin + 1, false, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemon)
 {
   // request all outputs with at least 3 instances, so we can use mixin 2 with
-  const size_t min_mixin = use_fork_rules(7, 10) ? 4 : 2; // v7 increases min mixin from 2 to 4
+  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
   return select_available_outputs_from_histogram(min_mixin + 1, true, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
@@ -8108,7 +8110,8 @@ std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bo
 {
   // From hard fork 1, we don't consider small amounts to be dust anymore
   const bool hf1_rules = use_fork_rules(2, 10); // first hard fork has version 2
-  tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
+  // tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
+  tx_dust_policy dust_policy(0);
 
   const uint64_t fee_per_kb  = get_per_kb_fee();
 
