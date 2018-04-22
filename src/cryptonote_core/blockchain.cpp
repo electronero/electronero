@@ -64,6 +64,9 @@
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
 #define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239924)) // v6
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 final hard fork 
+#define HARDFORK ((uint64_t)(239922)) // lower diff blocks >= HARDFORK
+#define FORK_HANDLER ((uint64_t)(239930)); // raise diff blocks >= FORK_HANDLER
+#define FORK_NETWORK = ((uint64_t)(19924656977)) //  cumulative difficulties pre-fork
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -756,7 +759,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
-  auto height = m_db->height();
+  auto height = m_db->height();  
+  auto bc_height = height;
+  auto h_fork = HARDFORK;
+  auto h_f_handler = FORK_HANDLER;
+  auto h_f_network = FORK_NETWORK;
+  auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
@@ -767,13 +775,17 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
-
-  // Reset network hashrate to 1.0 Hz until hardfork v2 comes
-  if ((uint64_t)height >= config::HARDFORK && (uint64_t)height <= config::FORK_HANDLER)
+  
+  // Reset network hashrate to 1.0 Hz until hardfork comes
+  if ((uint64_t)bc_height >= h_fork && (uint64_t)bc_height <= h_f_handler)
   {
     return (difficulty_type) 1000; 
   } 
-
+  // Reset network hashrate to 111.0 MHz when hardfork comes
+  if ((uint64_t)bc_height >= h_f_handler + 1 && (uint64_t)bc_height <= h_f_handler + (uint64_t)h_f_difficulty_window)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_network)); 
+  } 
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
