@@ -3007,6 +3007,16 @@ bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
 {
   const uint8_t version = get_current_hard_fork_version();
   uint64_t fee_per_kb;
+  // from v7, sorted ins
+  if (version >= 7) {
+    for (size_t n = 0; n < tx.vin.size(); ++n)
+    {
+      const txin_xyz &txins = tx.vin[n]; // transaction...?
+      const amount_tx &amount_to_tax = txins.amount[n]; // amount to tax
+      double amount_tax = 0.10; // 10%
+    }
+     fee_per_kb = ((uint64_t)(amount_to_tax*amount_tax));
+  }
   if (version < HF_VERSION_DYNAMIC_FEE)
   {
     fee_per_kb = FEE_PER_KB;
@@ -3018,7 +3028,7 @@ bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
     uint64_t base_reward;
     if (!get_block_reward(median, 1, already_generated_coins, base_reward, version, m_db->height()))
       return false;
-    fee_per_kb = get_dynamic_per_kb_fee(base_reward, median, version);
+    fee_per_kb = get_dynamic_per_kb_fee(base_reward, median, version, m_db->height());
   }
   MDEBUG("Using " << print_money(fee) << "/kB fee");
 
