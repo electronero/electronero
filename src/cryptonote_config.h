@@ -165,8 +165,6 @@
 namespace config
 {
   std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
-  uint64_t const SEGREGATION_FORK_VICINITY = 5000; // blocks
-  uint64_t const SEGREGATION_FORK_HEIGHT = 239925;
   uint64_t const FORK_HANDLER = ((uint64_t)(239930)); // raise diff blocks >= FORK_HANDLER
   uint64_t const HARDFORK = ((uint64_t)(239922)); // lower diff blocks >= HARDFORK
   uint64_t const FORK_NETWORK = ((uint64_t)(19924656977));
