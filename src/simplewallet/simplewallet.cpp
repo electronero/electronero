@@ -85,9 +85,10 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define DEFAULT_MIX 4
-
-#define MIN_RING_SIZE 5 // Used to inform user about min ring size -- does not track actual protocol
+#define DEFAULT_MIX 12
+#define DEFAULT_MIXIN 12
+#define MAX_MIXIN 240
+#define MIN_RING_SIZE 12 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "Monero output export\003"
 
@@ -1636,6 +1637,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     fail_msg_writer() << tr("wallet is watch-only and cannot transfer");
     return true;
   }
+  std::string failed_msg = (boost::format(tr("mixin must be an integer >= %s and <= %s")) % DEFAULT_MIXIN % MAX_MIXIN).str();
   try
   {
     if (strchr(args[1].c_str(), '-'))
@@ -1644,16 +1646,18 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       return true;
     }
     uint32_t ring_size = boost::lexical_cast<uint32_t>(args[1]);
-    if (ring_size < MIN_RING_SIZE && ring_size != 0)
+    if (mixin != 0 && (mixin < DEFAULT_MIXIN || mixin > MAX_MIXIN))
     {
-      fail_msg_writer() << tr("ring size must be an integer >= ") << MIN_RING_SIZE;
+      fail_msg_writer() << failed_msg;
       return true;
     }
+    if (mixin == 0)
+      mixin = DEFAULT_MIXIN;
  
     const auto pwd_container = get_and_verify_password();
     if (pwd_container)
     {
-      m_wallet->default_mixin(ring_size > 0 ? ring_size - 1 : 0);
+      m_wallet->default_mixin(ring_size);
       m_wallet->rewrite(m_wallet_file, pwd_container->password());
     }
     return true;
@@ -1780,15 +1784,9 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
   const std::string &unit = args[1];
   unsigned int decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
 
-  if (unit == "monero")
+  if (unit == "electronero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
-  else if (unit == "millinero")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 3;
-  else if (unit == "micronero")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 6;
-  else if (unit == "nanonero")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 9;
-  else if (unit == "piconero")
+  else if (unit == "ecent")
     decimal_point = 0;
   else
   {
@@ -2145,7 +2143,7 @@ simple_wallet::simple_wallet()
                                   "  Set the fee too default/unimportant/normal/elevated/priority.\n "
                                   "confirm-missing-payment-id <1|0>\n "
                                   "ask-password <1|0>\n "
-                                  "unit <monero|millinero|micronero|nanonero|piconero>\n "
+                                  "unit <electronero|ecent>\n "
                                   "  Set the default monero (sub-)unit.\n "
                                   "min-outputs-count [n]\n "
                                   "  Try to keep at least that many outputs of value at least min-outputs-value.\n "
@@ -2349,7 +2347,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     success_msg_writer() << "always-confirm-transfers = " << m_wallet->always_confirm_transfers();
     success_msg_writer() << "print-ring-members = " << m_wallet->print_ring_members();
     success_msg_writer() << "store-tx-info = " << m_wallet->store_tx_info();
-    success_msg_writer() << "default-ring-size = " << (m_wallet->default_mixin() ? m_wallet->default_mixin() + 1 : 0);
+    success_msg_writer() << "default-ring-size = " << m_wallet->default_mixin();
     success_msg_writer() << "auto-refresh = " << m_wallet->auto_refresh();
     success_msg_writer() << "refresh-type = " << get_refresh_type_name(m_wallet->get_refresh_type());
     success_msg_writer() << "priority = " << m_wallet->get_default_priority();
@@ -4295,32 +4293,43 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
 
   priority = m_wallet->adjust_priority(priority);
 
-  size_t fake_outs_count = 0;
+  size_t fake_outs_count;
   if(local_args.size() > 0) {
-    size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
+		if (!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
     {
-      fake_outs_count = m_wallet->default_mixin();
-      if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIX;
-    }
-    else if (ring_size == 0)
-    {
-      fail_msg_writer() << tr("Ring size must not be 0");
-      return true;
+			message_writer() << boost::format(tr("** No mixin value specified, default mixin %s will be used for this transaction.")) % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
+			fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
     }
     else
     {
-      fake_outs_count = ring_size - 1;
-      local_args.erase(local_args.begin());
+      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN))
+			{
+				std::stringstream prompt;
+        if (fake_outs_count < DEFAULT_MIXIN){
+          prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
+        }
+        else{
+          fail_msg_writer() << boost::format(tr("Given mixin value %s is too high. Max mixin value allowed is %s. Please resend tx with lower mixin.")) % fake_outs_count % MAX_MIXIN;
+          return true;
+        }
+
+				std::string accepted = command_line::input_line(prompt.str());
+				if (std::cin.eof())
+					return true;
+
+				if (!command_line::is_yes(accepted))
+				{
+					fail_msg_writer() << tr("transaction cancelled.");
+					return true;
+				}
+
+				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+			}
+
+			local_args.erase(local_args.begin());
     }
-  }
-  uint64_t adjusted_fake_outs_count = m_wallet->adjust_mixin(fake_outs_count);
-  if (adjusted_fake_outs_count > fake_outs_count)
-  {
-    fail_msg_writer() << (boost::format(tr("ring size %u is too small, minimum is %u")) % (fake_outs_count+1) % (adjusted_fake_outs_count+1)).str();
-    return true;
-  }
+
+	}
 
   const size_t min_args = (transfer_type == TransferLocked) ? 3 : 2;
   if(local_args.size() < min_args)
@@ -4773,32 +4782,41 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     local_args.erase(local_args.begin());
 
   priority = m_wallet->adjust_priority(priority);
-
-  size_t fake_outs_count = 0;
+  size_t fake_outs_count;
   if(local_args.size() > 0) {
-    size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
+    if(!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
     {
-      fake_outs_count = m_wallet->default_mixin();
-      if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIX;
-    }
-    else if (ring_size == 0)
-    {
-      fail_msg_writer() << tr("Ring size must not be 0");
-      return true;
+      message_writer() << boost::format(tr("** No mixin value specified, default mixin %s will be used for this transaction.")) % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
+			fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
     }
     else
     {
-      fake_outs_count = ring_size - 1;
+      if (fake_outs_count > MAX_MIXIN)
+      {
+        fail_msg_writer() << boost::format(tr("Given mixin value %s is too high. Max mixin value allowed is %s. Please resend tx with lower mixin.")) % fake_outs_count % MAX_MIXIN;
+        return true;
+      }
+
+      if (fake_outs_count < DEFAULT_MIXIN)
+			{
+				std::stringstream prompt;
+				prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
+
+				std::string accepted = command_line::input_line(prompt.str());
+				if (std::cin.eof())
+					return true;
+
+				if (!command_line::is_yes(accepted))
+				{
+					fail_msg_writer() << tr("transaction cancelled.");
+					return true;
+				}
+
+				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+			}
+
       local_args.erase(local_args.begin());
     }
-  }
-  uint64_t adjusted_fake_outs_count = m_wallet->adjust_mixin(fake_outs_count);
-  if (adjusted_fake_outs_count > fake_outs_count)
-  {
-    fail_msg_writer() << (boost::format(tr("ring size %u is too small, minimum is %u")) % (fake_outs_count+1) % (adjusted_fake_outs_count+1)).str();
-    return true;
   }
 
   std::vector<uint8_t> extra;
@@ -4999,11 +5017,11 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
     {
       fake_outs_count = m_wallet->default_mixin();
       if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIX;
+        fake_outs_count = DEFAULT_MIXIN;
     }
     else
     {
-      fake_outs_count = ring_size - 1;
+      fake_outs_count = ring_size;
       local_args.erase(local_args.begin());
     }
   }
