@@ -615,7 +615,7 @@ namespace cryptonote
      *
      * @return true if the fee is enough, false otherwise
      */
-    bool check_fee(size_t blob_size, uint64_t fee) const;
+    bool check_fee(size_t blob_size, uint64_t fee, const transaction& tx) const;
 
     /**
      * @brief check that a transaction's outputs conform to current standards
