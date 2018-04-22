@@ -154,6 +154,7 @@
 #define HF_VERSION_ENFORCE_RCT                  6
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
+#define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
 #define DEFAULT_MIXIN                           12     // default & minimum mixin allowed
 #define MAX_MIXIN                               240    
 
@@ -166,10 +167,9 @@
 // New constants are intended to go here
 namespace config
 {
-  std::string const RINGDB_DIR = ".ringdb"; // shared-ringdb
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)1); // .01 
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)20); // .20 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
