@@ -190,7 +190,8 @@ namespace cryptonote {
   		assert(n == cumulative_difficulties.size());
   		assert(n <= DIFFICULTY_WINDOW_V2);
       // If new coin, just "give away" first 5 blocks at low difficulty
-      if ( n < 6 ) { return  1; }
+      if ( n < 6 ) { return  1; } 
+      if ( n == 239927 && n <= (uint64_t)config::FORK_HANDLER + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2 ) { return  (uint64_t)config::FORK_NETWORK; }
       // If height "n" is from 6 to N, then reset N to n-1.
       else if (n < N+1) { N=n-1; }
   		// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
@@ -221,8 +222,9 @@ namespace cryptonote {
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 
       // Reset network hashrate to 111.0 MHz when hardfork comes
-      if(n >= (uint64_t)config::FORK_HANDLER + 1 && next_difficulty < (uint64_t)config::FORK_NETWORK){
+      if((uint64_t)n >= (uint64_t)config::FORK_HANDLER && (uint64_t)n <= (uint64_t)config::FORK_HANDLER + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
        next_difficulty = ((uint64_t)(config::FORK_NETWORK));
+        return (difficulty_type) next_difficulty;
       }
 
       return next_difficulty;
