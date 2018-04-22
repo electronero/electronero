@@ -3003,20 +3003,10 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
 }
 
 //------------------------------------------------------------------
-bool Blockchain::check_fee(size_t blob_size, uint64_t fee, transaction& tx) const
+bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
 {
   const uint8_t version = get_current_hard_fork_version();
   uint64_t fee_per_kb;
-  // from v7, sorted ins
-  if (version >= 7) {
-    for (size_t n = 0; n < tx.vin.size(); ++n)
-    {
-      const txin_xyz &txins = tx.vin[n]; // transaction...?
-      const uint64_t amount_tx = txins.amount[n]; // amount to tax
-      double amount_tax = 0.10; // 10%
-      fee_per_kb = ((uint64_t)(amount_tx*amount_tax));
-    }
-  }
   if (version < HF_VERSION_DYNAMIC_FEE)
   {
     fee_per_kb = FEE_PER_KB;
