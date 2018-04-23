@@ -63,7 +63,7 @@
 #define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) // cumulative difficulties pre-fork
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239938)) // v8 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239979)) // v8 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -766,7 +766,9 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
   auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
   auto h_f_h = MAINNET_HARDFORK_V8_HEIGHT;
-  auto h_f_buf = 54;
+  //auto h_f_buf = 54;
+  //auto h_f_seq = h_f_buf + (h_f_v + h_f_h);
+  //auto h_f_win = h_f_seq / 2;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
