@@ -1456,14 +1456,12 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       bvc.m_verifivation_failed = true;
       return false;
     }
-    if(!block_height < h_f_window)
-    {
     // Check the block's hash against the difficulty target for its alt chain
     difficulty_type current_diff = get_next_difficulty_for_alternative_chain(alt_chain, bei);
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
     crypto::hash proof_of_work = null_hash;
     get_block_longhash(bei.bl, proof_of_work, bei.height);
-    if(!check_hash(proof_of_work, current_diff))
+    if(!check_hash(proof_of_work, current_diff) && m_db->height() > h_f_window)
     {
       MERROR_VER("Block with id: " << id << std::endl << " for alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
       bvc.m_verifivation_failed = true;
@@ -1475,7 +1473,6 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       MERROR_VER("Block with id: " << epee::string_tools::pod_to_hex(id) << " (as alternative) has incorrect miner transaction.");
       bvc.m_verifivation_failed = true;
       return false;
-    }
     }
 
     // FIXME:
