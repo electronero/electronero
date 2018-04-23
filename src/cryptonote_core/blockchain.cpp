@@ -760,12 +760,13 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
+  auto bc_height = height;
   auto h_fork = ELECTRONERO_HARDFORK;
   auto h_f_network = MAINNET_HARDFORK_NETWORK;
   auto h_f_buf = 54;
   auto h_f_handler = MAINNET_HARDFORK_V8_HEIGHT;
   auto h_f_sequence = h_f_handler + h_f_buf;
-  auto h_f_window = (h_fork + h_f_handler) / 2 + h_f_buf;
+  auto h_f_window = (h_fork + h_f_sequence) / 2;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
@@ -1456,12 +1457,17 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       bvc.m_verifivation_failed = true;
       return false;
     }
+    auto h_fork_height = ELECTRONERO_HARDFORK;
+    auto h_f_buffer = 54;
+    auto h_fh = MAINNET_HARDFORK_V8_HEIGHT;
+    auto h_f_seq = h_fh + h_f_buffer;
+    auto h_f_win = (h_fork_height + h_f_seq) / 2;	  
     // Check the block's hash against the difficulty target for its alt chain
     difficulty_type current_diff = get_next_difficulty_for_alternative_chain(alt_chain, bei);
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
     crypto::hash proof_of_work = null_hash;
     get_block_longhash(bei.bl, proof_of_work, bei.height);
-    if(!check_hash(proof_of_work, current_diff) && m_db->height() > h_f_window)
+    if(!check_hash(proof_of_work, current_diff) && m_db->height() > h_f_win)
     {
       MERROR_VER("Block with id: " << id << std::endl << " for alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
       bvc.m_verifivation_failed = true;
