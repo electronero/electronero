@@ -766,9 +766,8 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
   auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
   auto h_f_h = MAINNET_HARDFORK_V8_HEIGHT;
-  //auto h_f_buf = 54;
-  //auto h_f_seq = h_f_buf + (h_f_v + h_f_h);
-  //auto h_f_win = h_f_seq / 2;
+  auto h_f_buf = 54;
+  auto h_f_seq = h_f_h + h_f_buf;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
@@ -792,7 +791,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     return (difficulty_type) h_f_d; 
   } 
   // Reset network hashrate to 166.0 MHz when hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_h + 1 && (uint64_t)bc_h <= h_f_h + (uint64_t)h_f_difficulty_window)
+  if ((uint64_t)bc_h >= h_f_seq + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_difficulty_window)
   {
     return (difficulty_type) ((uint64_t)(h_f_n)); 
   } 
