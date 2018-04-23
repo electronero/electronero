@@ -92,7 +92,7 @@ namespace cryptonote {
     uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY : FORK_MONEY_SUPPLY;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes);
+    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t premine = 1260000000000U;
