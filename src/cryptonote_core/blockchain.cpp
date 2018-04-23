@@ -60,12 +60,10 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(239925)) // first hard fork 
-#define ELECTRONERO_HARDFORK_HEIGHT ((uint64_t)(239923)) // initial electronero fork height
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
-#define MAINNET_HARDFORK_V6_HEIGHT ((uint64_t)(239924)) // v6
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 final hard fork 
-#define HARDFORK ((uint64_t)(239922)) // lower diff blocks >= HARDFORK
-#define FORK_HANDLER ((uint64_t)(239954)); // raise diff blocks >= FORK_HANDLER
+#define HARDFORK ((uint64_t)(239900)) // initial electronero fork height
+#define FORK_HANDLER ((uint64_t)(239954)); // electronero fork height
 #define FORK_NETWORK ((uint64_t)(19924656977)) //  cumulative difficulties pre-fork
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
