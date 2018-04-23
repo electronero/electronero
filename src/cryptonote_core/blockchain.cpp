@@ -59,12 +59,11 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK ((uint64_t)(239925)) // first hard fork 
-#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 final hard fork 
-#define HARDFORK ((uint64_t)(239900)) // initial electronero fork height
-#define FORK_HANDLER ((uint64_t)(239954)); // electronero fork height
-#define FORK_NETWORK ((uint64_t)(19924656977)) //  cumulative difficulties pre-fork
+#define ELECTRONERO_HARDFORK ((uint64_t)(239922)) // initial electronero fork height
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) //  cumulative difficulties pre-fork
+#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239980)) // v8 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -115,9 +114,12 @@ static const struct {
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524352066 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524448232 },
+	
+  // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1524448432 },
 };
-static const uint64_t mainnet_hard_fork_version_1_till = ELECTRONERO_HARDFORK-1;
+static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
 static const struct {
   uint8_t version;
@@ -759,28 +761,30 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
   auto bc_height = height;
-  auto h_fork = HARDFORK;
-  auto h_f_handler = FORK_HANDLER;
-  auto h_f_network = FORK_NETWORK;
+  auto h_fork = ELECTRONERO_HARDFORK;
+  auto h_f_network = MAINNET_HARDFORK_NETWORK;
+  auto h_f_buf = 54;
+  auto h_f_handler = MAINNET_HARDFORK_V8_HEIGHT;
+  auto h_f_sequence = h_f_handler + h_f_buf;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version == 1) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else {
+  if (version > 7) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  } else {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   }
   
-  // Reset network hashrate to 1.0 Hz until hardfork comes
+  // Reset network hashrate to 1.0 Hz until hardfork v8 comes
   if ((uint64_t)bc_height >= h_fork && (uint64_t)bc_height <= h_f_handler)
   {
     return (difficulty_type) 1000; 
   } 
-  // Reset network hashrate to 111.0 MHz when hardfork comes
-  if ((uint64_t)bc_height >= h_f_handler + 1 && (uint64_t)bc_height <= h_f_handler + (uint64_t)h_f_difficulty_window)
+  // Reset network hashrate to 111.0 MHz when hardfork v8 comes
+  if ((uint64_t)bc_height >= h_f_sequence && (uint64_t)bc_height <= h_f_sequence + (uint64_t)h_f_difficulty_window)
   {
     return (difficulty_type) ((uint64_t)(h_f_network)); 
   } 
