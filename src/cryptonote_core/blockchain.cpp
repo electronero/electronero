@@ -760,22 +760,22 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
-  auto bc_height = height;
   auto h_fork = ELECTRONERO_HARDFORK;
   auto h_f_network = MAINNET_HARDFORK_NETWORK;
   auto h_f_buf = 54;
   auto h_f_handler = MAINNET_HARDFORK_V8_HEIGHT;
   auto h_f_sequence = h_f_handler + h_f_buf;
+  auto h_f_window = (h_fork + h_f_handler) / 2 + h_f_buf;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version > 7) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-  } else {
+  if (version < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+  } else {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
   
   // Reset network hashrate to 1.0 Hz until hardfork v8 comes
@@ -1456,7 +1456,8 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       bvc.m_verifivation_failed = true;
       return false;
     }
-
+    if(!block_height < h_f_window)
+    {
     // Check the block's hash against the difficulty target for its alt chain
     difficulty_type current_diff = get_next_difficulty_for_alternative_chain(alt_chain, bei);
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
@@ -1474,6 +1475,7 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       MERROR_VER("Block with id: " << epee::string_tools::pod_to_hex(id) << " (as alternative) has incorrect miner transaction.");
       bvc.m_verifivation_failed = true;
       return false;
+    }
     }
 
     // FIXME:
