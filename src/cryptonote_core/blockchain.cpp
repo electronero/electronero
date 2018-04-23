@@ -60,10 +60,10 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(239922)) // initial electronero fork height
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) //  cumulative difficulties pre-fork
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) // cumulative difficulties pre-fork
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239926)) // v8 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239938)) // v8 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -117,7 +117,7 @@ static const struct {
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524448232 },
 	
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  // { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1524448432 },
+  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1524448432 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
@@ -760,34 +760,39 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
-  auto bc_height = height;
-  auto h_fork = ELECTRONERO_HARDFORK;
-  auto h_f_network = MAINNET_HARDFORK_NETWORK;
+  auto bc_h = height;
+  auto h_f_d = 1000;
+  auto h_f_b = ELECTRONERO_HARDFORK;
+  auto h_f_n = MAINNET_HARDFORK_NETWORK;
+  auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
+  auto h_f_h = MAINNET_HARDFORK_V8_HEIGHT;
   auto h_f_buf = 54;
-  auto h_f_handler = MAINNET_HARDFORK_V7_HEIGHT;
-  auto h_f_sequence = (h_f_handler + h_f_buf) - 1;
-  auto h_f_window = (h_fork + h_f_sequence) / 2;
   auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version < 2) {
+  if (version < 8) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
   
-  // Reset network hashrate to 1.0 Hz until hardfork v8 comes
-  if ((uint64_t)bc_height >= h_fork && (uint64_t)bc_height <= h_f_handler)
+  // Reset network hashrate to 1.0 Hz until hardfork v7 comes
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v)
   {
-    return (difficulty_type) 1000; 
+    return (difficulty_type) h_f_d; 
   } 
-  // Reset network hashrate to 111.0 MHz when hardfork v8 comes
-  if ((uint64_t)bc_height >= h_f_sequence && (uint64_t)bc_height <= h_f_sequence + (uint64_t)h_f_difficulty_window)
+  // Reset network hashrate to 1.0 Hz until hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_h)
   {
-    return (difficulty_type) ((uint64_t)(h_f_network)); 
+    return (difficulty_type) h_f_d; 
+  } 
+  // Reset network hashrate to 166.0 MHz when hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_h + 1 && (uint64_t)bc_h <= h_f_h + (uint64_t)h_f_difficulty_window)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_n)); 
   } 
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
