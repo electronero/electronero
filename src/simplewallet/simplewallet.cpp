@@ -1645,7 +1645,8 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       fail_msg_writer() << tr("ring size must be an integer >= ") << MIN_RING_SIZE;
       return true;
     }
-    uint32_t ring_size = boost::lexical_cast<uint32_t>(args[1]);
+    uint32_t mixin = boost::lexical_cast<uint32_t>(args[1]);
+    auto ring_size = mixin;
     if (mixin != 0 && (mixin < DEFAULT_MIXIN || mixin > MAX_MIXIN))
     {
       fail_msg_writer() << failed_msg;
@@ -4314,7 +4315,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
           return true;
         }
 
-				std::string accepted = command_line::input_line(prompt.str());
+				std::string accepted = input_line(prompt.str());
 				if (std::cin.eof())
 					return true;
 
@@ -4324,7 +4325,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
 					return true;
 				}
 
-				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+				
 			}
 
 			local_args.erase(local_args.begin());
@@ -4805,7 +4806,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 				std::stringstream prompt;
 				prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
 
-				std::string accepted = command_line::input_line(prompt.str());
+				std::string accepted = input_line(prompt.str());
 				if (std::cin.eof())
 					return true;
 
