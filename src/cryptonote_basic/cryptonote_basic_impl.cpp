@@ -100,7 +100,7 @@ namespace cryptonote {
       reward = premine;
       return true;
     }
-    auto uint64_t instamine = premine;
+    const uint64_t instamine = premine;
     if (version >= 7 && height == 239925) {
       reward = instamine;
       return true;
