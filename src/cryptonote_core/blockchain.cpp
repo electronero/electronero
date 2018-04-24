@@ -774,7 +774,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version < 9) {
+  if (version < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
@@ -793,7 +793,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Reset network hashrate to 166.0 MHz when hardfork v8 comes
   if ((uint64_t)bc_h >= h_f_seq + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_difficulty_window)
   {
-    return (difficulty_type) ((uint64_t)(h_f_n)); 
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
