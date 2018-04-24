@@ -87,7 +87,7 @@ typedef cryptonote::simple_wallet sw;
 
 #define DEFAULT_MIX 12
 #define DEFAULT_MIXIN 12
-#define MAX_MIXIN 240
+#define MAX_MIXIN 100
 #define MIN_RING_SIZE 12 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "Monero output export\003"
@@ -481,7 +481,7 @@ namespace
     }
     catch (const tools::error::tx_too_big& e)
     {
-      fail_msg_writer() << tr("Not enough money in unlocked balance. Failed to find a suitable way to split transactions. You may be attempting to send too much, or not leaving enough behind for fees.");
+      fail_msg_writer() << tr("Failed to find a suitable way to split transactions. Try again with a smaller ring size for this block.");
       warn_of_possible_attack = false;
     }
     catch (const tools::error::transfer_error& e)
