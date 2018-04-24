@@ -481,7 +481,7 @@ namespace
     }
     catch (const tools::error::tx_too_big& e)
     {
-      fail_msg_writer() << tr("failed to find a suitable way to split transactions");
+      fail_msg_writer() << tr("Not enough money in unlocked balance. Failed to find a suitable way to split transactions. You may be attempting to send too much, or not leaving enough behind for fees.");
       warn_of_possible_attack = false;
     }
     catch (const tools::error::transfer_error& e)
