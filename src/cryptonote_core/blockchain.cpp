@@ -784,12 +784,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Reset network hashrate to 1.0 Hz until hardfork v7 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v)
   {
-    return (difficulty_type) ((uint64_t)(h_f_d); 
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
   // Reset network hashrate to 1.0 Hz until hardfork v8 comes
   if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
   {
-    return (difficulty_type) ((uint64_t)(h_f_d); 
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
   // Reset network hashrate to 166.0 MHz when hardfork v8 comes
   //if ((uint64_t)bc_h >= h_f_v2 + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
