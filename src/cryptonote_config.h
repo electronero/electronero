@@ -50,7 +50,7 @@
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 
 // MONEY_SUPPLY - total number coins to be generated
-#define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
+//#define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                   ((uint64_t)(21000000000000)) // after the ETNX fork
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
