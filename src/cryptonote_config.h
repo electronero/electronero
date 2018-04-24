@@ -140,12 +140,11 @@
 
 #define THREAD_STACK_SIZE                       5 * 1024 * 1024
 
-
 // coin emission change interval/speed configs
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE       240 * 1024    // 240kB, used for emissions
 #define BLOCK_SIZE_GROWTH_FAVORED_ZONE                  ((uint64_t) (CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4))
 #define DIFFICULTY_TARGET                               DIFFICULTY_TARGET_V2  // just alias, used for emissions
-#define COIN_EMISSION_MONTH_INTERVAL                    6  // months to change emission speed
+#define COIN_EMISSION_MONTH_INTERVAL                    1  // months to change emission speed
 #define COIN_EMISSION_HEIGHT_INTERVAL                   ((uint64_t) (COIN_EMISSION_MONTH_INTERVAL * (30.4375 * 24 * 3600) / DIFFICULTY_TARGET)) // calculated to # of heights to change emission speed
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
@@ -154,9 +153,11 @@
 #define HF_VERSION_ENFORCE_RCT                  6
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
+
 #define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
+
 #define DEFAULT_MIXIN                           12     // default & minimum mixin allowed
-#define MAX_MIXIN                               240    
+#define MAX_MIXIN                               100    
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
