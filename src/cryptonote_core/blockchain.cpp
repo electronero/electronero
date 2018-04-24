@@ -3581,6 +3581,7 @@ leave:
   // at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
   // subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state. 
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
+  uint8_t version = get_current_hard_fork_version();
   uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
   if (version < 2) 
   {
