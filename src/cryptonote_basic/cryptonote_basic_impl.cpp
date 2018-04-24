@@ -45,6 +45,7 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
+#define MONEY_SUPPLY_ETN ((uint64_t)(2100000000000)) // money supply pre-fork
 
 namespace cryptonote {
 
