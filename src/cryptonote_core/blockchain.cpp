@@ -60,6 +60,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(239922)) // initial electronero fork height
+#define MONEY_SUPPLY_ETN ((uint64_t)(2100000000000)) // money supply pre-fork
 #define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) // cumulative difficulties pre-fork
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
@@ -3578,8 +3579,16 @@ leave:
   // In the "tail" state when the minimum subsidy (implemented in get_block_reward) is in effect, the number of
   // coins will eventually exceed MONEY_SUPPLY and overflow a uint64. To prevent overflow, cap already_generated_coins
   // at MONEY_SUPPLY. already_generated_coins is only used to compute the block subsidy and MONEY_SUPPLY yields a
-  // subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state.ToDo.. 
-  already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY ;
+  // subsidy of 0 under the base formula and therefore the minimum subsidy >0 in the tail state. 
+  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  if (version < 2) 
+  {
+   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
+  } else 
+  {
+   already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY ;
+  }
   if(m_db->height())
     cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
 
