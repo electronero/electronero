@@ -4795,7 +4795,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
     else
     {
-      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN))
+      if (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN)
 			{
 				std::stringstream prompt;
         if (fake_outs_count < DEFAULT_MIXIN){
