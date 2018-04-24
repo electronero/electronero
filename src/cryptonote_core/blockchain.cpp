@@ -761,14 +761,15 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
   auto bc_h = height;
-  auto h_f_d = 1000;
+  auto h_f_d = 250;
+  auto h_f_dd = 17000;
   auto h_f_b = ELECTRONERO_HARDFORK;
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
   auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
-  auto h_f_h = MAINNET_HARDFORK_V8_HEIGHT;
+  auto h_f_v2 = MAINNET_HARDFORK_V8_HEIGHT;
   auto h_f_buf = 54;
-  auto h_f_seq = h_f_h + h_f_buf;
-  auto h_f_difficulty_window = DIFFICULTY_BLOCKS_COUNT_V2;
+  auto h_f_seq = h_f_v2 + h_f_buf;
+  auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
@@ -783,18 +784,18 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Reset network hashrate to 1.0 Hz until hardfork v7 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v)
   {
-    return (difficulty_type) h_f_d; 
+    return (difficulty_type) ((uint64_t)(h_f_d); 
   } 
   // Reset network hashrate to 1.0 Hz until hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_h)
+  if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
   {
-    return (difficulty_type) h_f_d; 
+    return (difficulty_type) ((uint64_t)(h_f_d); 
   } 
   // Reset network hashrate to 166.0 MHz when hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_seq + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_difficulty_window)
-  {
-    return (difficulty_type) ((uint64_t)(h_f_d)); 
-  } 
+  //if ((uint64_t)bc_h >= h_f_v2 + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
+  //{
+  //  return (difficulty_type) ((uint64_t)(h_f_n)); 
+  //} 
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
