@@ -180,7 +180,7 @@ namespace cryptonote {
   		// N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
   		const int64_t T = static_cast<int64_t>(target_seconds);
-  		size_t N = DIFFICULTY_WINDOW_V2;
+  		size_t N = DIFFICULTY_WINDOW_V2-1;
 
   		if (timestamps.size() > N) {
   			timestamps.resize(N + 1);
@@ -208,7 +208,7 @@ namespace cryptonote {
   			solveTime = static_cast<int64_t>(timestamps[i]) - static_cast<int64_t>(timestamps[i - 1]);
   			solveTime = std::min<int64_t>((T * 7), std::max<int64_t>(solveTime, (-7 * T)));
   			difficulty = cumulative_difficulties[i] - cumulative_difficulties[i - 1];
-  			LWMA += solveTime * i / k;
+  			LWMA += (int64_t)solveTime * i / k;
   			sum_inverse_D += 1 / static_cast<double>(difficulty);
   		}
 
