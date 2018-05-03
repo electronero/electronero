@@ -872,13 +872,13 @@ namespace cryptonote
   {
     blobdata bd = get_block_hashing_blob(b);
     uint64_t cn_variant; 
-    if (b.major_version >= 7) 
+    if (b.major_version < 6) 
     {
-    cn_variant = b.major_version >= 7 ? b.major_version - 6 : 0;
+    cn_variant = 0;
     }
-    if (b.major_version >= 8) 
+    else  
     {
-    cn_variant = b.major_version >= 8 ? b.major_version - 7 : 0;
+    cn_variant = 1;
     }
     crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
     return true;
