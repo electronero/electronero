@@ -62,8 +62,8 @@
 #define ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero MAINNET fork height
 #define MAINNET_HARDFORK_NETWORK ((uint64_t)(1992465697)) // MAINNET cumulative difficulties pre-fork
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307057)) // MAINNET v8 hard fork 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // MAINNET v8 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(1)) // initial Electronero TESTNET fork height
 #define TESTNET_HARDFORK_NETWORK ((uint64_t)(199246569)) // TESTNET cumulative difficulties pre-fork
