@@ -59,12 +59,23 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK ((uint64_t)(239922)) // initial electronero fork height
-#define MONEY_SUPPLY_ETN ((uint64_t)(2100000000000)) // money supply pre-fork
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(19924656977)) // cumulative difficulties pre-fork
-#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(239925)) // v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(239979)) // v8 hard fork 
+#define ELECTRONERO_HARDFORK ((uint64_t)(307000)) // initial Electronero MAINNET fork height
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(1992465697)) // MAINNET cumulative difficulties pre-fork
+#define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307057)) // MAINNET v8 hard fork 
+
+#define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero TESTNET fork height
+#define TESTNET_HARDFORK_NETWORK ((uint64_t)(199246569)) // TESTNET cumulative difficulties pre-fork
+#define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
+#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(2)) // TESTNET v7 hard fork 
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(280000)) // TESTNET v8 hard fork 
+
+#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero STAGENET fork height
+#define STAGENET_HARDFORK_NETWORK ((uint64_t)(199246569)) // STAGENET cumulative difficulties pre-fork
+#define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // STAGENET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // STAGENET v8 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -762,14 +773,19 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
   auto bc_h = height;
-  auto h_f_d = 250;
-  auto h_f_dd = 17000;
+  auto h_f_d = 500;
   auto h_f_b = ELECTRONERO_HARDFORK;
+  auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
+  auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
-  auto h_f_v = MAINNET_HARDFORK_V7_HEIGHT;
-  auto h_f_v2 = MAINNET_HARDFORK_V8_HEIGHT;
-  auto h_f_buf = 54;
-  auto h_f_seq = h_f_v2 + h_f_buf;
+  auto t_h_f_n = TESTNET_HARDFORK_NETWORK;
+  auto s_h_f_n = STAGENET_HARDFORK_NETWORK;
+  auto h_f_v7 = MAINNET_HARDFORK_V7_HEIGHT;
+  auto h_f_v8 = MAINNET_HARDFORK_V8_HEIGHT;
+  auto t_h_f_v7 = TESTNET_HARDFORK_V7_HEIGHT;
+  auto t_h_f_v8 = TESTNET_HARDFORK_V8_HEIGHT;
+  auto s_h_f_v7 = STAGENET_HARDFORK_V7_HEIGHT;
+  auto s_h_f_v8 = STAGENET_HARDFORK_V8_HEIGHT;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
 
   uint8_t version = get_current_hard_fork_version();
@@ -782,16 +798,16 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
   
-  // Reset network hashrate to 1.0 Hz until hardfork v7 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v)
+  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < h_f_v7 + (uint64_t)h_f_d_w)
   {
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 1.0 Hz until hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_v + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
+  // Reset network hashrate to 16.0 MHz until MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_v7 + (uint64_t)h_f_d_w && (uint64_t)bc_h <= h_f_v8 + (uint64_t)h_f_d_w)
   {
-    return (difficulty_type) ((uint64_t)(h_f_d)); 
-  } 
+    return (difficulty_type) ((uint64_t)(h_f_n)); 
+  } 	 
 	
   // Reset network hashrate to 166.0 MHz when hardfork v8 comes
   //if ((uint64_t)bc_h >= h_f_v2 + 1 && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
