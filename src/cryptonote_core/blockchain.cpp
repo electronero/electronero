@@ -108,19 +108,7 @@ static const struct {
   time_t time;
 } mainnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1341378000 },
-
-  // version 2 starts from block 1009827, which is on or around the 20th of March, 2016. Fork time finalised on 2015-09-20. No fork voting occurs for the v2 fork.
-  // { 2, MAINNET_HARDFORK_V2_HEIGHT, 0, 1524104024 },
-
-  // version 3 starts from block 1141317, which is on or around the 24th of September, 2016. Fork time finalised on 2016-03-21.
-  // { 3, MAINNET_HARDFORK_V3_HEIGHT, 0, 1524104541 },
-
-  // version 4 starts from block 1220516, which is on or around the 5th of January, 2017. Fork time finalised on 2016-09-18.
-  // { 4, MAINNET_HARDFORK_V4_HEIGHT, 0, 1524105827 },
-
-  // version 5 starts from block 1288616, which is on or around the 15th of April, 2017. Fork time finalised on 2017-03-14.
-  // { 5, MAINNET_HARDFORK_V5_HEIGHT, 0, 1524106300 },
+  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
 
   // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
@@ -140,7 +128,7 @@ static const struct {
   time_t time;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1509360534 },
   { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 },
   { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1526030997 },
 };
@@ -153,7 +141,7 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1341378000 },
+  { 1, 1, 0, 1509360534 },
   { 6, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521480000 },
   { 7, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521600000 },
 };
@@ -423,9 +411,9 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   uint64_t top_block_timestamp = m_db->get_top_block_timestamp();
   uint64_t timestamp_diff = time(NULL) - top_block_timestamp;
 
-  // genesis block has no timestamp, could probably change it to have timestamp of 1341378000...
+  // genesis block has no timestamp, could probably change it to have timestamp of 1509360533...
   if(!top_block_timestamp)
-    timestamp_diff = time(NULL) - 1341378000;
+    timestamp_diff = time(NULL) - 1509360533;
 
   // create general purpose async service queue
 
