@@ -8085,23 +8085,22 @@ const wallet2::transfer_details &wallet2::get_transfer_details(size_t idx) const
 std::vector<size_t> wallet2::select_available_unmixable_outputs(bool trusted_daemon)
 {
   // request all outputs with less than 3 instances
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
-  return select_available_outputs_from_histogram(min_mixin + 1, false, true, true, trusted_daemon);
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN  : 2; // v7 increases min mixin from 2 to MIN_MIXIN 
+  return select_available_outputs_from_histogram(min_mixin, false, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemon)
 {
   // request all outputs with at least 3 instances, so we can use mixin 2 with
-  const size_t min_mixin = use_fork_rules(7, 10) ? DEFAULT_MIXIN : 2; // v7 increases min mixin from 2 to DEFAULT_MIXIN
-  return select_available_outputs_from_histogram(min_mixin + 1, true, true, true, trusted_daemon);
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN  : 2; // v7 increases min mixin from 2 to MIN_MIXIN 
+  return select_available_outputs_from_histogram(min_mixin, true, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
 {
   // From hard fork 1, we don't consider small amounts to be dust anymore
-  const bool hf1_rules = use_fork_rules(2, 10); // first hard fork has version 2
-  // tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
-  tx_dust_policy dust_policy(0);
+  const bool hf1_rules = use_fork_rules(10, 10); // first hard fork has version 2
+  tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
 
   const uint64_t fee_per_kb  = get_per_kb_fee();
 
