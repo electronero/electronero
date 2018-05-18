@@ -4278,7 +4278,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
     }
     else
     {
-      if (transfer_type != TransferOriginal && (fake_outs_count < DEFAULT_MIXIN || fake_outs_count > MAX_MIXIN))
+      if (transfer_type != TransferOriginal && (fake_outs_count < MIN_MIXIN || fake_outs_count > MAX_MIXIN))
 			{
 				std::stringstream prompt;
         if (fake_outs_count < DEFAULT_MIXIN){
@@ -5108,7 +5108,7 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
     {
       fake_outs_count = m_wallet->default_mixin();
       if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIX;
+        fake_outs_count = MIN_MIXIN;
     }
     else
     {
