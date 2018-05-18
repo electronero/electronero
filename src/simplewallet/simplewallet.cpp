@@ -1620,7 +1620,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
       return true;
     }
     if (mixin == 0)
-      mixin = MIN_MIXIN;
+      mixin = DEFAULT_MIXIN;
  
     const auto pwd_container = get_and_verify_password();
     if (pwd_container)
