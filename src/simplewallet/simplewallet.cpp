@@ -4295,7 +4295,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
 					fail_msg_writer() << tr("transaction cancelled.");
 					return true;
 				}
-				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : MIN_MIXIN;
+				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
 				
 			}
 
