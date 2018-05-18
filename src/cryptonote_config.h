@@ -154,10 +154,11 @@
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
 
-#define CRYPTONOTE_RINGDB_DIR                   ".ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                   ".nero-ringdb" // shared-ringdb"
 
-#define DEFAULT_MIXIN                           12     // default & minimum mixin allowed
-#define MAX_MIXIN                               100    
+#define DEFAULT_MIXIN                           12     // default
+#define MIN_MIXIN                               1      // minimum mixin allowed
+#define MAX_MIXIN                               100    // maximum mixin allowed
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
