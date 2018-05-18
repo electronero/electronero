@@ -4822,10 +4822,10 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 
   priority = m_wallet->adjust_priority(priority);
 
-  size_t fake_outs_count;
+  size_t fake_outs_count = 0;
   if(local_args.size() > 0) {
     size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
+    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
     {
       fake_outs_count = m_wallet->default_mixin();
       if (fake_outs_count == 0)
