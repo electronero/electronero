@@ -4840,10 +4840,9 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
 
   std::vector<uint8_t> extra;
   bool payment_id_seen = false;
-  if (2 == local_args.size())
+  if (2 >= local_args.size())
   {
     std::string payment_id_str = local_args.back();
-    local_args.pop_back();
 
     crypto::hash payment_id;
     bool r = tools::wallet2::parse_long_payment_id(payment_id_str, payment_id);
@@ -4852,6 +4851,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
       std::string extra_nonce;
       set_payment_id_to_tx_extra_nonce(extra_nonce, payment_id);
       r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
+      payment_id_seen = true;
     }
     else
     {
@@ -4862,15 +4862,17 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
         std::string extra_nonce;
         set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, payment_id8);
         r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
+        payment_id_seen = true;
       }
     }
 
-    if(!r)
+    if(!r && local_args.size() == 3)
     {
       fail_msg_writer() << tr("payment id has invalid format, expected 16 or 64 character hex string: ") << payment_id_str;
       return true;
     }
-    payment_id_seen = true;
+    if (payment_id_seen)
+      local_args.pop_back();
   }
 
   if (local_args.size() == 0)
@@ -4879,16 +4881,14 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     return true;
   }
 
-  bool has_payment_id;
-  crypto::hash8 new_payment_id;
-  cryptonote::account_public_address address;
+cryptonote::address_parse_info info;
   if (!cryptonote::get_account_address_from_str_or_url(info, m_wallet->nettype(), local_args[0], oa_prompter))
   {
     fail_msg_writer() << tr("failed to parse address");
     return true;
   }
 
-  if (has_payment_id)
+  if (info.has_payment_id)
   {
     if (payment_id_seen)
     {
@@ -4897,7 +4897,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
 
     std::string extra_nonce;
-    set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, new_payment_id);
+    set_encrypted_payment_id_to_tx_extra_nonce(extra_nonce, info.payment_id);
     bool r = add_extra_nonce_to_tx_extra(extra, extra_nonce);
     if(!r)
     {
@@ -4920,6 +4920,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
        return true; 
      }
   }
+
 
   LOCK_IDLE_SCOPE();
 
