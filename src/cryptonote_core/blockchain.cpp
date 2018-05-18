@@ -2635,14 +2635,14 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
       if (n_unmixable == 0)
       {
         MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and no unmixable inputs");
-        tvc.m_low_mixin = true;
-        return true;
+        // tvc.m_low_mixin = true;
+        // return true;
       }
       if (n_mixable > 1)
       {
         MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and more than one mixable input with unmixable inputs");
-        tvc.m_low_mixin = true;
-        return true;
+        // tvc.m_low_mixin = true;
+        // return true;
       }
     }
     if (mixin > max_mixin)
