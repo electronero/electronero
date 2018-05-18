@@ -5254,17 +5254,17 @@ int wallet2::get_fee_algorithm() const
 //------------------------------------------------------------------------------------------------------------------------------
 uint64_t wallet2::adjust_mixin(uint64_t mixin) const
 {
-  if (mixin < 19 && use_fork_rules(8, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 8, using 20");
-    mixin = 19;
+  if (mixin > 100 && use_fork_rules(8, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 8, using 100");
+    mixin = 99;
   }
-  else if (mixin < 11 && use_fork_rules(7, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 7, using 12");
-    mixin = 11;
+  else if (mixin > 100 && use_fork_rules(7, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 7, using 100");
+    mixin = 99;
   }
-  else if (mixin < 2 && use_fork_rules(2, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 2, using 3");
-    mixin = 2;
+  else if (mixin < 1) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too low, using 1");
+    mixin = 0;
   }
   return mixin;
 }
