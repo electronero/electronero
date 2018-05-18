@@ -80,9 +80,6 @@ typedef cryptonote::simple_wallet sw;
 
 #define EXTENDED_LOGS_FILE "wallet_details.log"
 
-#define DEFAULT_MIX 12
-#define DEFAULT_MIXIN 12
-#define MAX_MIXIN 100
 #define MIN_RING_SIZE 12 // Used to inform user about min ring size -- does not track actual protocol
 
 #define OUTPUT_EXPORT_FILE_MAGIC "Monero output export\003"
@@ -4281,7 +4278,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
       if (transfer_type != TransferOriginal && (fake_outs_count < MIN_MIXIN || fake_outs_count > MAX_MIXIN))
 			{
 				std::stringstream prompt;
-        if (fake_outs_count < DEFAULT_MIXIN){
+        if (fake_outs_count < MIN_MIXIN){
           prompt << boost::format(tr("Given mixin value %s is too low, default mixin %s will be used for this transaction. Is this okay?  (Y/Yes/N/No): ")) % fake_outs_count % (m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN);
         }
         else{
@@ -4298,7 +4295,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
 					fail_msg_writer() << tr("transaction cancelled.");
 					return true;
 				}
-				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : DEFAULT_MIXIN;
+				fake_outs_count = m_wallet->default_mixin() > 0 ? m_wallet->default_mixin() : MIN_MIXIN;
 				
 			}
 
