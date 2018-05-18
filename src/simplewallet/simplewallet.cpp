@@ -1614,7 +1614,7 @@ bool simple_wallet::set_default_ring_size(const std::vector<std::string> &args/*
     }
     uint32_t mixin = boost::lexical_cast<uint32_t>(args[1]);
     auto ring_size = mixin;
-    if (mixin != 0 && (mixin < MIN_MIXIN || mixin > MAX_MIXIN))
+    if (mixin != 0 && mixin > MAX_MIXIN)
     {
       fail_msg_writer() << failed_msg;
       return true;
@@ -4688,14 +4688,14 @@ bool simple_wallet::sweep_unmixable(const std::vector<std::string> &args_)
     // actually commit the transactions
     if (m_wallet->watch_only())
     {
-      bool r = m_wallet->save_tx(ptx_vector, "unsigned_monero_tx");
+      bool r = m_wallet->save_tx(ptx_vector, "unsigned_elctronero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
       }
       else
       {
-        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_monero_tx";
+        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_elctronero_tx";
       }
     }
     else while (!ptx_vector.empty())
@@ -4822,7 +4822,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
   size_t fake_outs_count = 0;
   if(local_args.size() > 0) {
     size_t ring_size;
-    if(!epee::string_tools::get_xtype_from_string(ring_size, local_args[0]))
+    if(!epee::string_tools::get_xtype_from_string(fake_outs_count, local_args[0]))
     {
       fake_outs_count = m_wallet->default_mixin();
       if (fake_outs_count == 0)
@@ -4830,7 +4830,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
     else
     {
-      fake_outs_count = ring_size - 1;
+      fake_outs_count = fake_outs_count - 1;
       local_args.erase(local_args.begin());
     }
   }
