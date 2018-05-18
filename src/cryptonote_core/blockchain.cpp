@@ -65,11 +65,13 @@
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // MAINNET v8 hard fork 
 
-#define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(1)) // initial Electronero TESTNET fork height
-#define TESTNET_HARDFORK_NETWORK ((uint64_t)(199246569)) // TESTNET cumulative difficulties pre-fork
+#define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(4308)) // initial Electronero TESTNET fork height
+#define TESTNET_HARDFORK_NETWORK ((uint64_t)(1306574)) // TESTNET cumulative difficulties pre-fork
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
 #define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(57)) // TESTNET v8 hard fork 
+#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(4313)) // TESTNET v9 hard fork
+#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(4357)) // TESTNET v10 hard fork
 
 #define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero STAGENET fork height
 #define STAGENET_HARDFORK_NETWORK ((uint64_t)(199246569)) // STAGENET cumulative difficulties pre-fork
@@ -131,6 +133,8 @@ static const struct {
   { 1, 1, 0, 1509360534 },
   { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 },
   { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1526030997 },
+  { 9, TESTNET_HARDFORK_V9_HEIGHT, 0, 1526625013 },
+  { 10, TESTNET_HARDFORK_V10_HEIGHT, 0, 1526625163 },
 };
 static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
@@ -742,16 +746,29 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   LOG_PRINT_L3("Blockchain::" << __func__);
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   std::vector<uint64_t> timestamps;
-  std::vector<difficulty_type> difficulties;
+  std::vector<difficulty_type> difficulties;	
   auto height = m_db->height();  
   auto bc_h = height;
   auto h_f_d = 500;
   auto h_f_b = ELECTRONERO_HARDFORK;
+  auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
+  auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
   auto h_f_n = MAINNET_HARDFORK_NETWORK;
+  auto t_h_f_n = TESTNET_HARDFORK_NETWORK;
+  auto s_h_f_n = STAGENET_HARDFORK_NETWORK;
   auto h_f_v7 = MAINNET_HARDFORK_V7_HEIGHT;
   auto h_f_v8 = MAINNET_HARDFORK_V8_HEIGHT;
+  auto t_h_f_v9 = TESTNET_HARDFORK_V9_HEIGHT;
+  auto t_h_f_v10 = TESTNET_HARDFORK_V10_HEIGHT;
+  auto s_h_f_v7 = STAGENET_HARDFORK_V7_HEIGHT;
+  auto s_h_f_v8 = STAGENET_HARDFORK_V8_HEIGHT;
+  auto h_f_buf = 60;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
-
+  auto h_f_seq = h_f_v7 + h_f_buf;
+  auto t_h_f_seq = t_h_f_v9 + (uint64_t)h_f_d_w;
+  auto s_h_f_seq = s_h_f_v7 + h_f_buf;
+  
+  
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
@@ -761,18 +778,61 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
-  
-  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < h_f_v7 + (uint64_t)h_f_d_w)
+  // TESTNET, STAGENET and MAINNET
+  if (m_nettype == TESTNET)
+  {
+  // Reset network hashrate to 1.0 Hz until TESTNET hardfork v7 comes
+  if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h <= t_h_f_v9)
   {
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 16.0 MHz until MAINNET hardfork v8 comes
-  if ((uint64_t)bc_h >= h_f_v7 + (uint64_t)h_f_d_w && (uint64_t)bc_h <= h_f_v8 + (uint64_t)h_f_d_w)
+  // Reset network hashrate to 1.0 Hz until hardfork TESTNET v8 comes
+  if ((uint64_t)bc_h >= t_h_f_v9 + 1 && (uint64_t)bc_h <= t_h_f_seq)
   {
-    return (difficulty_type) ((uint64_t)(h_f_n)); 
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when TESTNET hardfork v8 comes
+  if ((uint64_t)bc_h >= t_h_f_seq + 1 && (uint64_t)bc_h <= t_h_f_v10 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(t_h_f_n)); 
   } 
-	
+  }
+  else if (m_nettype == STAGENET)
+  {
+  // Reset network hashrate to 1.0 Hz until STAGENET hardfork v7 comes
+  if ((uint64_t)bc_h >= s_h_f_b && (uint64_t)bc_h <= s_h_f_v7)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 
+  // Reset network hashrate to 1.0 Hz until STAGENET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_v7 + 1 && (uint64_t)bc_h <= s_h_f_seq)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when STAGENET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_seq + 1 && (uint64_t)bc_h <= s_h_f_v8 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(s_h_f_n)); 
+  }  
+  }
+  else
+  {
+  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v7 comes
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= h_f_v7)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 
+  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= h_f_v7 + 1 && (uint64_t)bc_h <= h_f_seq)
+  {
+    return (difficulty_type) ((uint64_t)(h_f_d)); 
+  } 	
+  // Reset network hashrate to 16.6 MHz when MAINNET hardfork v8 comes
+  if ((uint64_t)bc_h >= s_h_f_seq + 1 && (uint64_t)bc_h <= h_f_v8 + (uint64_t)h_f_d_w)
+  {
+   return (difficulty_type) ((uint64_t)(h_f_n)); 
+  } 
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
