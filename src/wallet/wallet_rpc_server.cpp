@@ -784,13 +784,21 @@ namespace tools
 
     try
     {
-      uint64_t mixin = req.ring_size;
+      uint64_t mixin;
+      if(req.ring_size != 0)
+      {
+        mixin = m_wallet->adjust_mixin(req.ring_size - 1);
+      }
+      else
+      {
+        mixin = m_wallet->adjust_mixin(req.mixin);
+      }
       if (mixin < MIN_MIXIN){
-        LOG_PRINT_L1("Requested mixin " << req.ring_size << " too low, using " << MIN_MIXIN << " if this doesnt seem right, perhaps we should be using " << req.mixin);
+        LOG_PRINT_L1("Requested mixin " << mixin << " too low, using " << MIN_MIXIN);
         mixin = MIN_MIXIN;
       }
       else if (mixin > MAX_MIXIN){
-        LOG_PRINT_L1("Requested mixin " << req.ring_size << " too high, using " << MAX_MIXIN << " if this doesnt seem right, perhaps we should be using " << req.mixin);
+        LOG_PRINT_L1("Requested mixin " << mixin << " too high, using " << MAX_MIXIN);
         mixin = MAX_MIXIN;
       }
       uint32_t priority = m_wallet->adjust_priority(req.priority);
