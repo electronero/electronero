@@ -549,7 +549,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
     size += (2*64*32+32+64*32) * n_outputs;
 
   // MGs
-  size += n_inputs * (32 * (mixin+1) + 32);
+  size += n_inputs * (64 * (mixin+1) + 32);
 
   // mixRing - not serialized, can be reconstructed
   /* size += 2 * 32 * (mixin+1) * n_inputs; */
@@ -5189,7 +5189,8 @@ uint64_t wallet2::get_fee_multiplier(uint32_t priority, int fee_algorithm) const
   static const uint64_t old_multipliers[3] = {1, 2, 3};
   static const uint64_t new_multipliers[3] = {1, 20, 166};
   static const uint64_t newer_multipliers[4] = {1, 4, 20, 166};
-
+  static const uint64_t etnx_multipliers[4] = {1, 2, 4, 8};
+	
   if (fee_algorithm == -1)
     fee_algorithm = get_fee_algorithm();
 
@@ -5213,6 +5214,7 @@ uint64_t wallet2::get_fee_multiplier(uint32_t priority, int fee_algorithm) const
       case 0: return old_multipliers[priority-1];
       case 1: return new_multipliers[priority-1];
       case 2: return newer_multipliers[priority-1];
+      case 3: return etnx_multipliers[priority-1];
       default: THROW_WALLET_EXCEPTION_IF (true, error::invalid_priority);
     }
   }
@@ -5244,10 +5246,12 @@ uint64_t wallet2::get_per_kb_fee() const
 //----------------------------------------------------------------------------------------------------
 int wallet2::get_fee_algorithm() const
 {
-  // changes at v3 and v5
-  if (use_fork_rules(5, 0))
+  // changes at v8, v10, and 14 days before v11
+  if(use_fork_rules(11, -720 * 14))
+    return 3;
+  if (use_fork_rules(10, 10))
     return 2;
-  if (use_fork_rules(3, -720 * 14))
+  if (use_fork_rules(8, 10))
    return 1;
   return 0;
 }
@@ -5255,15 +5259,15 @@ int wallet2::get_fee_algorithm() const
 uint64_t wallet2::adjust_mixin(uint64_t mixin) const
 {
   if (mixin > 100 && use_fork_rules(8, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 8, using 100");
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 8, readjusting mixin to 100");
     mixin = 99;
   }
   else if (mixin > 100 && use_fork_rules(7, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 7, using 100");
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 7, readjusting mixin to 100");
     mixin = 99;
   }
   else if (mixin < 1) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low, using 1");
+    MWARNING("Requested ring size " << (mixin + 1) << " readjusting mixin to 1");
     mixin = 0;
   }
   return mixin;
