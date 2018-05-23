@@ -55,7 +55,6 @@ namespace Monero {
 
 namespace {
     // copy-pasted from simplewallet
-    static const size_t DEFAULT_MIXIN = 12;
     static const int    DEFAULT_REFRESH_INTERVAL_MILLIS = 1000 * 10;
     // limit maximum refresh interval as one minute
     static const int    MAX_REFRESH_INTERVAL_MILLIS = 1000 * 60 * 1;
@@ -1097,7 +1096,7 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
     
     // Take fake_outs_count from mixin_count as long as it is not zero.
     // However, if the default_mixin in the wallet was provided we try to use default_mixin instead of mixin_count.
-    size_t fake_outs_count = mixin_count != 0 ? mixin_count : m_wallet->default_mixin() > 0 ? defaultmix : m_wallet->default_mixin();
+    size_t fake_outs_count = mixin_count != 0 ? mixin_count : m_wallet->default_mixin();
     // size_t fake_outs_count = mixin_count;
     if (fake_outs_count == 0)
         fake_outs_count = MIN_MIXIN;
