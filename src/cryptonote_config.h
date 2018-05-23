@@ -156,10 +156,10 @@
 
 #define CRYPTONOTE_RINGDB_DIR                   ".enro-ringdb" // shared-ringdb"
 
-#define DEFAULT_MIXIN                           12     // default
+
 #define MIN_MIXIN                               1      // minimum mixin allowed
 #define MAX_MIXIN                               100    // maximum mixin allowed
-
+#define DEFAULT_MIXIN                           12     // default
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
 #define HASH_OF_HASHES_STEP                     256
