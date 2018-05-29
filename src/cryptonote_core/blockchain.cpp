@@ -792,7 +792,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if (m_nettype == TESTNET)
   {
   // Reset network hashrate to 1.0 Hz until TESTNET hardfork v11 comes
-  if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h < t_h_f_v11 + (uint64_t)h_f_d_w)
+  if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h < t_h_f_v12 + (uint64_t)h_f_d_w)
   {
 	  h_f_d += d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
