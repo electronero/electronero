@@ -793,7 +793,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   {
     return (difficulty_type) ((uint64_t)(t_h_f_n)); 
   } 	
-
   }
   else if (m_nettype == STAGENET)
   {
@@ -806,8 +805,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)bc_h >= s_h_f_seq && (uint64_t)bc_h <= s_h_f_v8 + (uint64_t)h_f_d_w)
   {
     return (difficulty_type) ((uint64_t)(s_h_f_n)); 
-  } 	
-  }  
+  } 	  
   }
   else
   {
