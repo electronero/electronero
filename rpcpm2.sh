@@ -1,1 +1,1 @@
-pm2 start ./electronero-wallet-rpc -x -- --wallet-file chain --password mark --disable-rpc-login --rpc-bind-port 4020
+pm2 start ./electronero-wallet-rpc -x -- --wallet-file walletfile --password password --disable-rpc-login --rpc-bind-port 4020
