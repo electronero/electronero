@@ -123,8 +123,6 @@ static const struct {
   // version 7 starts from block 307057, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
   { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1527646352 },
   
-  // version 9 starts from block 307249, which is on or around the 5th of May, 2018. Fork time finalised on 2018-05-17.
-  { 9, MAINNET_HARDFORK_V9_HEIGHT, 0, 1527651007 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
