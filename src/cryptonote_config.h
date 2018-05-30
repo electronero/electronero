@@ -154,7 +154,7 @@
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
 
-#define CRYPTONOTE_RINGDB_DIR                   ".electronero-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                   ".shared-electronero-ringdb" // shared-ringdb"
 
 
 #define MIN_MIXIN                               1      // minimum mixin allowed
@@ -178,9 +178,9 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 22080;
-  uint16_t const RPC_DEFAULT_PORT = 22081;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 22082;
+  uint16_t const P2P_DEFAULT_PORT = 66080;
+  uint16_t const RPC_DEFAULT_PORT = 66081;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 66082;
   boost::uuids::uuid const NETWORK_ID = { {
       0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x39
     } }; // Bender's nightmare
