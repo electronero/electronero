@@ -60,7 +60,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(307000)) // initial Electronero MAINNET fork height
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(498116424)) // MAINNET cumulative difficulties 
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(256530860)) // MAINNET cumulative difficulties 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307057)) // MAINNET v8 hard fork 
@@ -118,10 +118,10 @@ static const struct {
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1524448232 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527643352 },
 	
   // version 7 starts from block 1546000, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
-  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1524448432 },
+  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1527646352 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
