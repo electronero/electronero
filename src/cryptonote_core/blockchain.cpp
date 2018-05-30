@@ -60,11 +60,12 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(307000)) // initial Electronero MAINNET fork height
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(256530860)) // MAINNET cumulative difficulties 
+#define MAINNET_HARDFORK_NETWORK ((uint64_t)(456530860)) // MAINNET cumulative difficulties 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
-#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307057)) // MAINNET v8 hard fork 
-#define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(307249)) // MAINNET v8 hard fork 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307002)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307060)) // MAINNET v8 hard fork 
+#define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(307270)) // MAINNET v8 hard fork
+#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(330000)) // MAINNET v8 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_NETWORK ((uint64_t)(25653086)) // TESTNET cumulative difficulties 
@@ -831,7 +832,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  h_f_d += d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 8.3 MHz when MAINNET hardfork v8 comes
+  // Reset network hashrate to 16.3 MHz when MAINNET hardfork v8 comes
   if ((uint64_t)bc_h >= h_f_seq && (uint64_t)bc_h < h_f_v8 + (uint64_t)h_f_d_w)
   {
 	  h_f_n += d_a;
