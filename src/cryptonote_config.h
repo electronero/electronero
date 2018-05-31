@@ -71,7 +71,7 @@
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)10000) // 100 * pow(10, 2)
+#define FEE_PER_KB                                      ((uint64_t)5000) // 50 * pow(10, 2)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500) // .1 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500) // .10 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
