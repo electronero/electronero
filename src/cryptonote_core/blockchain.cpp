@@ -771,7 +771,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // ETN/ETNX Hard Fork | Random Difficulty Clamp Factor - Mark Allen Evans (interchained)
   // If you alter these functions your node will not sync to node outside of your network. 
   // Your node will be actively on an alternate chain.
-  if (version < 9 || config::HARD_FORK_PROCEDURES == 1) {
+  if (version < 9 || config::HARD_FORK_CLAMP == 1) {
 	  auto bc_h = height;
 	  auto h_f_d = 100;
 	  auto h_f_d_m = 500;
