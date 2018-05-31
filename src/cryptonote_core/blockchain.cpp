@@ -801,7 +801,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  srand(time(NULL));
 	  auto t_h_f_d_min = h_f_d;
 	  auto t_h_f_d_max = h_f_d_m;
-	  auto t_d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
+	  auto t_d_a_f = (h_f_d_min + (rand() % (int)(t_h_f_d_max - t_h_f_d_min + 1)));
 	  t_h_f_d += t_d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
@@ -824,7 +824,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  srand(time(NULL));
 	  auto s_h_f_d_min = h_f_d;
 	  auto s_h_f_d_max = h_f_d_m;
-	  auto s_d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
+	  auto s_d_a_f = (h_f_d_min + (rand() % (int)(s_h_f_d_max - s_h_f_d_min + 1)));
 	  s_h_f_d += s_d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
