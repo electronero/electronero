@@ -875,10 +875,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
 
-  if (version == 1) {
+  if (version < 2) {
     return next_difficulty(timestamps, difficulties, target);
-  } else {
+  } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, difficulties, target);
+  } else {
+    return next_difficulty_v3(timestamps, difficulties, target);
   }
 }
 //------------------------------------------------------------------
