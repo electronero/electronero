@@ -756,16 +756,15 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
-  srand(time(NULL));
   auto height = m_db->height();  
+  // ETN/ETNX Hard Fork | Difficulty Clamp - Mark Allen Evans (interchained)
+  // If you alter these functions your node will not sync to node outside of your network. 
+  // Your node will be actively on an alternate chain. 
   auto bc_h = height;
   auto h_f_d = 100;
-  auto h_f_d_min = 100;
-  auto h_f_d_max = 500;
-  auto d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
-  auto d_min = 1000;
-  auto d_max = 100000;
-  auto d_a = (d_min + (rand() % (int)(d_max - d_min + 1)));
+  auto h_f_d_m = 500;
+  auto h_f_d_s = 1000; 
+  auto h_f_d_l = 100000;
   auto h_f_b = ELECTRONERO_HARDFORK;
   auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
   auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
@@ -796,15 +795,23 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-  // Reset network hashrate to 1.0 Hz until TESTNET hardfork v11 comes
+  // Reset network hashrate to 1.0 Hz until TESTNET hardfork v12 comes
   if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h < t_h_f_v12 + (uint64_t)h_f_d_w)
   {
-	  h_f_d += d_a_f;
+	  srand(time(NULL));
+	  auto t_h_f_d_min = h_f_d;
+	  auto t_h_f_d_max = h_f_d_m;
+	  auto t_d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
+	  t_h_f_d += t_d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 150.0 KHz when TESTNET hardfork v11 comes
+  // Reset network hashrate to 3.5 MHz when TESTNET hardfork v12 comes
   if ((uint64_t)bc_h >= t_h_f_seq && (uint64_t)bc_h <= t_h_f_seq + (uint64_t)h_f_d_w)
   {
+	  srand(time(NULL));
+	  auto d_min = h_f_d_s;
+	  auto d_max = h_f_d_l;
+	  auto d_a = (d_min + (rand() % (int)(d_max - d_min + 1)));
 	  t_h_f_n += d_a;
     return (difficulty_type) ((uint64_t)(t_h_f_n)); 
   } 	
@@ -814,13 +821,21 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v7 comes
   if ((uint64_t)bc_h >= s_h_f_b && (uint64_t)bc_h < s_h_f_v7 + (uint64_t)h_f_d_w)
   {
-	  h_f_d += d_a_f;
+	  srand(time(NULL));
+	  auto s_h_f_d_min = h_f_d;
+	  auto s_h_f_d_max = h_f_d_m;
+	  auto s_d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
+	  s_h_f_d += s_d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
     // Reset network hashrate to 8.3 MHz when STAGENET hardfork v8 comes
   if ((uint64_t)bc_h >= s_h_f_seq && (uint64_t)bc_h <= s_h_f_v8 + (uint64_t)h_f_d_w)
   {
-	  s_h_f_n += d_a;
+	  srand(time(NULL));
+	  auto s_d_min = h_f_d_s;
+	  auto s_d_max = h_f_d_l;
+	  auto s_d_a = (d_min + (rand() % (int)(d_max - d_min + 1)));
+	  s_h_f_n += s_d_a;
     return (difficulty_type) ((uint64_t)(s_h_f_n)); 
   } 	  
   }
@@ -829,12 +844,20 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Reset network hashrate to 1.0 Hz until MAINNET hardfork v7 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < h_f_v7 + (uint64_t)h_f_d_w)
   {
+	  srand(time(NULL));
+	  auto h_f_d_min = h_f_d;
+	  auto h_f_d_max = h_f_d_m;
+	  auto d_a_f = (h_f_d_min + (rand() % (int)(h_f_d_max - h_f_d_min + 1)));
 	  h_f_d += d_a_f;
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 16.3 MHz when MAINNET hardfork v8 comes
+  // Reset network hashrate to 4.3 MHz when MAINNET hardfork v8 comes
   if ((uint64_t)bc_h >= h_f_seq && (uint64_t)bc_h < h_f_v8 + (uint64_t)h_f_d_w)
   {
+	  srand(time(NULL));
+	  auto d_min = h_f_d_s;
+	  auto d_max = h_f_d_l;
+	  auto d_a = (d_min + (rand() % (int)(d_max - d_min + 1)));
 	  h_f_n += d_a;
     return (difficulty_type) ((uint64_t)(h_f_n)); 
   } 	
