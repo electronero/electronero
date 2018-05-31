@@ -279,5 +279,6 @@ namespace cryptonote {
 
     return next_difficulty;
 
+	  }
 
 }
