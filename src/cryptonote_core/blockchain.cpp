@@ -757,32 +757,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   auto height = m_db->height();  
-  // ETN/ETNX Hard Fork | Difficulty Clamp - Mark Allen Evans (interchained)
-  // If you alter these functions your node will not sync to node outside of your network. 
-  // Your node will be actively on an alternate chain. 
-  auto bc_h = height;
-  auto h_f_d = 100;
-  auto h_f_d_m = 500;
-  auto h_f_d_s = 1000; 
-  auto h_f_d_l = 100000;
-  auto h_f_b = ELECTRONERO_HARDFORK;
-  auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
-  auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
-  auto h_f_n = MAINNET_HARDFORK_NETWORK;
-  auto t_h_f_n = TESTNET_HARDFORK_NETWORK;
-  auto s_h_f_n = STAGENET_HARDFORK_NETWORK;
-  auto h_f_v7 = MAINNET_HARDFORK_V7_HEIGHT;
-  auto h_f_v8 = MAINNET_HARDFORK_V8_HEIGHT;
-  auto t_h_f_v9 = TESTNET_HARDFORK_V9_HEIGHT;
-  auto t_h_f_v10 = TESTNET_HARDFORK_V10_HEIGHT;
-  auto t_h_f_v12 = TESTNET_HARDFORK_V12_HEIGHT;
-  auto s_h_f_v7 = STAGENET_HARDFORK_V7_HEIGHT;
-  auto s_h_f_v8 = STAGENET_HARDFORK_V8_HEIGHT;
-  auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
-  auto h_f_seq = h_f_v7 + (uint64_t)h_f_d_w;
-  auto t_h_f_seq = t_h_f_v12 + (uint64_t)h_f_d_w;
-  auto s_h_f_seq = s_h_f_v7 + (uint64_t)h_f_d_w;
-  
+	
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
@@ -792,9 +767,26 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
+	
+  // ETN/ETNX Hard Fork | Random Difficulty Clamp Factor - Mark Allen Evans (interchained)
+  // If you alter these functions your node will not sync to node outside of your network. 
+  // Your node will be actively on an alternate chain.
+  if (version < 9 || HARD_FORK_PROCEDURES == 1) {
+	  auto bc_h = height;
+	  auto h_f_d = 100;
+	  auto h_f_d_m = 500;
+	  auto h_f_d_s = 1000; 
+	  auto h_f_d_l = 100000;
+	  auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
+	  auto t_h_f_b = TESTNET_ELECTRONERO_HARDFORK;
+	  auto t_h_f_n = TESTNET_HARDFORK_NETWORK;
+	  auto t_h_f_v9 = TESTNET_HARDFORK_V9_HEIGHT;
+	  auto t_h_f_v10 = TESTNET_HARDFORK_V10_HEIGHT;
+	  auto t_h_f_v12 = TESTNET_HARDFORK_V12_HEIGHT;
+	  auto t_h_f_seq = t_h_f_v12 + (uint64_t)h_f_d_w;
   // Reset network hashrate to 1.0 Hz until TESTNET hardfork v12 comes
   if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h < t_h_f_v12 + (uint64_t)h_f_d_w)
   {
@@ -818,6 +810,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   else if (m_nettype == STAGENET)
   {
+	  auto s_h_f_b = STAGENET_ELECTRONERO_HARDFORK;
+	  auto s_h_f_n = STAGENET_HARDFORK_NETWORK;
+	  auto s_h_f_v7 = STAGENET_HARDFORK_V7_HEIGHT;
+	  auto s_h_f_v8 = STAGENET_HARDFORK_V8_HEIGHT;
+	  auto s_h_f_seq = s_h_f_v7 + (uint64_t)h_f_d_w;
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v7 comes
   if ((uint64_t)bc_h >= s_h_f_b && (uint64_t)bc_h < s_h_f_v7 + (uint64_t)h_f_d_w)
   {
@@ -841,6 +838,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   else
   {
+	  auto h_f_b = ELECTRONERO_HARDFORK;
+	  auto h_f_n = MAINNET_HARDFORK_NETWORK;	
+	  auto h_f_v7 = MAINNET_HARDFORK_V7_HEIGHT;
+	  auto h_f_v8 = MAINNET_HARDFORK_V8_HEIGHT;
+	  auto h_f_seq = h_f_v7 + (uint64_t)h_f_d_w;
   // Reset network hashrate to 1.0 Hz until MAINNET hardfork v7 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < h_f_v7 + (uint64_t)h_f_d_w)
   {
@@ -861,6 +863,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  h_f_n += d_a;
     return (difficulty_type) ((uint64_t)(h_f_n)); 
   } 	
+  }
   }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
