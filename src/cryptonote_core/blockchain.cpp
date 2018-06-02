@@ -766,7 +766,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version < 2) {
+  if (version < 2 || version >= 10) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
@@ -909,7 +909,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
 
-  if (version < 2 || version >= 10) {
+  if (version < 2 || version == 10) {
     return next_difficulty(timestamps, difficulties, target);
   } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, difficulties, target);
@@ -1127,10 +1127,12 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   size_t target = get_ideal_hard_fork_version(bei.height) < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 
   // calculate the difficulty target for the block and return it
-  if (version == 1) {
-    return next_difficulty(timestamps, cumulative_difficulties, target);
-  } else {
+    if (version < 2 || version == 10) {
+    return next_difficulty(timestamps, difficulties, target);
+  } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, cumulative_difficulties, target);
+  } else {
+    return next_difficulty_v3(timestamps, cumulative_difficulties, target);
   }
 
 }
@@ -3313,7 +3315,7 @@ bool Blockchain::check_block_timestamp(const block& b) const
 
   uint8_t version = get_current_hard_fork_version();
   uint64_t block_future_time_limit;
-  if (version == 1) {
+  if (version == 1 || version == 10) {
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT;
   } else {
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2;
