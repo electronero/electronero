@@ -65,6 +65,7 @@
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
+#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(309375)) // MAINNET v10 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_NETWORK ((uint64_t)(25653086)) // TESTNET cumulative difficulties 
@@ -115,17 +116,20 @@ static const struct {
   // version 1 from the start of the blockchain
   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
 
-  // version 6 starts from block 1400000, which is on or around the 16th of September, 2017. Fork time finalised on 2017-08-18.
+  // version 6 was tested but decided against implementation
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
-  // version 7 starts from block 307003, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  // version 7 starts from block 307003, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527643352 },
 	
-  // version 7 starts from block 307057, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  // version 8 starts from block 307054, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
   { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1527646352 },
   
-  // version 7 starts from block 307057, which is on or around the 6th of April, 2018. Fork time finalised on 2018-03-17.
+  // version 9 starts from block 308110, which is on or around the 31st of May, 2018. Fork time finalised on 2018-05-31.
   { 9, MAINNET_HARDFORK_V9_HEIGHT, 0, 1527775008 },
+  
+  // version 10 starts from block 308110, which is on or around the 2nd of June, 2018. Fork time finalised on 2018-02-02.
+  { 10, MAINNET_HARDFORK_V10_HEIGHT, 0, 1527932561 },
   
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -905,7 +909,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
 
-  if (version < 2) {
+  if (version < 2 || version >= 10) {
     return next_difficulty(timestamps, difficulties, target);
   } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, difficulties, target);
