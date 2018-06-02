@@ -1545,17 +1545,12 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     const uint64_t bc_height = m_db->height() - 1;
     // block 307128 had issues for major pool nodes, so this is a fix
     // we chose to allow the verification to proceed beyond this block
+    if (bc_height >= 309500) {  
     if(!check_hash(proof_of_work, current_diff))
-    {    
-	    if (bc_height >= 307125 && bc_height <= 309500) { 
-		LOG_PRINT_L1("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff << " but we decided let it through! ");
-      		bvc.m_verifivation_failed = false; 
-		return true;
-    }
-    else {
-		MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
-      		bvc.m_verifivation_failed = true;
-      		return false;
+    {        
+      MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
+      bvc.m_verifivation_failed = true;
+      return false;
     }
     }
 
@@ -3492,12 +3487,14 @@ leave:
     else
       proof_of_work = get_block_longhash(bl, m_db->height());
 
+    if (bc_height >= 309500) {   
     // validate proof_of_work versus difficulty target
     if(!check_hash(proof_of_work, current_diffic))
     {
       MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
       bvc.m_verifivation_failed = true;
       goto leave;
+    }
     }
   }
 
