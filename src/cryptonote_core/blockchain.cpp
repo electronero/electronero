@@ -1128,7 +1128,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 
   // calculate the difficulty target for the block and return it
     if (version < 2 || version == 10) {
-    return next_difficulty(timestamps, difficulties, target);
+    return next_difficulty(timestamps, cumulative_difficulties, target);
   } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, cumulative_difficulties, target);
   } else {
