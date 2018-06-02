@@ -1545,7 +1545,7 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     const uint64_t bc_height = m_db->height();
     // block 307128 had issues for major pool nodes, so this is a fix
     // we chose to allow the verification to proceed beyond this block
-    if (id == "b6a8e3bd5e118f7a5f5e77dfce0829e7bb53a75726d4851d82a01bea377a5bc8" || bc_height == 307128) { 
+    if (id == b6a8e3bd5e118f7a5f5e77dfce0829e7bb53a75726d4851d82a01bea377a5bc8 || bc_height == 307128) { 
 		LOG_PRINT_L1("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff << " but we decided let it through! ");
       		// bvc.m_verifivation_failed = true;  
     }
