@@ -1542,12 +1542,12 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
     crypto::hash proof_of_work = null_hash;
     get_block_longhash(bei.bl, proof_of_work, bei.height);
-    const uint64_t bc_height = m_db->height();
+    const uint64_t bc_height = m_db->height() - 1;
     // block 307128 had issues for major pool nodes, so this is a fix
     // we chose to allow the verification to proceed beyond this block
     if(!check_hash(proof_of_work, current_diff))
     {    
-	    if (bc_height >= 307128 && bc_height <= 309500) { 
+	    if (bc_height >= 307125 && bc_height <= 309500) { 
 		LOG_PRINT_L1("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff << " but we decided let it through! ");
       		bvc.m_verifivation_failed = false; 
 		return true;
