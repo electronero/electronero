@@ -1535,16 +1535,27 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
       bvc.m_verifivation_failed = true;
       return false;
     }	  
+	
+    
     // Check the block's hash against the difficulty target for its alt chain
     difficulty_type current_diff = get_next_difficulty_for_alternative_chain(alt_chain, bei);
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
     crypto::hash proof_of_work = null_hash;
     get_block_longhash(bei.bl, proof_of_work, bei.height);
+    const uint64_t bc_height = m_db->get_tx_block_height(toi.first);
+    // block 307128 had issues for major pool nodes, so this is a fix
+    // we chose to allow the verification to proceed beyond this block
+    if ( id == "b6a8e3bd5e118f7a5f5e77dfce0829e7bb53a75726d4851d82a01bea377a5bc8" || bc_height == 307128 ) { 
+		LOG_PRINT_L1("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff << " but we decided let it through! ");
+      		// bvc.m_verifivation_failed = true;  
+    }
+    else {
     if(!check_hash(proof_of_work, current_diff))
     {
-      MERROR_VER("Block with id: " << id << std::endl << " for alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
-      bvc.m_verifivation_failed = true;
-      return false;
+		MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
+      		bvc.m_verifivation_failed = true;
+      		return false;
+    }
     }
 
     if(!prevalidate_miner_transaction(b, bei.height))
@@ -2728,13 +2739,13 @@ bool Blockchain::check_tx_inputs(transaction& tx, tx_verification_context &tvc, 
     {
       if (n_unmixable == 0)
       {
-        MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and no unmixable inputs");
+        LOG_PRINT_L1("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and no unmixable inputs");
         // tvc.m_low_mixin = true;
         // return true;
       }
       if (n_mixable > 1)
       {
-        MERROR_VER("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and more than one mixable input with unmixable inputs");
+        LOG_PRINT_L1("Tx " << get_transaction_hash(tx) << " has too low ring size (" << (mixin + 1) << "), and more than one mixable input with unmixable inputs");
         // tvc.m_low_mixin = true;
         // return true;
       }
