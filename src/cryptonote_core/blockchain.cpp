@@ -1450,7 +1450,7 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     const uint64_t bc_height = m_db->height() - 1;
     // block 307128 had issues for major pool nodes, so this is a fix
     // we chose to allow the verification to proceed beyond this block
-    if (bc_height >= 309500) {  
+    if (bc_height >= 500000) {  
     if(!check_hash(proof_of_work, current_diff))
     {        
       MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
@@ -3392,7 +3392,7 @@ leave:
     else
       proof_of_work = get_block_longhash(bl, m_db->height());
     const uint64_t bc_height = m_db->height() - 1;
-    if (bc_height >= 309500) {   
+    if (bc_height >= 500000) {   
     // validate proof_of_work versus difficulty target
     if(!check_hash(proof_of_work, current_diffic))
     {
