@@ -1547,9 +1547,11 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     // we chose to allow the verification to proceed beyond this block
     if(!check_hash(proof_of_work, current_diff))
     {    
-	    if (bc_height == 307128) { 
+	    if (bc_height >= 307128 && bc_height <= 309500) { 
+		proof_of_work = current_diff;
 		LOG_PRINT_L1("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff << " but we decided let it through! ");
-      		// bvc.m_verifivation_failed = true;  
+      		bvc.m_verifivation_failed = false; 
+		return true;
     }
     else {
 		MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
