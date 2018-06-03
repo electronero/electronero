@@ -65,7 +65,7 @@
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
-#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310430)) // MAINNET v10 hard fork 
+#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310488)) // MAINNET v10 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_NETWORK ((uint64_t)(25653086)) // TESTNET cumulative difficulties 
@@ -82,7 +82,7 @@
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // STAGENET v7 hard fork 
 #define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // STAGENET v8 hard fork 
-#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310430)) // STAGENET v10 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310488)) // STAGENET v10 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
