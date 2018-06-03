@@ -795,28 +795,16 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto h_f_d_r = 10000;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
   auto h_f_b = ELECTRONERO_HARDFORK;
-  uint64_t h_f_n = MAINNET_HARDFORK_NETWORK;
-  uint64_t s_h_f_n = STAGENET_HARDFORK_NETWORK;
   auto m_h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
+  uint64_t h_f_n = MAINNET_HARDFORK_NETWORK;
+  uint64_t s_h_f_n = STAGENET_HARDFORK_NETWORK;  
   auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
+  auto s_h_f_seq = s_h_f_v10 + (uint64_t)h_f_d_w;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
   auto h_f_seq = h_f_v10 + (uint64_t)h_f_d_w;
-  auto s_h_f_seq = s_h_f_v10 + (uint64_t)h_f_d_w;
-  // TESTNET, STAGENET and MAINNET
-  if (m_nettype == TESTNET)
-  {
-  // Reset network hashrate to 1.0 Hz until TESTNET hardfork v11 comes
-  if ((uint64_t)bc_h >= t_h_f_b && (uint64_t)bc_h < t_h_f_v12 + (uint64_t)h_f_d_w)
-  {
-    return (difficulty_type) ((uint64_t)(h_f_d)); 
-  } 
-  // Reset network hashrate to 150.0 KHz when TESTNET hardfork v11 comes
-  if ((uint64_t)bc_h >= t_h_f_seq && (uint64_t)bc_h <= t_h_f_seq + (uint64_t)h_f_d_w)
-  {
-    return (difficulty_type) ((uint64_t)(t_h_f_n)); 
-  } 	
-  }
-  else if (m_nettype == STAGENET)
+
+  // STAGENET and MAINNET
+  if (m_nettype == STAGENET)
   {
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v10 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < s_h_f_v10 + (uint64_t)h_f_d_w)
