@@ -795,12 +795,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto h_f_d_r = 10000;
   auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
   auto h_f_b = ELECTRONERO_HARDFORK;
-  auto m_h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
+  auto h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
   uint64_t h_f_n = MAINNET_HARDFORK_NETWORK;
   uint64_t s_h_f_n = STAGENET_HARDFORK_NETWORK;  
   auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
   auto s_h_f_seq = s_h_f_v10 + (uint64_t)h_f_d_w;
-  auto h_f_d_w = DIFFICULTY_BLOCKS_COUNT_V2;
   auto h_f_seq = h_f_v10 + (uint64_t)h_f_d_w;
 
   // STAGENET and MAINNET
