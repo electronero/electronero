@@ -788,7 +788,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // If you alter these functions your node will not sync to node outside of your network. 
   // Your node will be actively on an alternate chain. 
   if (HARD_FORK_CLAMP == 1) {
-  auto height = m_db->height();
+  auto bc_h = m_db->height();
   auto h_f_b = ELECTRONERO_HARDFORK;
   auto h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
   auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
