@@ -798,19 +798,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // STAGENET and MAINNET
   if (m_nettype == STAGENET)
   {
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v10 comes
     return (difficulty_type) 500; 
-  }   
-  }
-  else
-  {
-  // Reset network hashrate to 1.0 Hz until MAINNET hardfork v10 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
-  {
-    return (difficulty_type) 500; 
-  } 	
-  }
+  }    
   }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
