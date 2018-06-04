@@ -802,7 +802,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)bc_h >= STAGENET_ELECTRONERO_HARDFORK && (uint64_t)bc_h <= STAGENET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 100;	     
     }
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){	
+  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 20 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){	
      return (difficulty_type) 371236628;	     	
     }
   }
@@ -811,7 +811,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)bc_h >= ELECTRONERO_HARDFORK && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 100;	     
     } 
-  if ((uint64_t)bc_h >= STAGENET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= STAGENET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){	
+  if ((uint64_t)bc_h >= STAGENET_HARDFORK_V11_HEIGHT + 20 && (uint64_t)bc_h <= STAGENET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){	
      return (difficulty_type) 371236628;	     	
     }  
   }
