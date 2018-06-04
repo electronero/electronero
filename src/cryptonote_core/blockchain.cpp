@@ -806,9 +806,9 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
      return (difficulty_type) 371236628;	     
     }  
   }
-  if (m_nettype != STAGENET || m_nettype != TESTNET)
+  if (m_nettype != STAGENET)
   {
-  if ((uint64_t)bc_h >= MAINNET_ELECTRONERO_HARDFORK && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
+  if ((uint64_t)bc_h >= ELECTRONERO_HARDFORK && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 100;	     
     }
   if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){
