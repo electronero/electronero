@@ -59,28 +59,30 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
-#define ELECTRONERO_HARDFORK ((uint64_t)(307000)) // initial Electronero MAINNET fork height
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(456530860)) // MAINNET cumulative difficulties 
+#define ELECTRONERO_HARDFORK ((uint64_t)(310787)) 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
+#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
+#define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
-#define TESTNET_HARDFORK_NETWORK ((uint64_t)(25653086)) // TESTNET cumulative difficulties 
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
 #define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(57)) // TESTNET v8 hard fork 
 #define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(4313)) // TESTNET v9 hard fork
 #define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(4357)) // TESTNET v10 hard fork
 #define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(12308)) // TESTNET v11 hard fork
-#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(12775)) // TESTNET v11 hard fork
+#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(12775)) // TESTNET v12 hard fork
 
-#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(280000)) // initial Electronero STAGENET fork height
-#define STAGENET_HARDFORK_NETWORK ((uint64_t)(199246569)) // STAGENET cumulative difficulties 
+#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(310430)) // Electronero STAGENET fork height
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
-#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(280003)) // STAGENET v7 hard fork 
-#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(280057)) // STAGENET v8 hard fork 
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // STAGENET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // STAGENET v8 hard fork 
+#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // STAGENET v9 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310435)) // STAGENET v10 hard fork 
+#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(310505)) // STAGENET v11 hard fork 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -119,13 +121,18 @@ static const struct {
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
   // version 7 starts from block 307003, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527643352 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527663660 },
 	
   // version 8 starts from block 307054, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
-  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1527646352 },
+  { 8, MAINNET_HARDFORK_V8_HEIGHT, 0, 1527664267 },
   
   // version 9 starts from block 308110, which is on or around the 31st of May, 2018. Fork time finalised on 2018-05-31.
-  { 9, MAINNET_HARDFORK_V9_HEIGHT, 0, 1527775008 },
+  { 9, MAINNET_HARDFORK_V9_HEIGHT, 0, 1527780225 },
+	
+  // version 10 starts from block 310757, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
+  { 10, MAINNET_HARDFORK_V10_HEIGHT, 0, 1528100874 },
+  // version 10 starts from block 310800, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
+  { 11, MAINNET_HARDFORK_V11_HEIGHT, 0, 1528100953 },
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -154,9 +161,24 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, 1, 0, 1509360534 },
-  { 6, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521480000 },
-  { 7, STAGENET_HARDFORK_V8_HEIGHT, 0, 1521600000 },
+  { 1, STAGENET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
+
+  // version 6 was tested but decided against implementation
+  // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
+
+  // version 7 starts from block 307003, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
+  { 7, STAGENET_HARDFORK_V7_HEIGHT, 0, 1527663660 },
+	
+  // version 8 starts from block 307054, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
+  { 8, STAGENET_HARDFORK_V8_HEIGHT, 0, 1527664267 },
+  
+  // version 9 starts from block 308110, which is on or around the 31st of May, 2018. Fork time finalised on 2018-05-31.
+  { 9, STAGENET_HARDFORK_V9_HEIGHT, 0, 1527780225 },
+	
+  // version 10 starts from block 310435, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
+  { 10, STAGENET_HARDFORK_V10_HEIGHT, 0, 1528094695 },
+  // version 11 starts from block 310486, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
+  { 11, STAGENET_HARDFORK_V11_HEIGHT, 0, 1528094768 },
 };
 
 //------------------------------------------------------------------
@@ -756,19 +778,19 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
-  auto height = m_db->height();  
+  uint64_t height = m_db->height();  
 	
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version < 2 || version >= 10) {
+  if (version < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
-	
-  // ND: Speedup
+
+
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
   //    pop the oldest one from the list. This only requires 1x read per height instead
@@ -808,7 +830,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
 
-  if (version < 2 || version == 10) {
+  if (version < 2) {
     return next_difficulty(timestamps, difficulties, target);
   } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, difficulties, target);
@@ -966,7 +988,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
     // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version == 1) {
+  if (version == 1 || version == 10) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
@@ -1026,7 +1048,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   size_t target = get_ideal_hard_fork_version(bei.height) < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 
   // calculate the difficulty target for the block and return it
-    if (version < 2 || version == 10) {
+    if (version < 2) {
     return next_difficulty(timestamps, cumulative_difficulties, target);
   } else if (version > 2 && version < 9) {
     return next_difficulty_v2(timestamps, cumulative_difficulties, target);
@@ -3214,7 +3236,7 @@ bool Blockchain::check_block_timestamp(const block& b) const
 
   uint8_t version = get_current_hard_fork_version();
   uint64_t block_future_time_limit;
-  if (version == 1 || version == 10) {
+  if (version == 1) {
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT;
   } else {
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2;
@@ -3586,25 +3608,27 @@ leave:
   else if (m_nettype == STAGENET)
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
   if (version < 2) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
   } else 
   {
-   already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY ;
+   already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
   }
   }
   else
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
   } else 
   {
-   already_generated_coins = base_reward < (MONEY_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY ;
+   already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
   }
   }
   if(m_db->height())

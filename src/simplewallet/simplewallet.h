@@ -155,7 +155,9 @@ namespace cryptonote
     bool sweep_main(uint64_t below, const std::vector<std::string> &args);
     bool sweep_all(const std::vector<std::string> &args);
     bool sweep_below(const std::vector<std::string> &args);
+    bool sweep_mixable(const std::vector<std::string> &args);
     bool sweep_single(const std::vector<std::string> &args);
+    bool sweep_only_mixable_or_unmixable(const std::vector<std::string> &args, bool mixable);
     bool sweep_unmixable(const std::vector<std::string> &args);
     bool donate(const std::vector<std::string> &args);
     bool sign_transfer(const std::vector<std::string> &args);

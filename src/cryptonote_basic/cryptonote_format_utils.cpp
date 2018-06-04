@@ -876,7 +876,7 @@ namespace cryptonote
     {
     cn_variant = 0;
     }
-    else  
+    else
     {
     cn_variant = 1;
     }

@@ -44,7 +44,7 @@
 #define CURRENT_TRANSACTION_VERSION                     2
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*5
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*2
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
@@ -52,6 +52,7 @@
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                   ((uint64_t)(21000000000000)) // after the ETNX fork
+#define TOKENS                                         ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
@@ -81,13 +82,13 @@
 #define DIFFICULTY_TARGET_V1                            60  // seconds - before first fork
 #define DIFFICULTY_WINDOW                               720 // blocks
 #define DIFFICULTY_LAG                                  15  // !!!
-#define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
+#define DIFFICULTY_CUT                                  6   // timestamps to cut after sorting
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + DIFFICULTY_LAG
 
 #define DIFFICULTY_TARGET_V2                            120  // seconds
-#define DIFFICULTY_WINDOW_V2                            60
+#define DIFFICULTY_WINDOW_V2                            70 
 #define DIFFICULTY_BLOCKS_COUNT_V2                      DIFFICULTY_WINDOW_V2
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           300*2 // https://github.com/zawy12/difficulty-algorithms/issues/3
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           DIFFICULTY_TARGET * 2 // https://github.com/zawy12/difficulty-algorithms/issues/3
 
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -101,8 +102,8 @@
 #define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_PRE_V4       100    //by default, blocks count in blocks downloading
 #define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT              20     //by default, blocks count in blocks downloading
 
-#define CRYPTONOTE_MEMPOOL_TX_LIVETIME                    (86400*3) //seconds, three days
-#define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME     604800 //seconds, one week
+#define CRYPTONOTE_MEMPOOL_TX_LIVETIME                    (86400*5) //seconds, five days
+#define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME     604800    //seconds, one week
 
 #define COMMAND_RPC_GET_BLOCKS_FAST_MAX_COUNT           1000
 
@@ -177,9 +178,9 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 44080;
-  uint16_t const RPC_DEFAULT_PORT = 44081;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 44082;
+  uint16_t const P2P_DEFAULT_PORT = 12089;
+  uint16_t const RPC_DEFAULT_PORT = 12090;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 12091;
   boost::uuids::uuid const NETWORK_ID = { {
       0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x39
     } }; // Bender's nightmare
@@ -205,16 +206,16 @@ namespace config
   namespace stagenet
   {
     uint64_t const STAGENET_SEGREGATION_FORK_HEIGHT = 1000000;
-    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 1078;
-    uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 19;
+    uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
+    uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 30080;
-    uint16_t const RPC_DEFAULT_PORT = 30081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 30082;
+    uint16_t const P2P_DEFAULT_PORT = 12080;
+    uint16_t const RPC_DEFAULT_PORT = 12081;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 12082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x3d, 0x19, 0x8, 0x49 , 0x4f, 0xe3 , 0x14, 0x4b, 0x31, 0xe2, 0x41, 0x11, 0x2c, 0x10, 0x51, 0x19
+        0x04, 0xF8, 0x23, 0xE1, 0x36, 0xC2, 0xE3, 0xA3, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x4E, 0xC8, 0x40
       } }; // Bender's daydream
-    std::string const GENESIS_TX = "013201ff0001ffffffffffff03029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101683a6913ce0c990e9b646a23c6c960d5c3642ca1b375fb2f4793212c52b3167f";
+    std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
     uint32_t const GENESIS_NONCE = 10002;
   }
 }
