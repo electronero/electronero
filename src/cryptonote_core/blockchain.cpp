@@ -772,7 +772,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   CRITICAL_REGION_LOCAL(m_blockchain_lock);
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
-  auto height = m_db->height();  
+  uint64_t height = m_db->height();  
 	
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
@@ -788,7 +788,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // If you alter these functions your node will not sync to node outside of your network. 
   // Your node will be actively on an alternate chain. 
   if (HARD_FORK_CLAMP == 1) {
-  auto bc_h = height;
+  auto height = m_db->height();
   auto h_f_b = ELECTRONERO_HARDFORK;
   auto h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
   auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
@@ -798,27 +798,17 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // STAGENET and MAINNET
   if (m_nettype == STAGENET)
   {
-  if ((uint64_t)bc_h >= s_h_f_v10 && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
+  if ((uint64_t)bc_h >= h_f_b && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v10 comes
-    return (difficulty_type) 100; 
-  } 
-    // Reset network hashrate to 10.0 Hz when STAGENET hardfork v10 comes
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V10_HEIGHT + 1 && (uint64_t)bc_h < s_h_f_seq + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
-  {
-    return (difficulty_type) 2399246569;
-  } 	  
+    return (difficulty_type) 500; 
+  }   
   }
   else
   {
   // Reset network hashrate to 1.0 Hz until MAINNET hardfork v10 comes
   if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
   {
-    return (difficulty_type) 100; 
-  } 
-  // Reset network hashrate to 10.0 Hz when MAINNET hardfork v10 comes
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V10_HEIGHT + 1 && (uint64_t)bc_h < h_f_seq + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
-  {
-    return (difficulty_type) 2399246569;
+    return (difficulty_type) 500; 
   } 	
   }
   }
