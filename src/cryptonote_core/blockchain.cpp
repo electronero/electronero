@@ -130,9 +130,9 @@ static const struct {
   { 9, MAINNET_HARDFORK_V9_HEIGHT, 0, 1527780225 },
 	
   // version 10 starts from block 310757, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 7, MAINNET_HARDFORK_V10_HEIGHT, 0, 1528094695 },
+  { 10, MAINNET_HARDFORK_V10_HEIGHT, 0, 1528094695 },
   // version 10 starts from block 310800, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 10, MAINNET_HARDFORK_V11_HEIGHT, 0, 1528094768 },
+  { 11, MAINNET_HARDFORK_V11_HEIGHT, 0, 1528094768 },
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -176,9 +176,9 @@ static const struct {
   { 9, STAGENET_HARDFORK_V9_HEIGHT, 0, 1527780225 },
 	
   // version 10 starts from block 310435, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 1, STAGENET_HARDFORK_V10_HEIGHT, 0, 1528094695 },
+  { 10, STAGENET_HARDFORK_V10_HEIGHT, 0, 1528094695 },
   // version 11 starts from block 310486, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 7, STAGENET_HARDFORK_V11_HEIGHT, 0, 1528094768 },
+  { 11, STAGENET_HARDFORK_V11_HEIGHT, 0, 1528094768 },
 };
 
 //------------------------------------------------------------------
@@ -802,18 +802,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)bc_h >= STAGENET_ELECTRONERO_HARDFORK && (uint64_t)bc_h <= STAGENET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 100;	     
     }
-  if ((uint64_t)bc_h >= STAGENET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= STAGENET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){
-     return (difficulty_type) 371236628;	     
-    }  
   }
   if (m_nettype != STAGENET)
   {
   if ((uint64_t)bc_h >= ELECTRONERO_HARDFORK && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 100;	     
-    }
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){
-     return (difficulty_type) 371236628;	     
-    }  
+    } 
   }
   }
   // ND: Speedup
