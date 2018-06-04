@@ -790,30 +790,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
 
-  // Hard Fork | Static Difficulty Clamp - Mark Allen Evans (interchained)
-  // If you alter these functions your node will not sync to node outside of your network. 
-  // Your node will be actively on an alternate chain. 
-  if (HARD_FORK_CLAMP == 1) {
-  auto bc_h = m_db->height();
 
-  // STAGENET and MAINNET
-  if (m_nettype == STAGENET)
-  {
-  if ((uint64_t)bc_h >= STAGENET_ELECTRONERO_HARDFORK && (uint64_t)bc_h <= STAGENET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
-     return (difficulty_type) 100;	     
-    }
-  }
-  if (m_nettype != STAGENET)
-  {
-  if ((uint64_t)bc_h >= ELECTRONERO_HARDFORK && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count){
-     return (difficulty_type) 100;	     
-    } 
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 20 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){		
-     return (difficulty_type) 371236628;	     		
-    }
-  }
-  }
-  // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
   //    pop the oldest one from the list. This only requires 1x read per height instead
