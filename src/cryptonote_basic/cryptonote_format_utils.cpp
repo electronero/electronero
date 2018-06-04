@@ -876,9 +876,11 @@ namespace cryptonote
     {
     cn_variant = 0;
     }
-    else  
+    else if (b.major_version > 10) 
     {
-    cn_variant = 1;
+    cn_variant = 2;
+    }
+    else {
     }
     crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
     return true;
