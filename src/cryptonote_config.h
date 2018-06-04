@@ -52,6 +52,7 @@
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                   ((uint64_t)(21000000000000)) // after the ETNX fork
+#define TOKENS                                         ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
@@ -177,9 +178,9 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 44080;
-  uint16_t const RPC_DEFAULT_PORT = 44081;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 44082;
+  uint16_t const P2P_DEFAULT_PORT = 12089;
+  uint16_t const RPC_DEFAULT_PORT = 12090;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 12091;
   boost::uuids::uuid const NETWORK_ID = { {
       0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x39
     } }; // Bender's nightmare
@@ -212,10 +213,10 @@ namespace config
     uint16_t const RPC_DEFAULT_PORT = 12081;
     uint16_t const ZMQ_RPC_DEFAULT_PORT = 12082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x40
+        0x04, 0xF8, 0x23, 0xE1, 0x36, 0xC2, 0xE3, 0xA3, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x4E, 0xC8, 0x40
       } }; // Bender's daydream
     std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
-    uint32_t const GENESIS_NONCE = 10000;
+    uint32_t const GENESIS_NONCE = 10002;
   }
 }
 
