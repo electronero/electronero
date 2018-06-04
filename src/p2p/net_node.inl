@@ -502,12 +502,7 @@ namespace nodetool
         if (result.size())
         {
           for (const auto& addr_string : result)
-            if (m_nettype == cryptonote::STAGENET)
-            {
             full_addrs.insert(addr_string + ":30080");
-            } else {
-            full_addrs.insert(addr_string + ":44080");
-              }
         }
         ++i;
       }
