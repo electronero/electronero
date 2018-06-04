@@ -64,8 +64,8 @@
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
-#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310750)) // MAINNET v10 hard fork 
-#define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310800)) // MAINNET v11 hard fork 
+#define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310700)) // MAINNET v10 hard fork 
+#define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310770)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -76,7 +76,7 @@
 #define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(12308)) // TESTNET v11 hard fork
 #define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(12775)) // TESTNET v12 hard fork
 
-#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(310432)) // Electronero STAGENET fork height
+#define STAGENET_ELECTRONERO_HARDFORK ((uint64_t)(310430)) // Electronero STAGENET fork height
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // STAGENET v7 hard fork 
 #define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // STAGENET v8 hard fork 
