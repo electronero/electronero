@@ -789,11 +789,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   } else {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   }
-	if(version <= 11){
-	HARD_FORK_CLAMP = 1;
-	}else {
-	HARD_FORK_CLAMP = 0;
-	}
+
   // Hard Fork | Static Difficulty Clamp - Mark Allen Evans (interchained)
   // If you alter these functions your node will not sync to node outside of your network. 
   // Your node will be actively on an alternate chain. 
@@ -818,6 +814,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)bc_h >= MAINNET_HARDFORK_V11_HEIGHT + 1 && (uint64_t)bc_h <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count){
      return (difficulty_type) 371236628;	     
     }  
+  }
   }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
