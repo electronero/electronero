@@ -803,6 +803,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     return (difficulty_type) 500; 
   }    
   }
+  }
   // ND: Speedup
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
