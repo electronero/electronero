@@ -807,12 +807,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if (m_nettype == STAGENET)
   {
   // Reset network hashrate to 1.0 Hz until STAGENET hardfork v10 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < s_h_f_v10 + (uint64_t)h_f_d_w)
+  if ((uint64_t)bc_h >= h_f_b + (uint64_t)h_f_d_w && (uint64_t)bc_h < s_h_f_v10)
   {
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-    // Reset network hashrate to 1.0 Hz when STAGENET hardfork v10 comes
-  if ((uint64_t)bc_h >= s_h_f_seq && (uint64_t)bc_h <= s_h_f_seq + (uint64_t)h_f_d_w)
+    // Reset network hashrate to 10.0 Hz when STAGENET hardfork v10 comes
+  if ((uint64_t)bc_h >= s_h_f_v10 + s_h_f_seq)
   {
     return (difficulty_type) ((uint64_t)(h_f_d_r)); 
   } 	  
@@ -820,12 +820,12 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   else
   {
   // Reset network hashrate to 1.0 Hz until MAINNET hardfork v10 comes
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h < h_f_v10 + (uint64_t)h_f_d_w)
+  if ((uint64_t)bc_h >= h_f_b + (uint64_t)h_f_d_w && (uint64_t)bc_h < h_f_v10)
   {
     return (difficulty_type) ((uint64_t)(h_f_d)); 
   } 
-  // Reset network hashrate to 1.0 Hz when MAINNET hardfork v10 comes
-  if ((uint64_t)bc_h >= h_f_seq && (uint64_t)bc_h <= h_f_seq + (uint64_t)h_f_d_w)
+  // Reset network hashrate to 10.0 Hz when MAINNET hardfork v10 comes
+  if ((uint64_t)bc_h >= h_f_v10 + h_f_seq)
   {
     return (difficulty_type) ((uint64_t)(h_f_d_r)); 
   } 	
