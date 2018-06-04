@@ -789,18 +789,13 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // Your node will be actively on an alternate chain. 
   if (HARD_FORK_CLAMP == 1) {
   auto bc_h = m_db->height();
-  auto h_f_b = ELECTRONERO_HARDFORK;
-  auto h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
-  auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
-  auto s_h_f_seq = s_h_f_v10 + 61;
-  auto h_f_seq = h_f_v10 + 61;
 
   // STAGENET and MAINNET
   if (m_nettype == STAGENET)
   {
-  if ((uint64_t)bc_h >= h_f_b && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
-  // Reset network hashrate to 1.0 Hz until STAGENET hardfork v10 comes
-    return (difficulty_type) 500; 
+  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V10_HEIGHT && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
+  // Reset network hashrate to 10.0 Hz until STAGENET hardfork v10 comes
+    return (difficulty_type) 10000; 
   }    
   }
   }
