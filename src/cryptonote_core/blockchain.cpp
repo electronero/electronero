@@ -60,7 +60,6 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define ELECTRONERO_HARDFORK ((uint64_t)(310430)) 
-#define MAINNET_HARDFORK_NETWORK ((uint64_t)(456530860)) // MAINNET cumulative difficulties 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
@@ -68,7 +67,6 @@
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310488)) // MAINNET v10 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
-#define TESTNET_HARDFORK_NETWORK ((uint64_t)(25653086)) // TESTNET cumulative difficulties 
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
 #define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(57)) // TESTNET v8 hard fork 
@@ -793,8 +791,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   auto bc_h = height;
   auto h_f_b = ELECTRONERO_HARDFORK;
   auto h_f_v10 = MAINNET_HARDFORK_V10_HEIGHT;
-  uint64_t h_f_n = MAINNET_HARDFORK_NETWORK;
-  uint64_t s_h_f_n = STAGENET_HARDFORK_NETWORK;  
   auto s_h_f_v10 = STAGENET_HARDFORK_V10_HEIGHT;
   auto s_h_f_seq = s_h_f_v10 + 61;
   auto h_f_seq = h_f_v10 + 61;
