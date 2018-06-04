@@ -793,7 +793,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // STAGENET and MAINNET
   if (m_nettype == STAGENET)
   {
-  if ((uint64_t)bc_h >= MAINNET_HARDFORK_V10_HEIGHT && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
+  if ((uint64_t)bc_h >= 310430 && (uint64_t)bc_h <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
   // Reset network hashrate to 10.0 Hz until STAGENET hardfork v10 comes
     return (difficulty_type) 10000; 
   }    
