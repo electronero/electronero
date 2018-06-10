@@ -86,18 +86,64 @@ namespace cryptonote {
     return CRYPTONOTE_MAX_TX_SIZE;
   }
   //-----------------------------------------------------------------------------------------------
-  bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version) {
+  bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     const int target = version < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1);
-
-    uint64_t base_reward = (MONEY_SUPPLY - already_generated_coins) >> emission_speed_factor;
-    if (base_reward < FINAL_SUBSIDY_PER_MINUTE*target_minutes)
-    {
-      base_reward = FINAL_SUBSIDY_PER_MINUTE*target_minutes;
+    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
+    const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2);
+    uint64_t emission_speed = version < 7 ? emission_speed_factor : version >= 10 ? emission_speed_factor_v3 : emission_speed_factor_v2;
+    uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    
+    const uint64_t premine = 1260000000000U;
+    if (height == 1 && already_generated_coins < premine) {
+      reward = premine;
+      return true;
     }
-
+    const uint64_t airdrop = premine;
+    if (height == 307003 || height == 310790) {
+      reward = airdrop;
+      return true;
+    }
+    uint64_t round_factor = 10; // 1 * pow(10, 1)
+    if (version >= 7 && height > 307003)
+    {
+      if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
+        uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
+        double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
+        base_reward = ((uint64_t)(TOKEN_SUPPLY * money_supply_pct)) >> emission_speed;
+      }
+      else{
+        base_reward = ((uint64_t)(TOKEN_SUPPLY - already_generated_coins)) >> emission_speed;
+      }
+    }
+    else
+    {
+      // do something
+      base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed;
+    }
+    
+   const uint64_t FINITE_SUBSIDY = 100U;
+   if (base_reward < FINITE_SUBSIDY){
+     if (MONEY_SUPPLY > already_generated_coins){
+       base_reward = FINAL_SUBSIDY_PER_MINUTE;
+     }
+     else{
+       base_reward = FINITE_SUBSIDY/2;
+     }
+   }
+    
+    // rounding (floor) base reward
+    if (version > 7)
+    {
+    base_reward = base_reward / round_factor * round_factor;
+    }
+    if (version < 2) 
+    {
+     base_reward = (MONEY_SUPPLY_ETN - already_generated_coins) >> emission_speed;
+    }
     uint64_t full_reward_zone = get_min_block_size(version);
 
     //make it soft

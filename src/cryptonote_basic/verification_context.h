@@ -41,6 +41,7 @@ namespace cryptonote
     bool m_verifivation_impossible; //the transaction is related with an alternative blockchain
     bool m_added_to_pool; 
     bool m_low_mixin;
+    bool m_high_mixin;
     bool m_double_spend;
     bool m_invalid_input;
     bool m_invalid_output;

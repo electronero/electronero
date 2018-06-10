@@ -110,20 +110,19 @@ using namespace cryptonote;
 
 #define MULTISIG_EXPORT_FILE_MAGIC "Monero multisig export\001"
 
-#define SEGREGATION_FORK_HEIGHT 1546000
+#define SEGREGATION_FORK_VICINITY 10000
+#define SEGREGATION_FORK_HEIGHT 1000000
 #define TESTNET_SEGREGATION_FORK_HEIGHT 1000000
 #define STAGENET_SEGREGATION_FORK_HEIGHT 1000000
-#define SEGREGATION_FORK_VICINITY 1500 /* blocks */
-
 
 namespace
 {
   std::string get_default_ringdb_path()
   {
     boost::filesystem::path dir = tools::get_default_data_dir();
-    // remove .bitmonero, replace with .shared-ringdb
+    // remove .electronero, and replace .shared-ringdb with .ringdb in config 
     dir = dir.remove_filename();
-    dir /= ".shared-ringdb";
+    dir /= CRYPTONOTE_RINGDB_DIR; // CRYPTONOTE_RINGDB_DIR is in config
     return dir.string();
   }
 }
@@ -532,7 +531,9 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
 
   // vout
   size += n_outputs * (6+32);
-
+ 
+  if (!bulletproof)
+    extra_size = 40;
   // extra
   size += extra_size;
 
@@ -562,7 +563,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
   // txnFee
   size += 4;
 
-  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin+1) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
+  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
   return size;
 }
 
@@ -4008,24 +4009,12 @@ void wallet2::store_to(const std::string &path, const epee::wipeable_string &pas
     }
   } else {
     // save to new file
-#ifdef WIN32
-    // On Windows avoid using std::ofstream which does not work with UTF-8 filenames
-    // The price to pay is temporary higher memory consumption for string stream + binary archive
-    std::ostringstream oss;
-    binary_archive<true> oar(oss);
-    bool success = ::serialization::serialize(oar, cache_file_data);
-    if (success) {
-        success = epee::file_io_utils::save_string_to_file(new_file, oss.str());
-    }
-    THROW_WALLET_EXCEPTION_IF(!success, error::file_save_error, new_file);
-#else
     std::ofstream ostr;
     ostr.open(new_file, std::ios_base::binary | std::ios_base::out | std::ios_base::trunc);
     binary_archive<true> oar(ostr);
     bool success = ::serialization::serialize(oar, cache_file_data);
     ostr.close();
     THROW_WALLET_EXCEPTION_IF(!success || !ostr.good(), error::file_save_error, new_file);
-#endif
 
     // here we have "*.new" file, we need to rename it to be without ".new"
     std::error_code e = tools::replace_file(new_file, m_wallet_file);
@@ -5258,7 +5247,8 @@ uint64_t wallet2::get_fee_multiplier(uint32_t priority, int fee_algorithm) const
   static const uint64_t old_multipliers[3] = {1, 2, 3};
   static const uint64_t new_multipliers[3] = {1, 20, 166};
   static const uint64_t newer_multipliers[4] = {1, 4, 20, 166};
-
+  static const uint64_t etnx_multipliers[4] = {1, 2, 4, 8};
+	
   if (fee_algorithm == -1)
     fee_algorithm = get_fee_algorithm();
 
@@ -5282,6 +5272,7 @@ uint64_t wallet2::get_fee_multiplier(uint32_t priority, int fee_algorithm) const
       case 0: return old_multipliers[priority-1];
       case 1: return new_multipliers[priority-1];
       case 2: return newer_multipliers[priority-1];
+      case 3: return etnx_multipliers[priority-1];
       default: THROW_WALLET_EXCEPTION_IF (true, error::invalid_priority);
     }
   }
@@ -5313,27 +5304,29 @@ uint64_t wallet2::get_per_kb_fee() const
 //----------------------------------------------------------------------------------------------------
 int wallet2::get_fee_algorithm() const
 {
-  // changes at v3 and v5
-  if (use_fork_rules(5, 0))
+  // changes at v8, v10, and 14 days before v11
+  if(use_fork_rules(11, -720 * 14))
+    return 3;
+  if (use_fork_rules(10, 10))
     return 2;
-  if (use_fork_rules(3, -720 * 14))
+  if (use_fork_rules(8, 10))
    return 1;
   return 0;
 }
 //------------------------------------------------------------------------------------------------------------------------------
 uint64_t wallet2::adjust_mixin(uint64_t mixin) const
 {
-  if (mixin < 6 && use_fork_rules(7, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 7, using 7");
-    mixin = 6;
+  if (mixin > 100 && use_fork_rules(8, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 8, readjusting mixin to 100");
+    mixin = 99;
   }
-  else if (mixin < 4 && use_fork_rules(6, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 6, using 5");
-    mixin = 4;
+  else if (mixin > 100 && use_fork_rules(7, 10)) {
+    MWARNING("Requested ring size " << (mixin + 1) << " too high for hard fork 7, readjusting mixin to 100");
+    mixin = 99;
   }
-  else if (mixin < 2 && use_fork_rules(2, 10)) {
-    MWARNING("Requested ring size " << (mixin + 1) << " too low for hard fork 2, using 3");
-    mixin = 2;
+  else if (mixin < 1) {
+    MWARNING("Requested ring size " << (mixin + 1) << " readjusting mixin to 1");
+    mixin = 0;
   }
   return mixin;
 }
@@ -5880,7 +5873,10 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
     throw_on_rpc_response_error(result, "get_info");
     bool is_shortly_after_segregation_fork = height >= segregation_fork_height && height < segregation_fork_height + SEGREGATION_FORK_VICINITY;
     bool is_after_segregation_fork = height >= segregation_fork_height;
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/release-v0.12
     // get histogram for the amounts we need
     cryptonote::COMMAND_RPC_GET_OUTPUT_HISTOGRAM::request req_t = AUTO_VAL_INIT(req_t);
     cryptonote::COMMAND_RPC_GET_OUTPUT_HISTOGRAM::response resp_t = AUTO_VAL_INIT(resp_t);
@@ -5909,11 +5905,21 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
       std::sort(req_t.amounts.begin(), req_t.amounts.end());
       auto end = std::unique(req_t.amounts.begin(), req_t.amounts.end());
       req_t.amounts.resize(std::distance(req_t.amounts.begin(), end));
+<<<<<<< HEAD
+      // set from_height of GET_OUTPUT_DISTRIBUTION correctly
+      // req_t.from_height = segregation_fork_height >= RECENT_OUTPUT_ZONE ? height >= (segregation_fork_height ? segregation_fork_height : height) - RECENT_OUTPUT_BLOCKS : 0;
+      req_t.from_height = std::max<uint64_t>(segregation_fork_height, RECENT_OUTPUT_BLOCKS) - RECENT_OUTPUT_BLOCKS;
+      req_t.to_height = segregation_fork_height + 10000;
+      req_t.cumulative = true;
+      m_daemon_rpc_mutex.lock();
+      bool r = net_utils::invoke_http_json_rpc("/json_rpc", "get_output_distribution", req_t, resp_t, m_http_client, rpc_timeout * 210);
+=======
       req_t.from_height = std::max<uint64_t>(segregation_fork_height, RECENT_OUTPUT_BLOCKS) - RECENT_OUTPUT_BLOCKS;
       req_t.to_height = segregation_fork_height + 1;
       req_t.cumulative = true;
       m_daemon_rpc_mutex.lock();
       bool r = net_utils::invoke_http_json_rpc("/json_rpc", "get_output_distribution", req_t, resp_t, m_http_client, rpc_timeout * 1000);
+>>>>>>> origin/release-v0.12
       m_daemon_rpc_mutex.unlock();
       THROW_WALLET_EXCEPTION_IF(!r, error::no_connection_to_daemon, "transfer_selected");
       THROW_WALLET_EXCEPTION_IF(resp_t.status == CORE_RPC_STATUS_BUSY, error::daemon_busy, "get_output_distribution");
@@ -5930,7 +5936,11 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
           {
             THROW_WALLET_EXCEPTION_IF(d.start_height > segregation_fork_height, error::get_output_distribution, "Distribution start_height too high");
             THROW_WALLET_EXCEPTION_IF(segregation_fork_height - d.start_height >= d.distribution.size(), error::get_output_distribution, "Distribution size too small");
+<<<<<<< HEAD
+	    THROW_WALLET_EXCEPTION_IF(segregation_fork_height - RECENT_OUTPUT_BLOCKS - d.start_height >= d.distribution.size(), error::get_output_distribution, "Distribution size too small");
+=======
             THROW_WALLET_EXCEPTION_IF(segregation_fork_height - RECENT_OUTPUT_BLOCKS - d.start_height >= d.distribution.size(), error::get_output_distribution, "Distribution size too small");
+>>>>>>> origin/release-v0.12
             THROW_WALLET_EXCEPTION_IF(segregation_fork_height <= RECENT_OUTPUT_BLOCKS, error::wallet_internal_error, "Fork height too low");
             THROW_WALLET_EXCEPTION_IF(segregation_fork_height - RECENT_OUTPUT_BLOCKS < d.start_height, error::get_output_distribution, "Bad start height");
             uint64_t till_fork = d.distribution[segregation_fork_height - d.start_height];
@@ -8201,18 +8211,28 @@ const wallet2::transfer_details &wallet2::get_transfer_details(size_t idx) const
 std::vector<size_t> wallet2::select_available_unmixable_outputs(bool trusted_daemon)
 {
   // request all outputs with less than 3 instances
+<<<<<<< HEAD
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN  : 2; // v7 increases min mixin from 2 to MIN_MIXIN 
+  return select_available_outputs_from_histogram(min_mixin, false, true, true, trusted_daemon);
+=======
   const size_t min_mixin = use_fork_rules(7, 10) ? 6 : use_fork_rules(6, 10) ? 4 : 2; // v6 increases min mixin from 2 to 4, v7 to 6
   return select_available_outputs_from_histogram(min_mixin + 1, false, true, false, trusted_daemon);
+>>>>>>> origin/release-v0.12
 }
 //----------------------------------------------------------------------------------------------------
 std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemon)
 {
   // request all outputs with at least 3 instances, so we can use mixin 2 with
+<<<<<<< HEAD
+  const size_t min_mixin = use_fork_rules(7, 10) ? MIN_MIXIN  : 2; // v7 increases min mixin from 2 to MIN_MIXIN 
+  return select_available_outputs_from_histogram(min_mixin, true, true, true, trusted_daemon);
+=======
   const size_t min_mixin = use_fork_rules(7, 10) ? 6 : use_fork_rules(6, 10) ? 4 : 2; // v6 increases min mixin from 2 to 4, v7 to 6
   return select_available_outputs_from_histogram(min_mixin + 1, true, true, true, trusted_daemon);
+>>>>>>> origin/release-v0.12
 }
 //----------------------------------------------------------------------------------------------------
-std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
+std::vector<wallet2::pending_tx> wallet2::create_mixable_or_unmixable_sweep_transactions(bool trusted_daemon, bool mixable)
 {
   // From hard fork 1, we don't consider small amounts to be dust anymore
   const bool hf1_rules = use_fork_rules(2, 10); // first hard fork has version 2
@@ -8221,8 +8241,9 @@ std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bo
   const uint64_t fee_per_kb  = get_per_kb_fee();
 
   // may throw
-  std::vector<size_t> unmixable_outputs = select_available_unmixable_outputs(trusted_daemon);
-  size_t num_dust_outputs = unmixable_outputs.size();
+  std::vector<size_t> outputs = mixable ? select_available_mixable_outputs(trusted_daemon)
+                                        : select_available_unmixable_outputs(trusted_daemon);
+  size_t num_dust_outputs = outputs.size();
 
   if (num_dust_outputs == 0)
   {
@@ -8230,18 +8251,27 @@ std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bo
   }
 
   // split in "dust" and "non dust" to make it easier to select outputs
-  std::vector<size_t> unmixable_transfer_outputs, unmixable_dust_outputs;
-  for (auto n: unmixable_outputs)
+  std::vector<size_t> transfer_outputs, dust_outputs;
+  for (auto n: outputs)
   {
     if (m_transfers[n].amount() < fee_per_kb)
-      unmixable_dust_outputs.push_back(n);
+      dust_outputs.push_back(n);
     else
-      unmixable_transfer_outputs.push_back(n);
+      transfer_outputs.push_back(n);
   }
 
-  return create_transactions_from(m_account_public_address, false, unmixable_transfer_outputs, unmixable_dust_outputs, 0 /*fake_outs_count */, 0 /* unlock_time */, 1 /*priority */, std::vector<uint8_t>(), trusted_daemon);
+  return create_transactions_from(m_account_public_address, false, transfer_outputs, dust_outputs, 0 /*fake_outs_count */, 0 /* unlock_time */, 1 /*priority */, std::vector<uint8_t>(), trusted_daemon);
 }
-
+//----------------------------------------------------------------------------------------------------
+std::vector<wallet2::pending_tx> wallet2::create_mixable_sweep_transactions(bool trusted_daemon)
+{
+  return create_mixable_or_unmixable_sweep_transactions(trusted_daemon, true);
+}
+//----------------------------------------------------------------------------------------------------
+std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
+{
+  return create_mixable_or_unmixable_sweep_transactions(trusted_daemon, false);
+}
 bool wallet2::get_tx_key(const crypto::hash &txid, crypto::secret_key &tx_key, std::vector<crypto::secret_key> &additional_tx_keys) const
 {
   additional_tx_keys.clear();
@@ -9145,15 +9175,15 @@ uint64_t wallet2::get_daemon_blockchain_target_height(string &err)
 uint64_t wallet2::get_approximate_blockchain_height() const
 {
   // time of v2 fork
-  const time_t fork_time = m_nettype == TESTNET ? 1448285909 : m_nettype == STAGENET ? (time_t)-1/*TODO*/ : 1458748658;
+  const time_t fork_time = m_nettype == TESTNET ? 1526030997 : m_nettype == STAGENET ? (time_t)-1/*TODO*/ : 1527643352;
   // v2 fork block
-  const uint64_t fork_block = m_nettype == TESTNET ? 624634 : m_nettype == STAGENET ? (uint64_t)-1/*TODO*/ : 1009827;
+  const uint64_t fork_block = m_nettype == TESTNET ? 57 : m_nettype == STAGENET ? (uint64_t)-1/*TODO*/ : 307000;
   // avg seconds per block
   const int seconds_per_block = DIFFICULTY_TARGET_V2;
   // Calculated blockchain height
   uint64_t approx_blockchain_height = fork_block + (time(NULL) - fork_time)/seconds_per_block;
   // testnet got some huge rollbacks, so the estimation is way off
-  static const uint64_t approximate_testnet_rolled_back_blocks = 148540;
+  static const uint64_t approximate_testnet_rolled_back_blocks = 540;
   if (m_nettype == TESTNET && approx_blockchain_height > approximate_testnet_rolled_back_blocks)
     approx_blockchain_height -= approximate_testnet_rolled_back_blocks;
   LOG_PRINT_L2("Calculated blockchain height: " << approx_blockchain_height);
@@ -10458,10 +10488,10 @@ uint64_t wallet2::get_segregation_fork_height() const
   {
     // All four MoneroPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
-        "segheights.moneropulse.org",
-        "segheights.moneropulse.net",
-        "segheights.moneropulse.co",
-        "segheights.moneropulse.se"
+        "segheights.electroneropulse.org",
+        "segheights.electroneropulse.net",
+        "segheights.electroneropulse.com",
+        "segheights.electroneropulse.info"
     };
 
     const uint64_t current_height = get_blockchain_current_height();

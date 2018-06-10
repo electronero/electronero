@@ -57,8 +57,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "net.p2p"
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
-
-#define MIN_WANTED_SEED_NODES 12
+#define MIN_WANTED_SEED_NODES 6
 
 namespace nodetool
 {
@@ -371,27 +370,28 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (nettype == cryptonote::TESTNET)
     {
-      full_addrs.insert("212.83.175.67:28080");
-      full_addrs.insert("5.9.100.248:28080");
-      full_addrs.insert("163.172.182.165:28080");
-      full_addrs.insert("195.154.123.123:28080");
-      full_addrs.insert("212.83.172.165:28080");
+      full_addrs.insert("159.203.28.200:11111");
     }
     else if (nettype == cryptonote::STAGENET)
     {
-      full_addrs.insert("162.210.173.150:38080");
-      full_addrs.insert("162.210.173.151:38080");
+      full_addrs.insert("159.203.28.200:12080");
+      full_addrs.insert("128.199.85.61:12080");
+      full_addrs.insert("46.101.40.29:12080");
+      full_addrs.insert("46.101.76.70:12080");
+      full_addrs.insert("104.236.175.63:12080");
+      full_addrs.insert("165.227.189.226:12080");
     }
     else
-    {
-      full_addrs.insert("107.152.130.98:18080");
-      full_addrs.insert("212.83.175.67:18080");
-      full_addrs.insert("5.9.100.248:18080");
-      full_addrs.insert("163.172.182.165:18080");
-      full_addrs.insert("161.67.132.39:18080");
-      full_addrs.insert("198.74.231.92:18080");
-      full_addrs.insert("195.154.123.123:18080");
-      full_addrs.insert("212.83.172.165:18080");
+    { 
+      full_addrs.insert("159.203.28.200:12089");
+      full_addrs.insert("128.199.85.61:12089");
+      full_addrs.insert("46.101.40.29:12089");
+      full_addrs.insert("46.101.76.70:12089");
+      full_addrs.insert("104.236.175.63:12089");
+      full_addrs.insert("165.227.189.226:12089");
+      full_addrs.insert("138.68.175.185:12089");
+      full_addrs.insert("167.99.228.39:12089");
+      full_addrs.insert("144.202.59.175:12089");
     }
     return full_addrs;
   }
