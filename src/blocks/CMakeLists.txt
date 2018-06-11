@@ -36,4 +36,3 @@ else()
     add_library(blocks STATIC blocks.o testnet_blocks.o stagenet_blocks.o blockexports.c)
     set_target_properties(blocks PROPERTIES LINKER_LANGUAGE C)
 endif()
-

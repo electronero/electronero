@@ -3299,7 +3299,7 @@ void BlockchainLMDB::fixup()
   // Always call parent as well
   BlockchainDB::fixup();
 }
-
+	
 #define RENAME_DB(name) \
     k.mv_data = (void *)name; \
     k.mv_size = sizeof(name)-1; \
