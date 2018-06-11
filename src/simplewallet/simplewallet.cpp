@@ -2,7 +2,7 @@
 // 
 // All rights reserved.
 // 
-// Redistribution and use in source and binary formunit", set_units, with or without modification, are
+// Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
 // 
 // 1. Redistributions of source code must retain the above copyright notice, this list of
@@ -62,7 +62,13 @@
 #include "ringct/rctSigs.h"
 #include "multisig/multisig.h"
 #include "wallet/wallet_args.h"
+#include "version.h"
 #include <stdexcept>
+
+#ifdef WIN32
+#include <boost/locale.hpp>
+#include <boost/filesystem.hpp>
+#endif
 
 #ifdef HAVE_READLINE
 #include "readline_buffer.h"
@@ -131,7 +137,27 @@ namespace
   const command_line::arg_descriptor<bool> arg_use_english_language_names = {"use-english-language-names", sw::tr("Display English language names"), false};
 
   const command_line::arg_descriptor< std::vector<std::string> > arg_command = {"command", ""};
-
+#ifdef WIN32	
+  // Translate from CP850 to UTF8;	
+  // std::getline for a Windows console returns a string in CP437 or CP850; as simplewallet,	
+  // like all of Monero, is assumed to work internally with UTF8 throughout, even on Windows	
+  // (although only implemented partially), a translation to UTF8 is needed for input.	
+  //	
+  // Note that if a program is started inside the MSYS2 shell somebody already translates	
+  // console input to UTF8, but it's not clear how one could detect that in order to avoid	
+  // doubletranslation; this code here thus breaks UTF8 input within a MSYS2 shell,	
+  // unfortunately.	
+  //	
+  // Note also that input for passwords is NOT translated, to remain compatible with any	
+  // passwords containing special characters that predate this switch to UTF8 support.	
+  static std::string cp850_to_utf8(const std::string &cp850_str)	
+  {	
+    boost::locale::generator gen;	
+    gen.locale_cache_enabled(true);	
+    std::locale loc = gen("en_US.CP850");	
+    return boost::locale::conv::to_utf<char>(cp850_str, loc);	
+  }	
+#endif
   std::string input_line(const std::string& prompt)
   {
 #ifdef HAVE_READLINE
@@ -141,7 +167,9 @@ namespace
 
     std::string buf;
     std::getline(std::cin, buf);
-
+#ifdef WIN32	
+    buf = cp850_to_utf8(buf);
+#endif
     return epee::string_tools::trim(buf);
   }
 
@@ -726,7 +754,7 @@ bool simple_wallet::print_fee_info(const std::vector<std::string> &args/* = std:
   }
   const uint64_t per_kb_fee = m_wallet->get_per_kb_fee();
   const uint64_t typical_size_kb = 13;
-  message_writer() << (boost::format(tr("Current fee is %s ETNX per kB")) % print_money(per_kb_fee)).str();
+  message_writer() << (boost::format(tr("Current fee is %s %s per kB")) % print_money(per_kb_fee) % cryptonote::get_unit(cryptonote::get_default_decimal_point())).str();
 
   std::vector<uint64_t> fees;
   for (uint32_t priority = 1; priority <= 4; ++priority)
@@ -1551,7 +1579,11 @@ bool simple_wallet::save_known_rings(const std::vector<std::string> &args)
   }
   return true;
 }
-
+bool simple_wallet::version(const std::vector<std::string> &args)		
+{		
+  message_writer() << "Electronero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";		
+  return true;		
+}
 bool simple_wallet::set_always_confirm_transfers(const std::vector<std::string> &args/* = std::vector<std::string>()*/)
 {
   const auto pwd_container = get_and_verify_password();
@@ -2034,10 +2066,10 @@ simple_wallet::simple_wallet()
   m_cmd_binder.set_handler("donate",
                            boost::bind(&simple_wallet::donate, this, _1),
                            tr("donate [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <amount> [<payment_id>]"),
-                           tr("Donate <amount> to the development team (donate.electronero.io)."));
+                           tr("Donate <amount> to the Electronero development team (donate.electronero.org)."));
   m_cmd_binder.set_handler("sign_transfer",
                            boost::bind(&simple_wallet::sign_transfer, this, _1),
-                           tr("sign_transfer <file>"),
+                           tr("sign_transfer [export]"),
                            tr("Sign a transaction from a <file>."));
   m_cmd_binder.set_handler("submit_transfer",
                            boost::bind(&simple_wallet::submit_transfer, this, _1),
@@ -2298,6 +2330,10 @@ simple_wallet::simple_wallet()
                            boost::bind(&simple_wallet::blackballed, this, _1),
                            tr("blackballed <output public key>"),
                            tr("Checks whether an output is blackballed"));
+  m_cmd_binder.set_handler("version",		
+	                   boost::bind(&simple_wallet::version, this, _1),		
+	                   tr("version"),		
+	                   tr("Returns version information"));
   m_cmd_binder.set_handler("help",
                            boost::bind(&simple_wallet::help, this, _1),
                            tr("help [<command>]"),
@@ -2315,7 +2351,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     success_msg_writer() << "always-confirm-transfers = " << m_wallet->always_confirm_transfers();
     success_msg_writer() << "print-ring-members = " << m_wallet->print_ring_members();
     success_msg_writer() << "store-tx-info = " << m_wallet->store_tx_info();
-    success_msg_writer() << "default-ring-size = " << m_wallet->default_mixin();
+    success_msg_writer() << "default-ring-size = " << (m_wallet->default_mixin() ? m_wallet->default_mixin() : 1);
     success_msg_writer() << "auto-refresh = " << m_wallet->auto_refresh();
     success_msg_writer() << "refresh-type = " << get_refresh_type_name(m_wallet->get_refresh_type());
     success_msg_writer() << "priority = " << m_wallet->get_default_priority();
@@ -2376,7 +2412,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     CHECK_SIMPLE_VARIABLE("priority", set_default_priority, tr("0, 1, 2, 3, or 4"));
     CHECK_SIMPLE_VARIABLE("confirm-missing-payment-id", set_confirm_missing_payment_id, tr("0 or 1"));
     CHECK_SIMPLE_VARIABLE("ask-password", set_ask_password, tr("0 or 1"));
-    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("electronero, ghost, vanta, krypton"));
+    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("electronero, ecent"));
     CHECK_SIMPLE_VARIABLE("min-outputs-count", set_min_output_count, tr("unsigned integer"));
     CHECK_SIMPLE_VARIABLE("min-outputs-value", set_min_output_value, tr("amount"));
     CHECK_SIMPLE_VARIABLE("merge-destinations", set_merge_destinations, tr("0 or 1"));
@@ -4682,16 +4718,28 @@ bool simple_wallet::sweep_unmixable(const std::vector<std::string> &args_)
     }
 
     // actually commit the transactions
-    if (m_wallet->watch_only())
+    if (m_wallet->multisig())
     {
-      bool r = m_wallet->save_tx(ptx_vector, "unsigned_elctronero_tx");
+      bool r = m_wallet->save_multisig_tx(ptx_vector, "multisig_electronero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
       }
       else
       {
-        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_elctronero_tx";
+        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "multisig_electronero_tx";
+      }
+    }
+    else if (m_wallet->watch_only())
+    {
+      bool r = m_wallet->save_tx(ptx_vector, "unsigned_electronero_tx");
+      if (!r)
+      {
+        fail_msg_writer() << tr("Failed to write transaction(s) to file");
+      }
+      else
+      {
+        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_electronero_tx";
       }
     }
     else while (!ptx_vector.empty())
@@ -4993,7 +5041,7 @@ bool simple_wallet::sweep_main(uint64_t below, const std::vector<std::string> &a
     }
     else if (m_wallet->watch_only())
     {
-      bool r = m_wallet->save_tx(ptx_vector, "unsigned_monero_tx");
+      bool r = m_wallet->save_tx(ptx_vector, "unsigned_electronero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
@@ -5178,26 +5226,26 @@ bool simple_wallet::sweep_single(const std::vector<std::string> &args_)
     // actually commit the transactions
     if (m_wallet->multisig())
     {
-      bool r = m_wallet->save_multisig_tx(ptx_vector, "multisig_monero_tx");
+      bool r = m_wallet->save_multisig_tx(ptx_vector, "multisig_electronero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
       }
       else
       {
-        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "multisig_monero_tx";
+        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "multisig_electronero_tx";
       }
     }
     else if (m_wallet->watch_only())
     {
-      bool r = m_wallet->save_tx(ptx_vector, "unsigned_monero_tx");
+      bool r = m_wallet->save_tx(ptx_vector, "unsigned_electronero_tx");
       if (!r)
       {
         fail_msg_writer() << tr("Failed to write transaction(s) to file");
       }
       else
       {
-        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_monero_tx";
+        success_msg_writer(true) << tr("Unsigned transaction(s) successfully written to file: ") << "unsigned_electronero_tx";
       }
     }
     else
@@ -7464,6 +7512,11 @@ void simple_wallet::commit_or_save(std::vector<tools::wallet2::pending_tx>& ptx_
 //----------------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
+#ifdef WIN32
+  // Activate UTF-8 support for Boost filesystem classes on Windows
+  std::locale::global(boost::locale::generator().generate(""));
+  boost::filesystem::path::imbue(std::locale());
+#endif
   po::options_description desc_params(wallet_args::tr("Wallet options"));
   tools::wallet2::init_options(desc_params);
   command_line::add_arg(desc_params, arg_wallet_file);
