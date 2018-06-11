@@ -563,7 +563,7 @@ size_t estimate_rct_tx_size(int n_inputs, int mixin, int n_outputs, size_t extra
   // txnFee
   size += 4;
 
-  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
+  LOG_PRINT_L2("estimated rct tx size for " << n_inputs << " with ring size " << (mixin+1) << " and " << n_outputs << ": " << size << " (" << ((32 * n_inputs/*+1*/) + 2 * 32 * (mixin+1) * n_inputs + 32 * n_outputs) << " saved)");
   return size;
 }
 
@@ -4009,13 +4009,24 @@ void wallet2::store_to(const std::string &path, const epee::wipeable_string &pas
     }
   } else {
     // save to new file
+#ifdef WIN32
+    // On Windows avoid using std::ofstream which does not work with UTF-8 filenames
+    // The price to pay is temporary higher memory consumption for string stream + binary archive
+    std::ostringstream oss;
+    binary_archive<true> oar(oss);
+    bool success = ::serialization::serialize(oar, cache_file_data);
+    if (success) {
+        success = epee::file_io_utils::save_string_to_file(new_file, oss.str());
+    }
+    THROW_WALLET_EXCEPTION_IF(!success, error::file_save_error, new_file);
+#else
     std::ofstream ostr;
     ostr.open(new_file, std::ios_base::binary | std::ios_base::out | std::ios_base::trunc);
     binary_archive<true> oar(ostr);
     bool success = ::serialization::serialize(oar, cache_file_data);
     ostr.close();
     THROW_WALLET_EXCEPTION_IF(!success || !ostr.good(), error::file_save_error, new_file);
-
+#endif
     // here we have "*.new" file, we need to rename it to be without ".new"
     std::error_code e = tools::replace_file(new_file, m_wallet_file);
     THROW_WALLET_EXCEPTION_IF(e, error::file_save_error, m_wallet_file, e);
@@ -6301,7 +6312,8 @@ void wallet2::get_outs(std::vector<std::vector<tools::wallet2::get_outs_entry>> 
   }
 }
 
-template<typename T>void wallet2::transfer_selected(const std::vector<cryptonote::tx_destination_entry>& dsts, const std::vector<size_t>& selected_transfers, size_t fake_outputs_count,
+template<typename T>
+void wallet2::transfer_selected(const std::vector<cryptonote::tx_destination_entry>& dsts, const std::vector<size_t>& selected_transfers, size_t fake_outputs_count,
   std::vector<std::vector<tools::wallet2::get_outs_entry>> &outs,
   uint64_t unlock_time, uint64_t fee, const std::vector<uint8_t>& extra, T destination_split_strategy, const tx_dust_policy& dust_policy, cryptonote::transaction& tx, pending_tx &ptx)
 {
@@ -8204,18 +8216,17 @@ std::vector<size_t> wallet2::select_available_mixable_outputs(bool trusted_daemo
   return select_available_outputs_from_histogram(min_mixin, true, true, true, trusted_daemon);
 }
 //----------------------------------------------------------------------------------------------------
-std::vector<wallet2::pending_tx> wallet2::create_mixable_or_unmixable_sweep_transactions(bool trusted_daemon, bool mixable)
+std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
 {
   // From hard fork 1, we don't consider small amounts to be dust anymore
-  const bool hf1_rules = use_fork_rules(2, 10); // first hard fork has version 2
+  const bool hf1_rules = use_fork_rules(10, 10); // first hard fork has version 2
   tx_dust_policy dust_policy(hf1_rules ? 0 : ::config::DEFAULT_DUST_THRESHOLD);
 
   const uint64_t fee_per_kb  = get_per_kb_fee();
 
   // may throw
-  std::vector<size_t> outputs = mixable ? select_available_mixable_outputs(trusted_daemon)
-                                        : select_available_unmixable_outputs(trusted_daemon);
-  size_t num_dust_outputs = outputs.size();
+  std::vector<size_t> unmixable_outputs = select_available_unmixable_outputs(trusted_daemon);
+  size_t num_dust_outputs = unmixable_outputs.size();
 
   if (num_dust_outputs == 0)
   {
@@ -8223,27 +8234,18 @@ std::vector<wallet2::pending_tx> wallet2::create_mixable_or_unmixable_sweep_tran
   }
 
   // split in "dust" and "non dust" to make it easier to select outputs
-  std::vector<size_t> transfer_outputs, dust_outputs;
-  for (auto n: outputs)
+  std::vector<size_t> unmixable_transfer_outputs, unmixable_dust_outputs;
+  for (auto n: unmixable_outputs)
   {
     if (m_transfers[n].amount() < fee_per_kb)
-      dust_outputs.push_back(n);
+      unmixable_dust_outputs.push_back(n);
     else
-      transfer_outputs.push_back(n);
+      unmixable_transfer_outputs.push_back(n);
   }
 
-  return create_transactions_from(m_account_public_address, false, transfer_outputs, dust_outputs, 0 /*fake_outs_count */, 0 /* unlock_time */, 1 /*priority */, std::vector<uint8_t>(), trusted_daemon);
+  return create_transactions_from(m_account_public_address, false, unmixable_transfer_outputs, unmixable_dust_outputs, 0 /*fake_outs_count */, 0 /* unlock_time */, 1 /*priority */, std::vector<uint8_t>(), trusted_daemon);
 }
-//----------------------------------------------------------------------------------------------------
-std::vector<wallet2::pending_tx> wallet2::create_mixable_sweep_transactions(bool trusted_daemon)
-{
-  return create_mixable_or_unmixable_sweep_transactions(trusted_daemon, true);
-}
-//----------------------------------------------------------------------------------------------------
-std::vector<wallet2::pending_tx> wallet2::create_unmixable_sweep_transactions(bool trusted_daemon)
-{
-  return create_mixable_or_unmixable_sweep_transactions(trusted_daemon, false);
-}
+
 bool wallet2::get_tx_key(const crypto::hash &txid, crypto::secret_key &tx_key, std::vector<crypto::secret_key> &additional_tx_keys) const
 {
   additional_tx_keys.clear();
