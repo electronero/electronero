@@ -49,16 +49,9 @@
 #include "storages/levin_abstract_invoke2.h"
 #include "cryptonote_core/cryptonote_core.h"
 
-// We have to look for miniupnpc headers in different places, dependent on if its compiled or external
-#ifdef UPNP_STATIC
-  #include <miniupnpc/miniupnpc.h>
-  #include <miniupnpc/upnpcommands.h>
-  #include <miniupnpc/upnperrors.h>
-#else
-  #include "miniupnpc.h"
-  #include "upnpcommands.h"
-  #include "upnperrors.h"
-#endif
+#include <miniupnp/miniupnpc/miniupnpc.h>
+#include <miniupnp/miniupnpc/upnpcommands.h>
+#include <miniupnp/miniupnpc/upnperrors.h>
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "net.p2p"
@@ -399,12 +392,6 @@ namespace nodetool
       full_addrs.insert("138.68.175.185:12089");
       full_addrs.insert("167.99.228.39:12089");
       full_addrs.insert("144.202.59.175:12089");
-      full_addrs.insert("45.77.238.34:12089");
-      full_addrs.insert("209.97.136.202:12089");
-      full_addrs.insert("108.249.146.109:12089");
-      full_addrs.insert("173.254.207.155:12089");
-      full_addrs.insert("172.24.1.165:12089");
-
     }
     return full_addrs;
   }
@@ -496,7 +483,7 @@ namespace nodetool
         if (result.size())
         {
           for (const auto& addr_string : result)
-            full_addrs.insert(addr_string + ":12089");
+            full_addrs.insert(addr_string + ":" + std::to_string(m_nettype == cryptonote::TESTNET ? ::config::testnet::P2P_DEFAULT_PORT : m_nettype == cryptonote::STAGENET ? ::config::stagenet::P2P_DEFAULT_PORT : ::config::P2P_DEFAULT_PORT));
         }
         ++i;
       }
