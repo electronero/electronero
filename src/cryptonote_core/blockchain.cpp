@@ -1542,8 +1542,8 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     crypto::hash proof_of_work = null_hash;
     get_block_longhash(bei.bl, proof_of_work, bei.height);
     const uint64_t bc_height = m_db->height() - 1;
-    // Always check POW against currnet_diff
-    if (bc_height >= 333000) {  
+    // Always check POW against current_diff 
+    if (bc_height >= 334000) {  
     if(!check_hash(proof_of_work, current_diff))
     {        
       MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
