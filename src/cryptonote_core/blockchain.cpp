@@ -893,13 +893,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     m_difficulties = difficulties;
   }
   size_t target = get_difficulty_target();
-    if (version < 2) {
-    difficulty_type diff = next_difficulty(timestamps, difficulties, target);
-  } else if (version > 2 && version < 9) {
-    difficulty_type diff = next_difficulty_v2(timestamps, difficulties, target);
-  } else {
-    difficulty_type diff = next_difficulty_v3(timestamps, difficulties, target);
-  }
+  difficulty_type diff = version < 2 ? next_difficulty(timestamps, difficulties, target) : version > 2 && version < 9 ? next_difficulty_v2(timestamps, difficulties, target) : next_difficulty_v3(timestamps, difficulties, target);
   m_difficulty_for_next_block_top_hash = top_hash;
   m_difficulty_for_next_block = diff;
   return diff;
