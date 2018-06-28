@@ -66,6 +66,8 @@
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
+#define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)((333690)) // MAINNET v11 hard fork -- 70 blocks difference from 10
+
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -133,6 +135,8 @@ static const struct {
   { 10, MAINNET_HARDFORK_V10_HEIGHT, 0, 1528100874 },
   // version 10 starts from block 310800, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
   { 11, MAINNET_HARDFORK_V11_HEIGHT, 0, 1528100953 },
+  // Version 12 starts from 333690
+  { 12, MAINNET_HARDFORK_V12_HEIGHT, 0, 1530156388 },
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -842,6 +846,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
 	
+
+  if (!m_testnet && (uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2){
+  return (difficulty_type) 10000;
+  }
+
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
