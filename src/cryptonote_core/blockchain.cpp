@@ -850,7 +850,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
 
   {
-  return (difficulty_type) 10000;
+  return (difficulty_type) 72289156;
   }
 
   uint8_t version = get_current_hard_fork_version();
