@@ -909,14 +909,8 @@ namespace cryptonote
   {
     blobdata bd = get_block_hashing_blob(b);
     uint64_t cn_variant; 
-    if (b.major_version < 6) 
-    {
-    cn_variant = 0;
-    }
-    else
-    {
-    cn_variant = 1;
-    }
+    uint64_t fork = b.major_version;
+    cn_variant = fork < 7 ? 0 : fork < 11 ? 1 : 2; 
     crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
     return true;
   }
