@@ -458,11 +458,9 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   // we only need 1
   m_async_pool.create_thread(boost::bind(&boost::asio::io_service::run, &m_async_service));
 /// off for now, until we remake blocks.dat
-// #if defined(PER_BLOCK_CHECKPOINT)
-//   if (m_nettype != FAKECHAIN)
-// 	m_db->set_batch_transactions(true);
-//     load_compiled_in_block_hashes();
-// #endif
+ #if defined(PER_BLOCK_CHECKPOINT)
+     load_compiled_in_block_hashes();
+ #endif
 
   MINFO("Blockchain initialized. last block: " << m_db->height() - 1 << ", " << epee::misc_utils::get_time_interval_string(timestamp_diff) << " time ago, current difficulty: " << get_difficulty_for_next_block());
   m_db->block_txn_stop();
