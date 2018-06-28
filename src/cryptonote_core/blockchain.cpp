@@ -859,8 +859,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // pick DIFFICULTY_BLOCKS_COUNT based on version
   if (version < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else {
+  } else(version < 12) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  } else{
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
 
 
@@ -903,7 +905,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
   uint8_t versionW = get_current_hard_fork_version();
-  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW > 2 && versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : next_difficulty_v3(timestamps, difficulties, target);
+  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW > 2 && versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : next_difficulty_v3(timestamps, difficulties, target) && versionW < 12 ? next_difficulty_v3(timestamps, difficulties, target) : next_difficulty_v4(timestamps, difficulties, target);
   m_difficulty_for_next_block_top_hash = top_hash;
   m_difficulty_for_next_block = diff;
   return diff;
@@ -1415,6 +1417,9 @@ bool Blockchain::create_block_template(block& b, const account_public_address& m
 bool Blockchain::complete_timestamps_vector(uint64_t start_top_height, std::vector<uint64_t>& timestamps)
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
+
+  
+
 
   if(timestamps.size() >= BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW)
     return true;
@@ -3290,6 +3295,8 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
   median_ts = epee::misc_utils::median(timestamps);
+  uint8_t hardfork_version = get_current_hard_fork_version();
+  size_t blockchain_timstamp_check_window = hardfork_version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 
   if(b.timestamp < median_ts)
   {
@@ -3314,9 +3321,13 @@ bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) cons
   uint64_t block_future_time_limit;
   if (version == 1) {
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT;
-  } else {
+  } else if(version < 12){
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2;
+  } else{
+   block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V12;
   }
+
+  size_t blockchain_timstamp_check_window = version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 
   LOG_PRINT_L3("Blockchain::" << __func__);
   if(b.timestamp > get_adjusted_time() + block_future_time_limit)
@@ -3326,7 +3337,7 @@ bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) cons
   }
 
   // if not enough blocks, no proper median yet, return true
-  if(m_db->height() < BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW)
+  if(m_db->height() < blockchain_timestamp_check_window)
   {
     return true;
   }
@@ -3335,7 +3346,7 @@ bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) cons
   auto h = m_db->height();
 
   // need most recent 60 blocks, get index of first of those
-  size_t offset = h - BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW;
+  size_t offset = h - blockchain_timestamp_check_window;
   for(;offset < h; ++offset)
   {
     timestamps.push_back(m_db->get_block_timestamp(offset));
