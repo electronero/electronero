@@ -280,6 +280,10 @@ namespace cryptonote {
 	  	if(next_difficulty < 2000){
 		      return (difficulty_type) 2000;
 		    }
+	  	
+	        if(next_difficulty > 120307799){
+		      return (difficulty_type) 120307799;
+		    }
 
 		    return next_difficulty;
 
