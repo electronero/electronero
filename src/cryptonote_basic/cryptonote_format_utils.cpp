@@ -919,7 +919,6 @@ namespace cryptonote
     else{
     cn_variant = 2;
     }
-    cn_variant = fork < 7 ? 0 : fork < 11 ? 1 : 2;
     crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
     return true;
   }
