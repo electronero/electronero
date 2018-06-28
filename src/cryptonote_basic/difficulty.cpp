@@ -81,7 +81,7 @@ namespace cryptonote {
     uint64_t highResHigh2 = res >> 32;
     uint64_t highResLow2 = res & 0xFFFFFFFF;
 
-    //Addition
+//Addition
 
     uint64_t r = highResLow1 + lowRes2;
     carry = r >> 32;
