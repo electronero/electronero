@@ -32,12 +32,15 @@
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
+#include "include_base_utils.h"
 #include <vector>
 #include <boost/math/special_functions/round.hpp>
 
 #include "common/int-util.h"
 #include "crypto/hash.h"
 #include "cryptonote_config.h"
+#include "misc_language.h"
+#include "warnings.h"
 #include "difficulty.h"
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
@@ -341,7 +344,6 @@ difficulty_type next_difficulty_v4(std::vector<std::uint64_t> timestamps, std::v
     int lastShortTimeInARaw = 0;
 
     int nbLongTsLastNBlocks = 0;
-    bool lastTimeWasLong=false;
 
     if (true) {
         uint64_t previous_max = timestamps[0];
@@ -373,10 +375,7 @@ difficulty_type next_difficulty_v4(std::vector<std::uint64_t> timestamps, std::v
                 }
                 if(timespan >100) {
                     nbLongTsLastNBlocks ++;
-                    lastTimeWasLong = true;
-                } else {
-                    lastTimeWasLong = false;
-                }
+                } 
             }
 
             weighted_timespans += i * timespan;

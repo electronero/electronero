@@ -859,7 +859,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // pick DIFFICULTY_BLOCKS_COUNT based on version
   if (version < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else(version < 12) {
+  } else if(version < 12) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   } else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
@@ -3327,7 +3327,7 @@ bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) cons
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V12;
   }
 
-  size_t blockchain_timstamp_check_window = version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
+  size_t blockchain_timestamp_check_window = version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 
   LOG_PRINT_L3("Blockchain::" << __func__);
   if(b.timestamp > get_adjusted_time() + block_future_time_limit)
