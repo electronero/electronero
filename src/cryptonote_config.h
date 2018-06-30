@@ -45,9 +45,11 @@
 #define CURRENT_BLOCK_MAJOR_VERSION                     1
 #define CURRENT_BLOCK_MINOR_VERSION                     0
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*2
+
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12		          30
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
@@ -86,10 +88,12 @@
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + DIFFICULTY_LAG
 
 #define DIFFICULTY_TARGET_V2                            120  // seconds
-#define DIFFICULTY_WINDOW_V2                            70 
+#define DIFFICULTY_WINDOW_V2                            70
 #define DIFFICULTY_BLOCKS_COUNT_V2                      DIFFICULTY_WINDOW_V2
+#define DIFFICULTY_WINDOW_V12                            90
+#define DIFFICULTY_BLOCKS_COUNT_V12                      DIFFICULTY_WINDOW_V2
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           DIFFICULTY_TARGET * 2 // https://github.com/zawy12/difficulty-algorithms/issues/3
-
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V12		60*5
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET_V2 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -102,8 +106,8 @@
 #define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT_PRE_V4       100    //by default, blocks count in blocks downloading
 #define BLOCKS_SYNCHRONIZING_DEFAULT_COUNT              20     //by default, blocks count in blocks downloading
 
-#define CRYPTONOTE_MEMPOOL_TX_LIVETIME                    (86400*5) //seconds, five days
-#define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME     604800    //seconds, one week
+#define CRYPTONOTE_MEMPOOL_TX_LIVETIME                  (86400*5) //seconds, five days
+#define CRYPTONOTE_MEMPOOL_TX_FROM_ALT_BLOCK_LIVETIME   604800    //seconds, one week
 
 #define COMMAND_RPC_GET_BLOCKS_FAST_MAX_COUNT           1000
 
