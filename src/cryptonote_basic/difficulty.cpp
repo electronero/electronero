@@ -57,8 +57,8 @@ namespace cryptonote {
 #else
 
   static inline void mul(uint64_t a, uint64_t b, uint64_t &low, uint64_t &high) {
-    // __int128 isn't part of the standard, so the previous function wasn't portable. mul128() in Windows is fine,
-    // but this portable function should be used elsewhere. Credit for this function goes to latexi95.
+// __int128 isn't part of the standard, so the previous function wasn't portable. mul128() in Windows is fine,
+// but this portable function should be used elsewhere. Credit for this function goes to latexi95.
 
     uint64_t aLow = a & 0xFFFFFFFF;
     uint64_t aHigh = a >> 32;
@@ -81,7 +81,7 @@ namespace cryptonote {
     uint64_t highResHigh2 = res >> 32;
     uint64_t highResLow2 = res & 0xFFFFFFFF;
 
-    //Addition
+//Addition
 
     uint64_t r = highResLow1 + lowRes2;
     carry = r >> 32;
@@ -105,7 +105,7 @@ namespace cryptonote {
 
   bool check_hash(const crypto::hash &hash, difficulty_type difficulty) {
     uint64_t low, high, top, cur;
-    // First check the highest word, this will most likely fail for a random hash.
+// First check the highest word, this will most likely fail for a random hash.
     mul(swap64le(((const uint64_t *) &hash)[3]), difficulty, top, high);
     if (high != 0) {
       return false;
@@ -131,8 +131,6 @@ namespace cryptonote {
 
     size_t length = timestamps.size();
     assert(length == cumulative_difficulties.size());
-    // Wind down block diff to ease upcoming fork resistance, this will return diff of 1000 for blocks < 241499.
-    // Diff stabilize once block 241499 is mined and algo will track diff and target solve post fork.
     if (length <= 1) {
       return 1;
     }
@@ -157,8 +155,8 @@ namespace cryptonote {
     assert(total_work > 0);
     uint64_t low, high;
     mul(total_work, target_seconds, low, high);
-    // blockchain errors "difficulty overhead" if this function returns zero.
-    // TODO: consider throwing an exception instead
+// blockchain errors "difficulty overhead" if this function returns zero.
+// TODO: consider throwing an exception instead
     if (high != 0 || low + time_span - 1 < low) {
       return 0;
     }
@@ -169,15 +167,15 @@ namespace cryptonote {
 
     difficulty_type next_difficulty_v2(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds) {
 
-  		// LWMA difficulty algorithm
-  		// Copyright (c) 2017-2018 Zawy
-  		// MIT license http://www.opensource.org/licenses/mit-license.php.
-  		// This is an improved version of Tom Harding's (Deger8) "WT-144"
-  		// Karbowanec, Masari, Bitcoin Gold, and Bitcoin Cash have contributed.
-  		// See https://github.com/zawy12/difficulty-algorithms/issues/3 for other algos.
-  		// Do not use "if solvetime < 0 then solvetime = 1" which allows a catastrophic exploit.
-  		// T= target_solvetime;
-  		// N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
+// LWMA difficulty algorithm
+// Copyright (c) 2017-2018 Zawy
+// MIT license http://www.opensource.org/licenses/mit-license.php.
+// This is an improved version of Tom Harding's (Deger8) "WT-144"
+// Karbowanec, Masari, Bitcoin Gold, and Bitcoin Cash have contributed.
+// See https://github.com/zawy12/difficulty-algorithms/issues/3 for other algos.
+// Do not use "if solvetime < 0 then solvetime = 1" which allows a catastrophic exploit.
+// T= target_solvetime;
+// N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
   		const int64_t T = static_cast<int64_t>(target_seconds);
   		size_t N = DIFFICULTY_WINDOW_V2-1;
@@ -189,21 +187,21 @@ namespace cryptonote {
   		size_t n = timestamps.size();
   		assert(n == cumulative_difficulties.size());
   		assert(n <= DIFFICULTY_WINDOW_V2);
-      // If new coin, just "give away" first 5 blocks at low difficulty
+// If new coin, just "give away" first 5 blocks at low difficulty
       if ( n < 6 ) { return  1; } 
-      // If height "n" is from 6 to N, then reset N to n-1.
+// If height "n" is from 6 to N, then reset N to n-1.
       else if (n < N+1) { N=n-1; }
-  		// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
-      // adjust=0.99 for 90 < N < 130
+// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
+// adjust=0.99 for 90 < N < 130
   		const double adjust = 0.998;
-  		// The divisor k normalizes LWMA.
+// The divisor k normalizes LWMA.
   		const double k = N * (N + 1) / 2;
 
   		double LWMA(0), sum_inverse_D(0), harmonic_mean_D(0), nextDifficulty(0);
   		int64_t solveTime(0);
   		uint64_t difficulty(0), next_difficulty(0);
 
-  		// Loop through N most recent blocks.
+// Loop through N most recent blocks.
   		for (size_t i = 1; i <= N; i++) {
   			solveTime = static_cast<int64_t>(timestamps[i]) - static_cast<int64_t>(timestamps[i - 1]);
   			solveTime = std::min<int64_t>((T * 7), std::max<int64_t>(solveTime, (-7 * T)));
@@ -212,7 +210,7 @@ namespace cryptonote {
   			sum_inverse_D += 1 / static_cast<double>(difficulty);
   		}
 
-  		// Keep LWMA sane in case something unforeseen occurs.
+// Keep LWMA sane in case something unforeseen occurs.
   		if (static_cast<int64_t>(boost::math::round(LWMA)) < T / 20)
   			LWMA = static_cast<double>(T / 20);
 
@@ -225,15 +223,15 @@ namespace cryptonote {
     
   difficulty_type next_difficulty_v3(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds) {
 
-		// LWMA difficulty algorithm
-		// Copyright (c) 2017-2018 Zawy
-		// MIT license http://www.opensource.org/licenses/mit-license.php.
-		// This is an improved version of Tom Harding's (Deger8) "WT-144"
-		// Karbowanec, Masari, Bitcoin Gold, and Bitcoin Cash have contributed.
-		// See https://github.com/zawy12/difficulty-algorithms/issues/3 for other algos.
-		// Do not use "if solvetime < 0 then solvetime = 1" which allows a catastrophic exploit.
-		// T= target_solvetime;
-		// N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
+// LWMA difficulty algorithm
+// Copyright (c) 2017-2018 Zawy
+// MIT license http://www.opensource.org/licenses/mit-license.php.
+// This is an improved version of Tom Harding's (Deger8) "WT-144"
+// Karbowanec, Masari, Bitcoin Gold, and Bitcoin Cash have contributed.
+// See https://github.com/zawy12/difficulty-algorithms/issues/3 for other algos.
+// Do not use "if solvetime < 0 then solvetime = 1" which allows a catastrophic exploit.
+// T= target_solvetime;
+// N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
 		const int64_t T = static_cast<int64_t>(target_seconds);
 		size_t N = DIFFICULTY_WINDOW_V2;
@@ -245,22 +243,22 @@ namespace cryptonote {
 		size_t n = timestamps.size();
 		assert(n == cumulative_difficulties.size());
 		assert(n <= DIFFICULTY_WINDOW_V2);
-    // If new coin, just "give away" first 5 blocks at low difficulty
+// If new coin, just "give away" first 5 blocks at low difficulty
     if ( n < 6 ) { return  1; }
-    // If height "n" is from 6 to N, then reset N to n-1.
+// If height "n" is from 6 to N, then reset N to n-1.
     else if (n < N+1) { N=n-1; }
 
-		// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
-    // adjust=0.99 for 90 < N < 130
+// To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
+// adjust=0.99 for 90 < N < 130
 		const double adjust = 0.998;
-		// The divisor k normalizes LWMA.
+// The divisor k normalizes LWMA.
 		const double k = N * (N + 1) / 2;
 
 		double LWMA(0), sum_inverse_D(0), harmonic_mean_D(0), nextDifficulty(0);
 		int64_t solveTime(0);
 		uint64_t difficulty(0), next_difficulty(0);
 
-		// Loop through N most recent blocks.
+// Loop through N most recent blocks.
 		for (size_t i = 1; i <= N; i++) {
 			solveTime = static_cast<int64_t>(timestamps[i]) - static_cast<int64_t>(timestamps[i - 1]);
 			solveTime = std::min<int64_t>((T * 7), std::max<int64_t>(solveTime, (-7 * T)));
@@ -279,6 +277,10 @@ namespace cryptonote {
 		
 	  	if(next_difficulty < 2000){
 		      return (difficulty_type) 2000;
+		    }
+	  	
+	        if(next_difficulty > 120307799){
+		      return (difficulty_type) 120307799;
 		    }
 
 		    return next_difficulty;
