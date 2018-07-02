@@ -2066,8 +2066,9 @@ bool Blockchain::get_output_distribution(uint64_t amount, uint64_t from_height, 
 
   const uint64_t real_start_height = start_height;
   if (from_height > start_height)
+  {
     start_height = from_height;
-
+  }
     distribution.clear();	
 
   uint64_t db_height = m_db->height();	
