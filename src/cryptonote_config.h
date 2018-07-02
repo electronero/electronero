@@ -51,12 +51,14 @@
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12           30
 
 // Total number coins to be generated
-#define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
-#define MONEY_SUPPLY                                   ((uint64_t)(21000000000000)) // after the ETNX fork
-#define TOKENS                                         ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
+#define MONEY_SUPPLY_ETN                                ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
+#define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
+#define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
+// Number of smallest units in one coin
+#define COIN                                            ((uint64_t)100) // pow(10, 2)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)0) // 0 * pow(10, 0)
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)10000000) // 100k coins
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -65,11 +67,9 @@
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5    300000 //size of block (bytes) after which reward for block calculated using block size - second change, from v5
 #define CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE          600
 #define CRYPTONOTE_DISPLAY_DECIMAL_POINT                2
-// COIN - number of smallest units in one coin
-#define COIN                                            ((uint64_t)100) // pow(10, 2)
 
-#define CRYPTONOTE_TX_FEE_RESERVED_SIZE               3
-#define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5           21
+#define CRYPTONOTE_TX_FEE_RESERVED_SIZE                 3
+#define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5             21
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .4 * pow(10, 1)
@@ -134,14 +134,14 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                         "electronero"
-#define CRYPTONOTE_POOLDATA_FILENAME            "poolstate.bin"
-#define CRYPTONOTE_BLOCKCHAINDATA_FILENAME      "data.mdb"
-#define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME "lock.mdb"
-#define P2P_NET_DATA_FILENAME                   "p2pstate.bin"
-#define MINER_CONFIG_FILE_NAME                  "miner_conf.json"
+#define CRYPTONOTE_NAME                                 "electronero"
+#define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
+#define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
+#define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
+#define P2P_NET_DATA_FILENAME                           "p2pstate.bin"
+#define MINER_CONFIG_FILE_NAME                          "miner_conf.json"
 
-#define THREAD_STACK_SIZE                       5 * 1024 * 1024
+#define THREAD_STACK_SIZE                               5 * 1024 * 1024
 
 // coin emission change interval/speed configs
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE       240 * 1024    // 240kB, used for emissions
@@ -152,22 +152,22 @@
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
-#define HARD_FORK_SPLIT                         1
-#define HF_VERSION_DYNAMIC_FEE                  500
-#define HF_VERSION_ENFORCE_RCT                  6
-#define HF_VERSION_MIN_MIXIN_4                  7
-#define HF_VERSION_MIN_MIXIN_6                  8
+#define HARD_FORK_SPLIT                                 1
+#define HF_VERSION_DYNAMIC_FEE                          500
+#define HF_VERSION_ENFORCE_RCT                          6
+#define HF_VERSION_MIN_MIXIN_4                          7
+#define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                   ".shared-etnx-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".shared-etnx-ringdb" // shared-ringdb"
 
-#define MIN_MIXIN                               1      // minimum mixin allowed
-#define MAX_MIXIN                               100    // maximum mixin allowed
-#define DEFAULT_MIXIN                           12     // default mixin
-#define PER_KB_FEE_QUANTIZATION_DECIMALS        8
+#define MIN_MIXIN                                       1      // minimum mixin allowed
+#define MAX_MIXIN                                       100    // maximum mixin allowed
+#define DEFAULT_MIXIN                                   12     // default mixin
+#define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 
-#define HASH_OF_HASHES_STEP                     256
+#define HASH_OF_HASHES_STEP                             256
 
-#define DEFAULT_TXPOOL_MAX_SIZE                 648000000ull // 3 days at 300000, in bytes
+#define DEFAULT_TXPOOL_MAX_SIZE                         648000000ull // 3 days at 300000, in bytes
 
 // New constants are intended to go here
 namespace config
