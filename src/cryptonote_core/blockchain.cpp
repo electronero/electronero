@@ -3098,7 +3098,8 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
   const uint64_t min_block_size = get_min_block_size(version);
   // Delay DYNAMIC_FEE_PER_KB_BASE_FEE_FORMULA along with HF_VERSION_DYNAMIC_FEE until further review and stable implementation.
   // ToDo: Correct the Dynamic Fee algo to suit ETNX coin decimals.
-  const uint64_t fee_per_kb_base = version >= HF_VERSION_DYNAMIC_FEE ? DYNAMIC_FEE_PER_KB_BASE_FEE_V5 : DYNAMIC_FEE_PER_KB_BASE_FEE;
+  // const uint64_t fee_per_kb_base = version >= HF_VERSION_DYNAMIC_FEE ? DYNAMIC_FEE_PER_KB_BASE_FEE_V5 : DYNAMIC_FEE_PER_KB_BASE_FEE;
+  const uint64_t fee_per_kb_base = DYNAMIC_FEE_PER_KB_BASE_FEE;
 
   if (median_block_size < min_block_size)
     median_block_size = min_block_size;
