@@ -153,13 +153,13 @@
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
-#define HARD_FORK_CLAMP                         0
-#define HF_VERSION_DYNAMIC_FEE                  100
+#define HARD_FORK_SPLIT                         1
+#define HF_VERSION_DYNAMIC_FEE                  500
 #define HF_VERSION_ENFORCE_RCT                  6
 #define HF_VERSION_MIN_MIXIN_4                  7
 #define HF_VERSION_MIN_MIXIN_6                  8
 
-#define CRYPTONOTE_RINGDB_DIR                   ".shared-electronero-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                   ".shared-etnx-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                               1      // minimum mixin allowed
 #define MAX_MIXIN                               100    // maximum mixin allowed
