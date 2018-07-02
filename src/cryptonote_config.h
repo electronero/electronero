@@ -51,7 +51,7 @@
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12           30
 
-// MONEY_SUPPLY - total number coins to be generated
+// Total number coins to be generated
 #define MONEY_SUPPLY_ETN                               ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                   ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                         ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
