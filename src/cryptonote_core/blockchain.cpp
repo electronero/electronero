@@ -909,20 +909,25 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
   uint8_t versionW = get_current_hard_fork_version();
-	
+  m_difficulty_for_next_block_top_hash = top_hash;
   // calculate the difficulty target for the block and return it
   if (get_current_hard_fork_version() < 2) {
     difficulty_type diff = next_difficulty(timestamps, difficulties, target);
+    m_difficulty_for_next_block = diff;
+    return diff;
   } else if (get_current_hard_fork_version() < 9) {
-    difficulty_type diff = next_difficulty_v2(timestamps, difficulties, target);
+    difficulty_type diffV2 = next_difficulty_v2(timestamps, difficulties, target);
+    m_difficulty_for_next_block = diffV2;
+    return diffV2;
   } else if (get_current_hard_fork_version() <= 11) {
-    difficulty_type diff = next_difficulty_v3(timestamps, difficulties, target);
+    difficulty_type diffV3 = next_difficulty_v3(timestamps, difficulties, target);
+    m_difficulty_for_next_block = diffV3;
+    return diffV3;
   } else {
-    difficulty_type diff = next_difficulty_v4(timestamps, difficulties, target);
+    difficulty_type diffV4 = next_difficulty_v4(timestamps, difficulties, target);
+    m_difficulty_for_next_block = diffV4;
+    return diffV4;
   }
-  m_difficulty_for_next_block_top_hash = top_hash;
-  m_difficulty_for_next_block = diff;
-  return diff;
 }
 //------------------------------------------------------------------
 // This function removes blocks from the blockchain until it gets to the
