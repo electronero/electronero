@@ -861,10 +861,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   if(HARD_FORK_SPLIT == 1)
   {
-  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
-  {
-  return (difficulty_type) 72289156;
-  }	  
   if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
   {
   return (difficulty_type) 72289156;
@@ -911,23 +907,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   uint8_t versionW = get_current_hard_fork_version();
   m_difficulty_for_next_block_top_hash = top_hash;
   // calculate the difficulty target for the block and return it
-  if (get_current_hard_fork_version() < 2) {
-    difficulty_type diff = next_difficulty(timestamps, difficulties, target);
-    m_difficulty_for_next_block = diff;
-    return diff;
-  } else if (get_current_hard_fork_version() < 9) {
-    difficulty_type diffV2 = next_difficulty_v2(timestamps, difficulties, target);
-    m_difficulty_for_next_block = diffV2;
-    return diffV2;
-  } else if (get_current_hard_fork_version() <= 11) {
-    difficulty_type diffV3 = next_difficulty_v3(timestamps, difficulties, target);
-    m_difficulty_for_next_block = diffV3;
-    return diffV3;
-  } else {
-    difficulty_type diffV4 = next_difficulty_v4(timestamps, difficulties, target);
-    m_difficulty_for_next_block = diffV4;
-    return diffV4;
-  }
+  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : versionW <= 11 ? next_difficulty_v3(timestamps, difficulties, target) : next_difficulty_v4(timestamps, difficulties, target);
+  m_difficulty_for_next_block_top_hash = top_hash;
+  m_difficulty_for_next_block = diff;
+  return diff;
 }
 //------------------------------------------------------------------
 // This function removes blocks from the blockchain until it gets to the
@@ -1080,7 +1063,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
  // pick DIFFICULTY_BLOCKS_COUNT based on version
   if (get_current_hard_fork_version() < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else if(get_current_hard_fork_version() <= 11) {
+  } else if(get_current_hard_fork_version() < 12) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   } else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
@@ -1140,11 +1123,11 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   size_t target = DIFFICULTY_TARGET_V1;
   size_t targetV2 = DIFFICULTY_TARGET_V2;
   // calculate the difficulty target for the block and return it
-    if (get_current_hard_fork_version() < 2) {
+  if (get_current_hard_fork_version() < 2) {
     return next_difficulty(timestamps, cumulative_difficulties, target);
   } else if (get_current_hard_fork_version() < 9) {
     return next_difficulty_v2(timestamps, cumulative_difficulties, targetV2);
-  } else if (get_current_hard_fork_version() <= 12) {
+  } else if (get_current_hard_fork_version() <= 11) {
     return next_difficulty_v3(timestamps, cumulative_difficulties, targetV2);
   } else {
     return next_difficulty_v4(timestamps, cumulative_difficulties, targetV2);
