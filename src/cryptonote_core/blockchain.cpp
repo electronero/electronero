@@ -909,7 +909,17 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
   uint8_t versionW = get_current_hard_fork_version();
-  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : versionW <= 11 ? next_difficulty_v3(timestamps, difficulties, target) : next_difficulty_v4(timestamps, difficulties, target);
+	
+  // calculate the difficulty target for the block and return it
+  if (get_current_hard_fork_version() < 2) {
+    difficulty_type diff = next_difficulty(timestamps, difficulties, target);
+  } else if (get_current_hard_fork_version() < 9) {
+    difficulty_type diff = next_difficulty_v2(timestamps, difficulties, target);
+  } else if (get_current_hard_fork_version() <= 11) {
+    difficulty_type diff = next_difficulty_v3(timestamps, difficulties, target);
+  } else {
+    difficulty_type diff = next_difficulty_v4(timestamps, difficulties, target);
+  }
   m_difficulty_for_next_block_top_hash = top_hash;
   m_difficulty_for_next_block = diff;
   return diff;
