@@ -67,8 +67,8 @@
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
-
-
+#define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
+  
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
@@ -137,6 +137,8 @@ static const struct {
   { 11, MAINNET_HARDFORK_V11_HEIGHT, 0, 1528100953 },
   // Version 12 starts from 333690
   { 12, MAINNET_HARDFORK_V12_HEIGHT, 0, 1528100954 },
+  // Version 13
+  { 13, MAINNET_HARDFORK_V13_HEIGHT, 0, 1530783171 },
 
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -845,28 +847,25 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
-	
-  if(HARD_FORK_SPLIT == 1)
-  {
-  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V2)
-  {
-  return (difficulty_type) 72289156;
-  }
-  }
 
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version < 2) {
+  if (get_current_hard_fork_version() < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else if(version < 12) {
+  } else if(get_current_hard_fork_version() < 12) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   } else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
-
-
+  if(HARD_FORK_SPLIT == 1)
+  {
+  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
+  {
+  return (difficulty_type) 72289156;
+  }
+  }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
   //    pop the oldest one from the list. This only requires 1x read per height instead
@@ -906,7 +905,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   size_t target = get_difficulty_target();
   uint8_t versionW = get_current_hard_fork_version();
-  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : versionW < 12 ? next_difficulty_v3(timestamps, difficulties, target) : next_difficulty_v4(timestamps, difficulties, target);
+  difficulty_type diff = versionW < 2 ? next_difficulty(timestamps, difficulties, target) : versionW < 9 ? next_difficulty_v2(timestamps, difficulties, target) : versionW <= 11 ? next_difficulty_v3(timestamps, difficulties, target) : next_difficulty_v4(timestamps, difficulties, target);
   m_difficulty_for_next_block_top_hash = top_hash;
   m_difficulty_for_next_block = diff;
   return diff;
@@ -1057,14 +1056,15 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   LOG_PRINT_L3("Blockchain::" << __func__);
   std::vector<uint64_t> timestamps;
   std::vector<difficulty_type> cumulative_difficulties;
-
   uint8_t version = get_current_hard_fork_version();
   size_t difficulty_blocks_count;
-    // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if (version == 1 || version == 10) {
+ // pick DIFFICULTY_BLOCKS_COUNT based on version
+  if (get_current_hard_fork_version() < 2) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } else {
+  } else if(get_current_hard_fork_version() <= 11) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  } else{
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
 
   // if the alt chain isn't long enough to calculate the difficulty target
@@ -1118,15 +1118,17 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   }
 
   // FIXME: This will fail if fork activation heights are subject to voting
-  size_t target = get_ideal_hard_fork_version(bei.height) < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-
+  size_t target = DIFFICULTY_TARGET_V1;
+  size_t targetV2 = DIFFICULTY_TARGET_V2;
   // calculate the difficulty target for the block and return it
-    if (version < 2) {
+    if (get_current_hard_fork_version() < 2) {
     return next_difficulty(timestamps, cumulative_difficulties, target);
-  } else if (version > 2 && version < 9) {
-    return next_difficulty_v2(timestamps, cumulative_difficulties, target);
+  } else if (get_current_hard_fork_version() < 9) {
+    return next_difficulty_v2(timestamps, cumulative_difficulties, targetV2);
+  } else if (get_current_hard_fork_version() <= 11) {
+    return next_difficulty_v3(timestamps, cumulative_difficulties, targetV2);
   } else {
-    return next_difficulty_v3(timestamps, cumulative_difficulties, target);
+    return next_difficulty_v4(timestamps, cumulative_difficulties, targetV2);
   }
 
 }
@@ -3120,11 +3122,6 @@ uint64_t Blockchain::get_dynamic_per_kb_fee(uint64_t block_reward, size_t median
   MDEBUG("lo " << print_money(lo) << ", qlo " << print_money(qlo) << ", mask " << mask);
   // past v12 calculate fee based on a percentage of the dynamic fee
   double money_supply_pct = 0.10; // 10%
-  uint64_t newlo = qlo * money_supply_pct;
-  if (version > 12)
-  {
-	  qlo = newlo; 
-  }
 	
   return qlo;
 }
