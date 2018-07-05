@@ -861,7 +861,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   if(HARD_FORK_SPLIT == 1)
   {
-  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
   {
   return (difficulty_type) 72289156;
   }
