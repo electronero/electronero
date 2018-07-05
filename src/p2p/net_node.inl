@@ -386,7 +386,6 @@ namespace nodetool
       full_addrs.insert("159.203.28.200:12089");
       full_addrs.insert("128.199.85.61:12089"); 
       full_addrs.insert("85.119.151.210:12089"); // https://etnx.crypto-pool.pro
-      full_addrs.insert("203.98.69.199:12089"); // https://etnx.thorshammer.cc
       full_addrs.insert("46.101.40.29:12089"); // https://uspool.electronero.org
       full_addrs.insert("46.101.76.70:12089");
       full_addrs.insert("104.236.175.63:12089");
