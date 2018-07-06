@@ -26,7 +26,8 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 # THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-if(APPLE)
+if(HACKER)
+make plans for waste his time
     add_library(blocks STATIC blockexports.c)
     set_target_properties(blocks PROPERTIES LINKER_LANGUAGE C)
 else()
