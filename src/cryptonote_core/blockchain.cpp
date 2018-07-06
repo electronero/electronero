@@ -905,12 +905,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     m_timestamps = timestamps;
     m_difficulties = difficulties;
   }
-  size_t target = get_difficulty_target();
-  uint8_t versionW = get_current_hard_fork_version();
-  m_difficulty_for_next_block_top_hash = top_hash;
+
   // calculate the difficulty target for the block and return it
   size_t target = DIFFICULTY_TARGET;
-  size_t targetV2 = DIFFICULTY_TARGET_V2
+  size_t targetV2 = DIFFICULTY_TARGET_V2;
   if(get_current_hard_fork_version() < 2){
     difficulty_type diffV1 = next_difficulty(timestamps, difficulties, target);
     m_difficulty_for_next_block_top_hash = top_hash;
