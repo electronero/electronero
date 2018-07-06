@@ -865,7 +865,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   {
   if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
   {
-  return (difficulty_type) 72289156;
+  return (difficulty_type) 32289156;
   }
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
