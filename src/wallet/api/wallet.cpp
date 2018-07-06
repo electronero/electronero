@@ -45,9 +45,9 @@
 #include <sstream>
 #include <unordered_map>
 
-#ifdef WIN32
-#include <boost/locale.hpp>
-#include <boost/filesystem.hpp>
+#ifdef WIN32	
+#include <boost/locale.hpp>	
+#include <boost/filesystem.hpp>	
 #endif
 
 using namespace std;
@@ -60,7 +60,8 @@ namespace Monero {
 
 namespace {
     // copy-pasted from simplewallet
-    static const size_t DEFAULT_MIXIN = 6;
+
+    static const size_t DEFAULT_MIX = DEFAULT_MIXIN; // just alias not used
     static const int    DEFAULT_REFRESH_INTERVAL_MILLIS = 1000 * 10;
     // limit maximum refresh interval as one minute
     static const int    MAX_REFRESH_INTERVAL_MILLIS = 1000 * 60 * 1;
@@ -74,7 +75,7 @@ namespace {
       boost::filesystem::path dir = tools::get_default_data_dir();
       // remove .bitmonero, replace with .shared-ringdb
       dir = dir.remove_filename();
-      dir /= ".shared-ringdb";
+      dir /= CRYPTONOTE_RINGDB_DIR;
       return dir.string();
     }
 }
@@ -304,6 +305,7 @@ uint64_t Wallet::maximumAllowedAmount()
 {
     return std::numeric_limits<uint64_t>::max();
 }
+
 
 void Wallet::init(const char *argv0, const char *default_log_base_name, const std::string &log_path, bool console) {
 #ifdef WIN32
@@ -1135,16 +1137,19 @@ PendingTransaction *WalletImpl::createTransaction(const string &dst_addr, const 
       
     cryptonote::address_parse_info info;
 
-    // indicates if dst_addr is integrated address (address + payment_id)
-    // TODO:  (https://bitcointalk.org/index.php?topic=753252.msg9985441#msg9985441)
-    size_t fake_outs_count = mixin_count > 0 ? mixin_count : m_wallet->default_mixin();
+    
+    // Take fake_outs_count from mixin_count as long as it is not zero.
+    // However, if the default_mixin in the wallet was provided we try to use default_mixin instead of mixin_count.
+    size_t fake_outs_count = mixin_count != 0 ? mixin_count : m_wallet->default_mixin();
+    // size_t fake_outs_count = mixin_count;
     if (fake_outs_count == 0)
-        fake_outs_count = DEFAULT_MIXIN;
+        fake_outs_count = MIN_MIXIN;
 
     uint32_t adjusted_priority = m_wallet->adjust_priority(static_cast<uint32_t>(priority));
 
     PendingTransactionImpl * transaction = new PendingTransactionImpl(*this);
-
+    // indicates if dst_addr is integrated address (address + payment_id)
+    // TODO:  (https://bitcointalk.org/index.php?topic=753252.msg9985441#msg9985441)
     do {
         if(!cryptonote::get_account_address_from_str(info, m_wallet->nettype(), dst_addr)) {
             // TODO: copy-paste 'if treating as an address fails, try as url' from simplewallet.cpp:1982

@@ -63,7 +63,7 @@ namespace
   const command_line::arg_descriptor<std::string> arg_wallet_dir = {"wallet-dir", "Directory for newly created wallets"};
   const command_line::arg_descriptor<bool> arg_prompt_for_password = {"prompt-for-password", "Prompts for password when not provided", false};
 
-  constexpr const char default_rpc_username[] = "monero";
+  constexpr const char default_rpc_username[] = "electronero";
 
   boost::optional<tools::password_container> password_prompter(const char *prompt, bool verify)
   {
@@ -799,6 +799,14 @@ namespace tools
       {
         mixin = m_wallet->adjust_mixin(req.mixin);
       }
+      if (mixin < MIN_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too low, using " << MIN_MIXIN);
+        mixin = MIN_MIXIN;
+      }
+      else if (mixin > MAX_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too high, using " << MAX_MIXIN);
+        mixin = MAX_MIXIN;
+      }
       uint32_t priority = m_wallet->adjust_priority(req.priority);
       std::vector<wallet2::pending_tx> ptx_vector = m_wallet->create_transactions_2(dsts, mixin, req.unlock_time, priority, extra, req.account_index, req.subaddr_indices, m_trusted_daemon);
 
@@ -858,6 +866,14 @@ namespace tools
       else
       {
         mixin = m_wallet->adjust_mixin(req.mixin);
+      }
+      if (mixin < MIN_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too low, using " << MIN_MIXIN);
+        mixin = MIN_MIXIN;
+      }
+      else if (mixin > MAX_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too high, using " << MAX_MIXIN);
+        mixin = MAX_MIXIN;
       }
       uint32_t priority = m_wallet->adjust_priority(req.priority);
       LOG_PRINT_L2("on_transfer_split calling create_transactions_2");
@@ -933,6 +949,14 @@ namespace tools
       else
       {
         mixin = m_wallet->adjust_mixin(req.mixin);
+      }
+      if (mixin < MIN_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too low, using " << MIN_MIXIN);
+        mixin = MIN_MIXIN;
+      }
+      else if (mixin > MAX_MIXIN){
+        LOG_PRINT_L1("Requested mixin " << mixin << " too high, using " << MAX_MIXIN);
+        mixin = MAX_MIXIN;
       }
       uint32_t priority = m_wallet->adjust_priority(req.priority);
       std::vector<wallet2::pending_tx> ptx_vector = m_wallet->create_transactions_all(req.below_amount, dsts[0].addr, dsts[0].is_subaddress, mixin, req.unlock_time, priority, extra, req.account_index, req.subaddr_indices, m_trusted_daemon);

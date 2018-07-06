@@ -31,6 +31,7 @@
 #include <iostream>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
+
 #ifdef WIN32
 #include <windows.h>
 #include "string_tools.h"
@@ -58,6 +59,7 @@
 // file stream classes on Windows and directly use Unicode-capable WIN32 API
 // calls. Most of the code doing so is concentrated in this header file here.
 
+
 namespace epee
 {
 namespace file_io_utils
@@ -72,6 +74,7 @@ namespace file_io_utils
 	inline
 		bool save_string_to_file(const std::string& path_to_file, const std::string& str)
 	{
+
 #ifdef WIN32
                 std::wstring wide_path;
                 try { wide_path = string_tools::utf8_to_utf16(path_to_file); } catch (...) { return false; }
@@ -86,6 +89,7 @@ namespace file_io_utils
                     result = FALSE;
                 return result;
 #else
+
 		try
 		{
 			std::ofstream fstream;
@@ -100,7 +104,6 @@ namespace file_io_utils
 		{
 			return false;
 		}
-#endif
 	}
 
 	inline
@@ -129,6 +132,7 @@ namespace file_io_utils
 	inline
 		bool load_file_to_string(const std::string& path_to_file, std::string& target_str, size_t max_size = 1000000000)
 	{
+
 #ifdef WIN32
                 std::wstring wide_path;
                 try { wide_path = string_tools::utf8_to_utf16(path_to_file); } catch (...) { return false; }
@@ -148,6 +152,7 @@ namespace file_io_utils
                     result = FALSE;
                 return result;
 #else
+
 		try
 		{
 			std::ifstream fstream;
@@ -172,13 +177,11 @@ namespace file_io_utils
 		{
 			return false;
 		}
-#endif
 	}
 
 	inline
 		bool append_string_to_file(const std::string& path_to_file, const std::string& str)
 	{
-                // No special Windows implementation because so far not used in Monero code
 		try
 		{
 			std::ofstream fstream;
@@ -198,6 +201,7 @@ namespace file_io_utils
 	inline
 		bool get_file_size(const std::string& path_to_file, uint64_t &size)
 	{
+
 #ifdef WIN32
                 std::wstring wide_path;
                 try { wide_path = string_tools::utf8_to_utf16(path_to_file); } catch (...) { return false; }
@@ -212,6 +216,7 @@ namespace file_io_utils
                 }
                 return size;
 #else
+
 		try
 		{
 			std::ifstream fstream;
@@ -226,7 +231,6 @@ namespace file_io_utils
 		{
 			return false;
 		}
-#endif
 	}
 
 }

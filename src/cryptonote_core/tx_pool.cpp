@@ -188,7 +188,34 @@ namespace cryptonote
       tvc.m_too_big = true;
       return false;
     }
+    bool mixin_too_low = false;
+    bool mixin_too_high = false;
+    BOOST_FOREACH(const auto& in, tx.vin)
+    {
+      CHECKED_GET_SPECIFIC_VARIANT(in, const txin_to_key, txin, false);
+      if(txin.key_offsets.size() - 1 < MIN_MIXIN){
+        mixin_too_low = false;
+        break;
+      }
+      else if (txin.key_offsets.size() - 1 > MAX_MIXIN){
+        mixin_too_high = true;
+        break;
+      }
+    }
+    
+    if (!kept_by_block && mixin_too_low){
+      LOG_PRINT_L1("Transaction with id= "<< id << " has too low mixin");
+      tvc.m_low_mixin = true;
+      tvc.m_verifivation_failed = true;
+      return false;
+    }
 
+    if (!kept_by_block && mixin_too_high){
+      LOG_PRINT_L1("Transaction with id= " << id << " has too high mixin");
+      tvc.m_high_mixin = true;
+      tvc.m_verifivation_failed = true;
+      return false;
+    }
     // if the transaction came from a block popped from the chain,
     // don't check if we have its key images as spent.
     // TODO: Investigate why not?
@@ -1080,9 +1107,10 @@ namespace cryptonote
     uint64_t best_coinbase = 0, coinbase = 0;
     total_size = 0;
     fee = 0;
-    
+	  // add height to the call if and when it's available
+    uint64_t height = m_blockchain.get_current_blockchain_height();
     //baseline empty block
-    get_block_reward(median_size, total_size, already_generated_coins, best_coinbase, version);
+    get_block_reward(median_size, total_size, already_generated_coins, best_coinbase, version, height);
 
 
     size_t max_total_size_pre_v5 = (130 * median_size) / 100 - CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE;
@@ -1119,7 +1147,7 @@ namespace cryptonote
         // If we're getting lower coinbase tx,
         // stop including more tx
         uint64_t block_reward;
-        if(!get_block_reward(median_size, total_size + meta.blob_size, already_generated_coins, block_reward, version))
+        if(!get_block_reward(median_size, total_size + meta.blob_size, already_generated_coins, block_reward, version, height))
         {
           LOG_PRINT_L2("  would exceed maximum block size");
           sorted_it++;
