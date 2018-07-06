@@ -68,7 +68,8 @@
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
-  
+#define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337838)) // MAINNET v14 hard fork 
+
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
@@ -863,9 +864,9 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   if(HARD_FORK_SPLIT == 1)
   {
-  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
   {
-  return (difficulty_type) 32289156;
+  return (difficulty_type) 52289156;
   }
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
