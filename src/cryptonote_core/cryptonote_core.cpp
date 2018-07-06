@@ -376,7 +376,7 @@ namespace cryptonote
 
     if (test_options != NULL)
     {
-      m_nettype = MAINNET;
+      m_nettype = FAKECHAIN;
     }
     bool r = handle_command_line(vm);
     std::string m_config_folder_mempool = m_config_folder;
