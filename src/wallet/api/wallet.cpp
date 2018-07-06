@@ -61,7 +61,7 @@ namespace Monero {
 namespace {
     // copy-pasted from simplewallet
 
-    static const size_t DEFAULT_MIXIN = 6; // just alias not used
+    static const size_t DEFAULT_MIX = DEFAULT_MIXIN; // just alias not used
     static const int    DEFAULT_REFRESH_INTERVAL_MILLIS = 1000 * 10;
     // limit maximum refresh interval as one minute
     static const int    MAX_REFRESH_INTERVAL_MILLIS = 1000 * 60 * 1;
