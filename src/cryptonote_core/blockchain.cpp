@@ -387,7 +387,7 @@ bool Blockchain::init(BlockchainDB* db, const network_type nettype, bool offline
   m_offline = offline;
   if (m_hardfork == nullptr)
   {
-    if (m_nettype == STAGENET)
+    if (m_nettype == FAKECHAIN || m_nettype == STAGENET)
       m_hardfork = new HardFork(*db, 1, 0);
     else if (m_nettype == TESTNET)
       m_hardfork = new HardFork(*db, 1, testnet_hard_fork_version_1_till);
@@ -1585,13 +1585,12 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     get_block_longhash(bei.bl, proof_of_work, bei.height);
     const uint64_t bc_height = m_db->height() - 1;
     // Always check POW against current_diff 
-    if (bc_height >= 334000) {  
+    
     if(!check_hash(proof_of_work, current_diff))
     {        
       MERROR_VER("Block with id: " << id << std::endl << " for an alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
       bvc.m_verifivation_failed = true;
       return false;
-    }
     }
 
     if(!prevalidate_miner_transaction(b, bei.height))
@@ -3531,14 +3530,12 @@ leave:
     else
       proof_of_work = get_block_longhash(bl, m_db->height());
     const uint64_t bc_height = m_db->height() - 1;
-    if (bc_height >= 500000) {   
     // validate proof_of_work versus difficulty target
     if(!check_hash(proof_of_work, current_diffic))
     {
       MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
       bvc.m_verifivation_failed = true;
       goto leave;
-    }
     }
   }
 
