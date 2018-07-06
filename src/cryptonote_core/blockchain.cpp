@@ -855,7 +855,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if (versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } 
-  else if(versionHeight < MAINNET_HARDFORK_V11_HEIGHT) {
+  else if(versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   } 
   else{
@@ -1090,7 +1090,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   if (versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } 
-  else if(versionHeight < MAINNET_HARDFORK_V11_HEIGHT) {
+  else if(versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
   } 
   else{
