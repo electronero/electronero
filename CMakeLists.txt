@@ -1,5 +1,6 @@
 # Copyright (c) 2014-2018, The Monero Project
 #
+compile fixup branch
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, are
