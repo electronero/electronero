@@ -147,7 +147,7 @@
 // coin emission change interval/speed configs
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE       240 * 1024    // 240kB, used for emissions
 #define BLOCK_SIZE_GROWTH_FAVORED_ZONE                  ((uint64_t) (CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE * 4))
-#define DIFFICULTY_TARGET                               DIFFICULTY_TARGET_V1  // just alias, used for emissions
+#define DIFFICULTY_TARGET                               DIFFICULTY_TARGET  // just alias, used for emissions
 #define COIN_EMISSION_MONTH_INTERVAL                    6  // months to change emission speed
 #define COIN_EMISSION_HEIGHT_INTERVAL                   ((uint64_t) (COIN_EMISSION_MONTH_INTERVAL * (30.4375 * 24 * 3600) / DIFFICULTY_TARGET)) // calculated to # of heights to change emission speed
 #define PEAK_COIN_EMISSION_YEAR                         4
