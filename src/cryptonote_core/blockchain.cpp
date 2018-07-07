@@ -851,7 +851,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
   uint64_t versionHeight = height;
-  size_t target = versionHeight > MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET;
+  size_t target = versionHeight > MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET_V1;
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
@@ -1087,7 +1087,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   std::vector<difficulty_type> cumulative_difficulties;
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
-  size_t target = versionHeight > MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET;
+  size_t target = versionHeight > MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET_V1;
   size_t difficulty_blocks_count;
   // pick DIFFICULTY_BLOCKS_COUNT based on version
   if (versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
