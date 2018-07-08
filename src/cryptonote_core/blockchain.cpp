@@ -1114,6 +1114,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   uint64_t versionHeight = height;
   size_t target = get_current_hard_fork_version() < 2 ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   size_t difficulty_blocks_count;
+	
   // pick DIFFICULTY_BLOCKS_COUNT based on version
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
