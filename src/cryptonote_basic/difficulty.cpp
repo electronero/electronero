@@ -220,8 +220,16 @@ namespace cryptonote {
   		harmonic_mean_D = N / sum_inverse_D * adjust;
   		nextDifficulty = harmonic_mean_D * T / LWMA;
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
+		
+	  	if(next_difficulty < 2000){
+		      return (difficulty_type) 2000;
+		    }
+	  	
+	        if(next_difficulty > 120307799){
+		      return (difficulty_type) 120307799;
+		    }
 
-      return next_difficulty;
+		    return next_difficulty;
     }
     
   difficulty_type next_difficulty_v3(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds) {
