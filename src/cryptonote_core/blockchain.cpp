@@ -67,7 +67,7 @@
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
-#define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
+#define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337838)) // MAINNET v14 hard fork 
 
@@ -859,41 +859,40 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } 
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+  }
   else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-  } 
+  }
   else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + (uint64_t)difficulty_blocks_count)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 3 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + 6)
+  {
+  return (difficulty_type) 255;
+  }
+  if ((uint64_t)height > MAINNET_HARDFORK_V7_HEIGHT + 6 && (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT + 2)
+  {
+  return (difficulty_type) 287;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V10_HEIGHT - 2 && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 100;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V11_HEIGHT - 2 && (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 100;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 72289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
   }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V8_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V9_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V9_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V10_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V11_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
-  {
-  return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)difficulty_blocks_count)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
   }
@@ -1119,9 +1118,12 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
   } 
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+  }
   else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-  } 
+  }
   else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
