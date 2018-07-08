@@ -222,7 +222,7 @@ namespace cryptonote {
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 		
 	  	if(next_difficulty < 2000){
-		      return (difficulty_type) 2000;
+		      return (difficulty_type) 75723142;
 		    }
 	  	
 	        if(next_difficulty > 120307799){
@@ -287,7 +287,7 @@ namespace cryptonote {
 		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 		
 	  	if(next_difficulty < 2000){
-		      return (difficulty_type) 2000;
+		      return (difficulty_type) 75723142;
 		    }
 	  	
 	        if(next_difficulty > 120307799){
