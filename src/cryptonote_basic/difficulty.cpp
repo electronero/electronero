@@ -162,9 +162,7 @@ namespace cryptonote {
     mul(total_work, target_seconds, low, high);
 // blockchain errors "difficulty overhead" if this function returns zero.
 // TODO: consider throwing an exception instead
-    if (high != 0 || low + time_span - 1 < low) {
-      return 0;
-    }
+
     return (low + time_span - 1) / time_span;
   }
 
@@ -183,7 +181,7 @@ namespace cryptonote {
 // N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
   		const int64_t T = static_cast<int64_t>(target_seconds);
-  		size_t N = DIFFICULTY_WINDOW_V2-1;
+  		size_t N = DIFFICULTY_WINDOW_V3-1;
 
   		if (timestamps.size() > N) {
   			timestamps.resize(N + 1);
@@ -191,11 +189,11 @@ namespace cryptonote {
   		}
   		size_t n = timestamps.size();
   		assert(n == cumulative_difficulties.size());
-  		assert(n <= DIFFICULTY_WINDOW_V2);
+  		assert(n <= DIFFICULTY_WINDOW_V3);
 // If new coin, just "give away" first 5 blocks at low difficulty
-      if ( n < 6 ) { return  1; } 
+                if ( n < 6 ) { return  1; } 
 // If height "n" is from 6 to N, then reset N to n-1.
-      else if (n < N+1) { N=n-1; }
+                else if (n < N+1) { N=n-1; }
 // To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
 // adjust=0.99 for 90 < N < 130
   		const double adjust = 0.998;
@@ -222,8 +220,16 @@ namespace cryptonote {
   		harmonic_mean_D = N / sum_inverse_D * adjust;
   		nextDifficulty = harmonic_mean_D * T / LWMA;
   		next_difficulty = static_cast<uint64_t>(nextDifficulty);
+		
+	  	if(next_difficulty < 2000){
+		      return (difficulty_type) 75723142;
+		    }
+	  	
+	        if(next_difficulty > 120307799){
+		      return (difficulty_type) 120307799;
+		    }
 
-      return next_difficulty;
+		    return next_difficulty;
     }
     
   difficulty_type next_difficulty_v3(std::vector<std::uint64_t> timestamps, std::vector<difficulty_type> cumulative_difficulties, size_t target_seconds) {
@@ -249,9 +255,9 @@ namespace cryptonote {
 		assert(n == cumulative_difficulties.size());
 		assert(n <= DIFFICULTY_WINDOW_V2);
 // If new coin, just "give away" first 5 blocks at low difficulty
-    if ( n < 6 ) { return  1; }
+                if ( n < 6 ) { return  1; }
 // If height "n" is from 6 to N, then reset N to n-1.
-    else if (n < N+1) { N=n-1; }
+                else if (n < N+1) { N=n-1; }
 
 // To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
 // adjust=0.99 for 90 < N < 130
@@ -281,7 +287,7 @@ namespace cryptonote {
 		next_difficulty = static_cast<uint64_t>(nextDifficulty);
 		
 	  	if(next_difficulty < 2000){
-		      return (difficulty_type) 2000;
+		      return (difficulty_type) 75723142;
 		    }
 	  	
 	        if(next_difficulty > 120307799){
