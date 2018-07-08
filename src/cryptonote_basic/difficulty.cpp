@@ -181,7 +181,7 @@ namespace cryptonote {
 // N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
   		const int64_t T = static_cast<int64_t>(target_seconds);
-  		size_t N = DIFFICULTY_WINDOW_V2-1;
+  		size_t N = DIFFICULTY_WINDOW_V3-1;
 
   		if (timestamps.size() > N) {
   			timestamps.resize(N + 1);
@@ -189,11 +189,11 @@ namespace cryptonote {
   		}
   		size_t n = timestamps.size();
   		assert(n == cumulative_difficulties.size());
-  		assert(n <= DIFFICULTY_WINDOW_V2);
+  		assert(n <= DIFFICULTY_WINDOW_V3);
 // If new coin, just "give away" first 5 blocks at low difficulty
-      if ( n < 6 ) { return  1; } 
+                if ( n < 6 ) { return  1; } 
 // If height "n" is from 6 to N, then reset N to n-1.
-      else if (n < N+1) { N=n-1; }
+                else if (n < N+1) { N=n-1; }
 // To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
 // adjust=0.99 for 90 < N < 130
   		const double adjust = 0.998;
@@ -245,7 +245,7 @@ namespace cryptonote {
 // N=45, 55, 70, 90, 120 for T=600, 240, 120, 90, and 60
 
 		const int64_t T = static_cast<int64_t>(target_seconds);
-		size_t N = DIFFICULTY_WINDOW_V3;
+		size_t N = DIFFICULTY_WINDOW_V2;
 
 		if (timestamps.size() > N) {
 			timestamps.resize(N + 1);
@@ -253,11 +253,11 @@ namespace cryptonote {
 		}
 		size_t n = timestamps.size();
 		assert(n == cumulative_difficulties.size());
-		assert(n <= DIFFICULTY_WINDOW_V3);
+		assert(n <= DIFFICULTY_WINDOW_V2);
 // If new coin, just "give away" first 5 blocks at low difficulty
-    if ( n < 6 ) { return  1; }
+                if ( n < 6 ) { return  1; }
 // If height "n" is from 6 to N, then reset N to n-1.
-    else if (n < N+1) { N=n-1; }
+                else if (n < N+1) { N=n-1; }
 
 // To get an average solvetime to within +/- ~0.1%, use an adjustment factor.
 // adjust=0.99 for 90 < N < 130
