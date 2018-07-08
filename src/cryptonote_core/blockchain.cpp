@@ -865,12 +865,37 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
-  if(HARD_FORK_SPLIT == 1)
-  {
-  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)DIFFICULTY_BLOCKS_COUNT_V12)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
   }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V8_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V9_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V9_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V10_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V11_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
@@ -917,15 +942,15 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     m_difficulty_for_next_block = diffV1;
     return diffV1;
   } 
-  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V7_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V9_HEIGHT){
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT ? 7 : (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT ? 8 : 9;
+  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V7_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V8_HEIGHT){
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT ? 7 : 8;
     difficulty_type diffV2 = next_difficulty_v2(timestamps, difficulties, target);
     m_difficulty_for_next_block_top_hash = top_hash;
     m_difficulty_for_next_block = diffV2;
     return diffV2;
   } 
-  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V10_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT){
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT ? 10 : 11;
+  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V9_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT){
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT ? 9 : (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT ? 10 : 11;
     difficulty_type diffV3 = next_difficulty_v3(timestamps, difficulties, target); 
     m_difficulty_for_next_block_top_hash = top_hash;
     m_difficulty_for_next_block = diffV3;
@@ -1155,13 +1180,13 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
     difficulty_type diffV1 = next_difficulty(timestamps, cumulative_difficulties, target);
     return diffV1;
   } 
-  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V7_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V9_HEIGHT){
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT ? 7 : (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT ? 8 : 9;
+  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V7_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V8_HEIGHT){
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT ? 7 : 8;
     difficulty_type diffV2 = next_difficulty_v2(timestamps, cumulative_difficulties, target);
     return diffV2;
   } 
-  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V10_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT){
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT ? 10 : 11;
+  else if((uint64_t)versionHeight >= MAINNET_HARDFORK_V9_HEIGHT && (uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT){
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT ? 9 : (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT ? 10 : 11;
     difficulty_type diffV3 = next_difficulty_v3(timestamps, cumulative_difficulties, target); 
     return diffV3;
   } 
