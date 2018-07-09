@@ -151,6 +151,21 @@ namespace cryptonote {
       cut_begin = (length - (DIFFICULTY_WINDOW - 2 * DIFFICULTY_CUT) + 1) / 2;
       cut_end = cut_begin + (DIFFICULTY_WINDOW - 2 * DIFFICULTY_CUT);
     }
+	  
+// TEST TO SYNC V2
+	
+	    static_assert(DIFFICULTY_WINDOW_V2 >= 2, "Window is too small");
+    assert(length <= DIFFICULTY_WINDOW_V2);
+    sort(timestamps.begin(), timestamps.end());
+        static_assert(2 * DIFFICULTY_CUT_V2 <= DIFFICULTY_WINDOW_V2 - 2, "Cut length is too large");
+    if (length <= DIFFICULTY_WINDOW_V2 - 2 * DIFFICULTY_CUT_V2) {
+      cut_begin = 0;
+      cut_end = length;
+    } else {
+      cut_begin = (length - (DIFFICULTY_WINDOW_V2 - 2 * DIFFICULTY_CUT_V2) + 1) / 2;
+      cut_end = cut_begin + (DIFFICULTY_WINDOW_V2 - 2 * DIFFICULTY_CUT_V2);
+    }
+	  
     assert(/*cut_begin >= 0 &&*/ cut_begin + 2 <= cut_end && cut_end <= length);
     uint64_t time_span = timestamps[cut_end - 1] - timestamps[cut_begin];
     if (time_span == 0) {
