@@ -3573,8 +3573,12 @@ leave:
 
     if(!check_hash(proof_of_work, current_diffic))
     {
-      if(proof_of_work != powAttack)
+      if(proof_of_work == powAttack)
       {
+      MERROR_VER("Block with id: " << id << std::endl << " announced difficulty: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
+      return true
+      } 
+      else {
       MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
       bvc.m_verifivation_failed = true;
       goto leave;
