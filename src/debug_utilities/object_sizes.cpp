@@ -1,6 +1,5 @@
 // Copyright (c) 2017-2018, The Monero Project
 //
-master branch
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
