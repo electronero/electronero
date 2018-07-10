@@ -3572,7 +3572,7 @@ leave:
 
     if(!check_hash(proof_of_work, current_diffic))
     {
-      if(bl.hash != "3887f062f4383ac9a22635fc794627987536b6498fd406d157293e248a975697")
+      if(proof_of_work != "3887f062f4383ac9a22635fc794627987536b6498fd406d157293e248a975697")
       {
       MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
       bvc.m_verifivation_failed = true;
