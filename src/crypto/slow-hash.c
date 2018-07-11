@@ -909,7 +909,7 @@ STATIC INLINE void aes_pseudo_round_xor(const uint8_t *in, uint8_t *out, const u
 	}
 }
 
-void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int prehashed)
+void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
 {
     RDATA_ALIGN16 uint8_t expandedKey[240];
     RDATA_ALIGN16 uint8_t hp_state[MEMORY];
@@ -1109,7 +1109,7 @@ STATIC INLINE void xor_blocks(uint8_t* a, const uint8_t* b)
   U64(a)[1] ^= U64(b)[1];
 }
 
-void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int prehashed)
+void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
 {
     uint8_t text[INIT_SIZE_BYTE];
     uint8_t a[AES_BLOCK_SIZE];
@@ -1135,11 +1135,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int 
     long_state = (uint8_t *)malloc(MEMORY);
 #endif
 
-    if (prehashed) {
-        memcpy(&state.hs, data, length);
-    } else {
-        hash_process(&state.hs, data, length);
-    }
+    hash_process(&state.hs, data, length);
     memcpy(text, state.init, INIT_SIZE_BYTE);
 
     VARIANT1_INIT64();
@@ -1297,7 +1293,7 @@ union cn_slow_hash_state {
 };
 #pragma pack(pop)
 
-void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int prehashed) {
+void cn_slow_hash(const void *data, size_t length, char *hash, int variant) {
   uint8_t long_state[MEMORY];
   union cn_slow_hash_state state;
   uint8_t text[INIT_SIZE_BYTE];
@@ -1309,11 +1305,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int 
   uint8_t aes_key[AES_KEY_SIZE];
   oaes_ctx *aes_ctx;
 
-  if (prehashed) {
-    memcpy(&state.hs, data, length);
-  } else {
-    hash_process(&state.hs, data, length);
-  }
+  hash_process(&state.hs, data, length);
   memcpy(text, state.init, INIT_SIZE_BYTE);
   memcpy(aes_key, state.hs.b, AES_KEY_SIZE);
   aes_ctx = (oaes_ctx *) oaes_alloc();
