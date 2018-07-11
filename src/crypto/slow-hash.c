@@ -49,6 +49,9 @@
 extern int aesb_single_round(const uint8_t *in, uint8_t*out, const uint8_t *expandedKey);
 extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *expandedKey);
 
+#if defined(__x86_64__) || (defined(_MSC_VER) && defined(_WIN64))
+
+#endif
 #define VARIANT1_1(p) \
   do if (variant > 0) \
   { \
