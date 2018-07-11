@@ -916,16 +916,10 @@ namespace cryptonote
   //---------------------------------------------------------------
   bool get_block_longhash(const block& b, crypto::hash& res, uint64_t height)
   {
-    blobdata bd = get_block_hashing_blob(b);
-    uint64_t cn_variant; 
+    blobdata bd = get_block_hashing_blob(b); 
     uint64_t forkHeight = height;
-    if((uint64_t)forkHeight < MAINNET_HARDFORK_V15_HEIGHT){
-    cn_variant = 1;
-    }
-    else{
-    cn_variant = 2;
-    }
-    crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
+    const int variant = b.major_version >= 7 ? 1 : b.major_version >= 15 ? b.major_version - 13 : 0;
+    crypto::cn_slow_hash(bd.data(), bd.size(), res, variant);
     return true;
   }
   //---------------------------------------------------------------
