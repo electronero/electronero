@@ -68,9 +68,8 @@
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
-#define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
-#define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork 
-#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork 
+#define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
+#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337816)) // MAINNET v15 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -853,7 +852,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
   uint64_t versionHeight = height;
-  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V15_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   size_t difficulty_blocks_count;
 
   // pick DIFFICULTY_BLOCKS_COUNT based on version
@@ -892,10 +891,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
-  }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)difficulty_blocks_count) 
-  {  
-  return (difficulty_type) 52289156; 
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
@@ -957,7 +952,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     return diffV3;
   } 
   else {
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT ? 12 : (uint64_t)height < MAINNET_HARDFORK_V14_HEIGHT ? 13 : 14;
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT ? 12 : (uint64_t)height < MAINNET_HARDFORK_V15_HEIGHT ? 13 : 15;
+    if(version < get_current_hard_fork_version()){
+    version = get_current_hard_fork_version();
+    }
     difficulty_type diffV4 = next_difficulty_v4(timestamps, difficulties, target); 
     m_difficulty_for_next_block_top_hash = top_hash;
     m_difficulty_for_next_block = diffV4;
@@ -1113,7 +1111,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   std::vector<difficulty_type> cumulative_difficulties;
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
-  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V15_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   size_t difficulty_blocks_count;
 	
   // pick DIFFICULTY_BLOCKS_COUNT based on version
@@ -1195,7 +1193,10 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
     return diffV3;
   } 
   else {
-    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT ? 12 : (uint64_t)height < MAINNET_HARDFORK_V14_HEIGHT ? 13 : 14;
+    uint8_t version = (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT ? 12 : (uint64_t)height < MAINNET_HARDFORK_V15_HEIGHT ? 13 : 15;
+    if(version < get_current_hard_fork_version()){
+    version = get_current_hard_fork_version();
+    }
     difficulty_type diffV4 = next_difficulty_v4(timestamps, cumulative_difficulties, target); 
     return diffV4;
   }
@@ -4599,7 +4600,7 @@ bool Blockchain::get_hard_fork_voting_info(uint8_t version, uint32_t &window, ui
 uint64_t Blockchain::get_difficulty_target() const
 {
   uint64_t versionHeight = m_db->height();
-  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t target = versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : versionHeight >= MAINNET_HARDFORK_V15_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   return target;
 }
 
