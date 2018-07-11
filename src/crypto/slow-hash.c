@@ -564,7 +564,11 @@ void slow_hash_free_state(void)
  * @param length the length in bytes of the data
  * @param hash a pointer to a buffer in which the final 256 bit hash will be stored
  */
-void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int prehashed)
+void cn_slow_hash(const void *data, size_t length, char *hash, int variant) {
+    cn_slow_hash_pre(data,length,hash,variant,false);
+}
+
+void cn_slow_hash_pre(const void *data, size_t length, char *hash, int variant, bool prehashed)
 {
     RDATA_ALIGN16 uint8_t expandedKey[240];  /* These buffers are aligned to use later with SSE functions */
 
