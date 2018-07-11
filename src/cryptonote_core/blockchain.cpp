@@ -70,6 +70,7 @@
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork 
+#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -141,8 +142,8 @@ static const struct {
   { 12, MAINNET_HARDFORK_V12_HEIGHT, 0, 1528100954 },
   // Version 13
   { 13, MAINNET_HARDFORK_V13_HEIGHT, 0, 1530783171 },
-  // Version 14
-  { 14, MAINNET_HARDFORK_V14_HEIGHT, 0, 1531281886 }
+  // Version 15
+  { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1531291624 }
 
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -868,7 +869,34 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
-
+  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 3 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + 6)
+  {
+  return (difficulty_type) 255;
+  }
+  if ((uint64_t)height > MAINNET_HARDFORK_V7_HEIGHT + 6 && (uint64_t)height <= MAINNET_HARDFORK_V8_HEIGHT + 2)
+  {
+  return (difficulty_type) 287;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V10_HEIGHT - 2 && (uint64_t)height <= MAINNET_HARDFORK_V10_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 100;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V11_HEIGHT - 2 && (uint64_t)height <= MAINNET_HARDFORK_V11_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 100;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V12_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V12_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 72289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V14_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V14_HEIGHT + (uint64_t)difficulty_blocks_count) 
+  {  
+  return (difficulty_type) 52289156; 
+  }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
   //    pop the oldest one from the list. This only requires 1x read per height instead
