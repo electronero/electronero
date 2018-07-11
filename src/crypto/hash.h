@@ -31,10 +31,13 @@
 #pragma once
 
 #include <stddef.h>
-
+#include <iostream>
+#include <boost/utility/value_init.hpp>
 
 #include "common/pod-class.h"
 #include "generic-ops.h"
+#include "hex.h"
+#include "span.h"
 
 
 namespace crypto {
