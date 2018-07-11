@@ -74,8 +74,7 @@ namespace crypto {
   inline void tree_hash(const hash *hashes, std::size_t count, hash &root_hash) {
     tree_hash(reinterpret_cast<const char (*)[HASH_SIZE]>(hashes), count, reinterpret_cast<char *>(&root_hash));
   }
-  const static crypto::hash null_hash = boost::value_initialized<crypto::hash>();
-  const static crypto::hash8 null_hash8 = boost::value_initialized<crypto::hash8>();
+
 }
 
 CRYPTO_MAKE_HASHABLE(hash)
