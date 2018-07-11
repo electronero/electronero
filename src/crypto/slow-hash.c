@@ -40,7 +40,7 @@
 #include "oaes_lib.h"
 
 #define MEMORY         (1 << 21) // 2MB scratchpad
-#define ITER() (variant >= 2 ? (1 << 19) : (1 << 20))
+#define ITER           (1 << 20)
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32
 #define INIT_SIZE_BLK   8
@@ -53,13 +53,19 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
 
 #endif
 #define VARIANT1_1(p) \
-  do if (variant > 0) \
+  if (variant == 2) \
   { \
+    const uint8_t tmp = ((const uint8_t*)(p))[11]; \
+    static const uint32_t table = 0x75312; \
+    const uint8_t index = (((tmp >> 4) & 6) | (tmp & 1)) << 1; \
+    ((uint8_t*)(p))[11] = tmp ^ ((table >> index) & 0x30); \
+  }  \
+  else if(variant == 1){ \
     const uint8_t tmp = ((const uint8_t*)(p))[11]; \
     static const uint32_t table = 0x75310; \
     const uint8_t index = (((tmp >> 3) & 6) | (tmp & 1)) << 1; \
     ((uint8_t*)(p))[11] = tmp ^ ((table >> index) & 0x30); \
-  } while(0)
+  }
 
 #define VARIANT1_2(p) \
   do if (variant > 0) \
@@ -527,7 +533,7 @@ void slow_hash_free_state(void)
     else
     {
 #if defined(_MSC_VER) || defined(__MINGW32__)
-        VirtualFree(hp_state, 0, MEM_RELEASE);
+        VirtualFree(hp_state, MEMORY, MEM_RELEASE);
 #else
         munmap(hp_state, MEMORY);
 #endif
@@ -567,11 +573,8 @@ void slow_hash_free_state(void)
  * @param length the length in bytes of the data
  * @param hash a pointer to a buffer in which the final 256 bit hash will be stored
  */
-void cn_slow_hash(const void *data, size_t length, char *hash, int variant) {
-    cn_slow_hash_pre(data,length,hash,variant,false);
-}
 
-void cn_slow_hash_pre(const void *data, size_t length, char *hash, int variant, bool prehashed)
+void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
 {
     RDATA_ALIGN16 uint8_t expandedKey[240];  /* These buffers are aligned to use later with SSE functions */
 
@@ -598,11 +601,7 @@ void cn_slow_hash_pre(const void *data, size_t length, char *hash, int variant, 
         slow_hash_allocate_state();
 
     /* CryptoNight Step 1:  Use Keccak1600 to initialize the 'state' (and 'text') buffers from the data. */
-    if (prehashed) {
-        memcpy(&state.hs, data, length);
-    } else {
-        hash_process(&state.hs, data, length);
-    }
+    hash_process(&state.hs, data, length);
     memcpy(text, state.init, INIT_SIZE_BYTE);
 
     VARIANT1_INIT64();
@@ -648,7 +647,7 @@ void cn_slow_hash_pre(const void *data, size_t length, char *hash, int variant, 
     // the useAes test is only performed once, not every iteration.
     if(useAes)
     {
-        for(i = 0; i < ITER() / 2; i++)
+        for(i = 0; i < ITER / 2; i++)
         {
             pre_aes();
             _c = _mm_aesenc_si128(_c, _a);
@@ -657,7 +656,7 @@ void cn_slow_hash_pre(const void *data, size_t length, char *hash, int variant, 
     }
     else
     {
-        for(i = 0; i < ITER() / 2; i++)
+        for(i = 0; i < ITER / 2; i++)
         {
             pre_aes();
             aesb_single_round((uint8_t *) &_c, (uint8_t *) &_c, (uint8_t *) &_a);
@@ -935,11 +934,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
 
     /* CryptoNight Step 1:  Use Keccak1600 to initialize the 'state' (and 'text') buffers from the data. */
 
-    if (prehashed) {
-        memcpy(&state.hs, data, length);
-    } else {
-        hash_process(&state.hs, data, length);
-    }
+    hash_process(&state.hs, data, length);
     memcpy(text, state.init, INIT_SIZE_BYTE);
 
     VARIANT1_INIT64();
@@ -968,7 +963,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
     _b = vld1q_u8((const uint8_t *)b);
 
 
-    for(i = 0; i < ITER() / 2; i++)
+    for(i = 0; i < ITER / 2; i++)
     {
         pre_aes();
         _c = vaeseq_u8(_c, zero);
@@ -1160,7 +1155,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
     U64(b)[0] = U64(&state.k[16])[0] ^ U64(&state.k[48])[0];
     U64(b)[1] = U64(&state.k[16])[1] ^ U64(&state.k[48])[1];
 
-    for(i = 0; i < ITER() / 2; i++)
+    for(i = 0; i < ITER / 2; i++)
     {
       #define MASK ((uint32_t)(((MEMORY / AES_BLOCK_SIZE) - 1) << 4))
       #define state_index(x) ((*(uint32_t *) x) & MASK)
@@ -1328,7 +1323,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant) {
     b[i] = state.k[16 + i] ^ state.k[48 + i];
   }
 
-  for (i = 0; i < ITER() / 2; i++) {
+  for (i = 0; i < ITER / 2; i++) {
     /* Dependency chain: address -> read value ------+
      * written value <-+ hard function (AES or MUL) <+
      * next address  <-+
