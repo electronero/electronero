@@ -72,7 +72,7 @@ namespace crypto {
   inline void generate_chacha_key(const void *data, size_t size, chacha_key& key, int cn_variant = 0, bool prehashed=false) {
     static_assert(sizeof(chacha_key) <= sizeof(hash), "Size of hash must be at least that of chacha_key");
     tools::scrubbed_arr<char, HASH_SIZE> pwd_hash;
-    crypto::cn_slow_hash_pre(data, size, pwd_hash.data(), cn_variant, prehashed);
+    crypto::cn_slow_hash(data, size, pwd_hash.data(), cn_variant);
     memcpy(&unwrap(key), pwd_hash.data(), sizeof(key));
   }
 
