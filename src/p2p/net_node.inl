@@ -57,7 +57,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "net.p2p"
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
-#define MIN_WANTED_SEED_NODES 6
+#define MIN_WANTED_SEED_NODES 12
 
 namespace nodetool
 {
@@ -383,7 +383,20 @@ namespace nodetool
     }
     else
     { 
-      full_addrs.insert("127.0.0.1:12089");
+      full_addrs.insert("104.236.175.63:12089");
+      full_addrs.insert("174.138.15.35:12089");
+      full_addrs.insert("165.227.189.226:12089"); // https://pool.electronero.org
+      full_addrs.insert("178.128.248.192:12089");
+      full_addrs.insert("178.128.248.101:12089");
+      full_addrs.insert("178.128.248.101:12089");
+      full_addrs.insert("178.128.47.24:12089");
+      full_addrs.insert("209.97.141.47:12089");
+      full_addrs.insert("178.128.196.241:12089");
+      full_addrs.insert("178.128.207.173:12089");
+      full_addrs.insert("167.99.183.220:12089"); 
+      full_addrs.insert("167.99.183.194:12089"); 
+      full_addrs.insert("85.119.151.210:12089"); // https://etnx.crypto-pool.pro
+      full_addrs.insert("46.101.40.29:12089"); // https://uspool.electronero.org
     }
     return full_addrs;
   }
