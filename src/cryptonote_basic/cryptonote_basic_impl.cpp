@@ -53,7 +53,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork 
-#define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337838)) // MAINNET v14 hard fork 
+#define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork 
 namespace cryptonote {
 
   struct integrated_address {
