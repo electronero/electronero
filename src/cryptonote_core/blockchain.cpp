@@ -3583,7 +3583,6 @@ leave:
     }
     else
       proof_of_work = get_block_longhash(bl, m_db->height());
-      const uint64_t bc_height = m_db->height();
     // validate proof_of_work versus difficulty target
     if(!check_hash(proof_of_work, current_diffic))
     {
