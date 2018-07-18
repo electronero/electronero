@@ -9,6 +9,7 @@ Portions Copyright (c) ~2018 The Sumokoin developers.
 Portions Copyright (c) ~2018 The Stellite developers.
 Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
+
 ## Development resources
 
 - Web: [getmonero.org](https://getmonero.org)
