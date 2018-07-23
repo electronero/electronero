@@ -1,5 +1,6 @@
 // Copyright (c) 2018, The Electronero Project
 // Portions Copyright (c) 2014-2018, The Monero Project
+// Portions Copyright (c) 2017-2018, The Sumokoin Project
 //
 // All rights reserved.
 //
