@@ -15,7 +15,7 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 - Web: [electronero.org](https://electronero.org)
 - Chat: [t.me/electronero](https://t.me/electronero)
 - Mail: [support@electronero.org](mailto:support@electronero.org)
-- GitHub: [https://github.com/electronero/electronero](https://github.com/electronero/electronero
+- GitHub: [github.com/electronero/electronero](https://github.com/electronero/electronero
 
 ## Vulnerability response
 
