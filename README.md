@@ -2,12 +2,12 @@
 
 Source code forked from Monero
 
-Copyright (c) 2014-2018 The Monero Project.  
+`Copyright (c) 2014-2018 The Monero Project.  
 Portions Copyright (c) 2017-2018 The Electroneum developers.
 Portions Copyright (c) ~2018 The Masari developers.
 Portions Copyright (c) ~2018 The Sumokoin developers.
 Portions Copyright (c) ~2018 The Stellite developers.
-Portions Copyright (c) 2012-2013 The Cryptonote developers.
+Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 
 
 ## Development resources
