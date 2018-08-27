@@ -969,7 +969,7 @@ namespace cryptonote
       BEGIN_KV_SERIALIZE_MAP()
         KV_SERIALIZE(status)
         KV_SERIALIZE(height)
-	KV_SERIALIZE(already_generated_coins)
+        KV_SERIALIZE(already_generated_coins)
         KV_SERIALIZE(target_height)
         KV_SERIALIZE(difficulty)
         KV_SERIALIZE(target)
