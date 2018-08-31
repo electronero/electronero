@@ -452,6 +452,29 @@ namespace tools
 
     typedef std::tuple<uint64_t, crypto::public_key, rct::key> get_outs_entry;
 
+    struct parsed_block
+    {
+      crypto::hash hash;
+      cryptonote::block block;
+      std::vector<cryptonote::transaction> txes;
+      cryptonote::COMMAND_RPC_GET_BLOCKS_FAST::block_output_indices o_indices;
+      bool error;
+    };
+
+    struct is_out_data
+    {
+      crypto::public_key pkey;
+      crypto::key_derivation derivation;
+      std::vector<boost::optional<cryptonote::subaddress_receive_info>> received;
+    };
+
+    struct tx_cache_data
+    {
+      std::vector<cryptonote::tx_extra_field> tx_extra_fields;
+      std::vector<is_out_data> primary;
+      std::vector<is_out_data> additional;
+    };
+    
     /*!
      * \brief  Generates a wallet or restores one.
      * \param  wallet_              Name of wallet file
@@ -1090,7 +1113,7 @@ namespace tools
      * \param password       Password of wallet file
      */
     bool load_keys(const std::string& keys_file_name, const epee::wipeable_string& password);
-    void process_new_transaction(const crypto::hash &txid, const cryptonote::transaction& tx, const std::vector<uint64_t> &o_indices, uint64_t height, uint64_t ts, bool miner_tx, bool pool, bool double_spend_seen);
+    void process_new_transaction(const crypto::hash &txid, const cryptonote::transaction& tx, const std::vector<uint64_t> &o_indices, uint64_t height, uint64_t ts, bool miner_tx, bool pool, bool double_spend_seen, const tx_cache_data &tx_cache_data);
     void process_new_blockchain_entry(const cryptonote::block& b, const cryptonote::block_complete_entry& bche, const crypto::hash& bl_id, uint64_t height, const cryptonote::COMMAND_RPC_GET_BLOCKS_FAST::block_output_indices &o_indices);
     void detach_blockchain(uint64_t height);
     void get_short_chain_history(std::list<crypto::hash>& ids) const;
