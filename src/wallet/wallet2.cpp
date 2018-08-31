@@ -1164,7 +1164,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
         additional_derivations.pop_back();
       }
     }
-    hwdev_lock.unlock()
+    hwdev_lock.unlock();
 
     if (miner_tx && m_refresh_type == RefreshNoCoinbase)
     {
