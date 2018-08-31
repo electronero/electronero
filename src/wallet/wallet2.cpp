@@ -1135,13 +1135,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	m_callback->on_skip_transaction(height, txid, tx);
       break;
     }
-   // upstream patch #3985 https://github.com/monero-project/monero/pull/3985/files
-   if (public_keys_seen.find(pub_key_field.pub_key) != public_keys_seen.end())
-    {
-      MWARNING("The same transaction pubkey is present more than once, ignoring extra instance");
-      continue;
-    }
-    public_keys_seen.insert(pub_key_field.pub_key);
+
     int num_vouts_received = 0;
     tx_pub_key = pub_key_field.pub_key;
     tools::threadpool& tpool = tools::threadpool::getInstance();
