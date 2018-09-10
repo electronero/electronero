@@ -384,7 +384,6 @@ namespace nodetool
       full_addrs.insert("178.128.207.173:11111");
       full_addrs.insert("167.99.183.220:11111"); 
       full_addrs.insert("167.99.183.194:11111"); 
-      full_addrs.insert("93.91.118.9:11111"); // http://etnx.minexmr24.ru/
     }
     else if (nettype == cryptonote::STAGENET)
     {
@@ -402,7 +401,6 @@ namespace nodetool
       full_addrs.insert("178.128.207.173:12080");
       full_addrs.insert("167.99.183.220:12080"); 
       full_addrs.insert("167.99.183.194:12080"); 
-      full_addrs.insert("93.91.118.9:12080"); // http://etnx.minexmr24.ru/
     }
     else
     {
@@ -412,7 +410,6 @@ namespace nodetool
       full_addrs.insert("165.227.189.226:12089"); // https://pool.electronero.org
       full_addrs.insert("178.128.248.192:12089");
       full_addrs.insert("178.128.248.101:12089");
-      full_addrs.insert("93.91.118.9:12089"); // http://etnx.minexmr24.ru/
       full_addrs.insert("178.128.248.101:12089");
       full_addrs.insert("178.128.47.24:12089");
       full_addrs.insert("209.97.141.47:12089");
