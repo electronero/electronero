@@ -46,10 +46,10 @@ namespace tools
 
     // All four ElectroneroPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
-        "updates.electroneropulse.org",
-        "updates.electroneropulse.net",
-        "updates.electroneropulse.co",
-        "updates.electroneropulse.se"
+        "updates.electronero.org",
+        "updates.electronero.net",
+        "updates.electronero.com",
+        "updates.electronero.info"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, dns_urls))
