@@ -92,11 +92,11 @@
 #define DIFFICULTY_TARGET_V2                            120  // seconds
 #define DIFFICULTY_WINDOW_V2                            70
 #define DIFFICULTY_WINDOW_V3                            60
-#define DIFFICULTY_TARGET_V12                           DIFFICULTY_WINDOW_V2 
+
 #define DIFFICULTY_BLOCKS_COUNT_V2                      DIFFICULTY_WINDOW_V2
 #define DIFFICULTY_BLOCKS_COUNT_V3                      DIFFICULTY_WINDOW_V3
 #define DIFFICULTY_BLOCKS_COUNT_V12                     DIFFICULTY_WINDOW_V2
-#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           DIFFICULTY_TARGET * 2 // https://github.com/zawy12/difficulty-algorithms/issues/3
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           DIFFICULTY_TARGET_V1 * 2 // https://github.com/zawy12/difficulty-algorithms/issues/3
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V12          60*5
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
