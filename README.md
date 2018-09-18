@@ -19,8 +19,8 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 
 ## Vulnerability response
 
-- Our [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
-- We are also available via [HackerOne](https://hackerone.com/monero)
+- Monero [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
+- Monero is also available via [HackerOne](https://hackerone.com/monero)
 
 ## Announcements
 
