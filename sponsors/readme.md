@@ -1,1 +1,1 @@
-[<img width="80" src=""/>](https://mineful.com)
+[<img width="80" src="mineful_logo.png"/>](https://mineful.com)
