@@ -417,7 +417,6 @@ namespace nodetool
       full_addrs.insert("178.128.207.173:12089");
       full_addrs.insert("167.99.183.220:12089"); 
       full_addrs.insert("167.99.183.194:12089"); 
-      full_addrs.insert("85.119.151.210:12089"); // https://etnx.crypto-pool.pro
     }
     return full_addrs;
   }
