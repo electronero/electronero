@@ -433,7 +433,7 @@ namespace rpc
     // if we couldn't detect threads, set it to a ridiculously high number
     if(concurrency_count == 0)
     {
-      concurrency_count = 257;
+      concurrency_count = 45;
     }
 
     // if there are more threads requested than the hardware supports
