@@ -218,10 +218,11 @@ uint64_t WalletManagerImpl::blockchainTargetHeight()
 {
     cryptonote::COMMAND_RPC_GET_INFO::request ireq;
     cryptonote::COMMAND_RPC_GET_INFO::response ires;
-
     if (!epee::net_utils::invoke_http_json("/getinfo", ireq, ires, m_http_client))
       return 0;
-    return ires.target_height >= ires.height ? ires.target_height : ires.height;
+    return ires.height; 
+	// target_height should be return next block in chain according to docs 
+	// target_height - unsigned int; The height of the next block in the chain.
 }
 
 uint64_t WalletManagerImpl::networkDifficulty()
