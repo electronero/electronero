@@ -1542,33 +1542,22 @@ namespace cryptonote
   void core::set_target_blockchain_height(uint64_t target_blockchain_height)
   {
     uint64_t target_height = get_current_blockchain_height();
-    uint64_t target_block_height = target_blockchain_height;
-    if(target_block_height < target_height) {
-      target_blockchain_height = target_height;
+    uint64_t target_limitations = target_blockchain_height ? std::max(target_height, target_blockchain_height) : target_height;
+    if(target_blockchain_height < target_height) {
+      target_blockchain_height = get_current_blockchain_height();
       m_target_blockchain_height = target_blockchain_height;
-    } else if (target_blockchain_height != target_height) {
-      target_blockchain_height = target_height;
+    } else if (target_blockchain_height != target_limitations) {
+      target_blockchain_height = get_current_blockchain_height();
       m_target_blockchain_height = target_blockchain_height;
     } else {
+      target_blockchain_height = 0;
       m_target_blockchain_height = target_blockchain_height;      
     }    
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::get_target_blockchain_height() const
   {
-    uint64_t target_bc_height = m_target_blockchain_height;
-    uint64_t target_height = get_current_blockchain_height();
-    uint64_t target_limitations = m_target_blockchain_height ? m_target_blockchain_height : std::max(target_height, target_bc_height);
-    if (m_target_blockchain_height != 0) {
-        m_target_blockchain_height = target_limitations;
-        return m_target_blockchain_height;
-    } else if (m_target_blockchain_height < target_height) {
-      m_target_blockchain_height = target_limitations;
-      return m_target_blockchain_height;
-    } else {
-      m_target_blockchain_height = 0;
-        return m_target_blockchain_height;
-    }
+    return m_target_blockchain_height;
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::prevalidate_block_hashes(uint64_t height, const std::list<crypto::hash> &hashes)
