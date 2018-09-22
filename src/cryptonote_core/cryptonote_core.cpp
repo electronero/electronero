@@ -1550,9 +1550,14 @@ namespace cryptonote
       target_blockchain_height = get_current_blockchain_height();
       m_target_blockchain_height = target_blockchain_height;
     } else {
-      target_blockchain_height = 0;
+      target_height = get_current_blockchain_height();
       m_target_blockchain_height = target_blockchain_height;      
     }    
+    uint64_t actual_height = target_height - 1;
+    if(target_height == 0 || actual_height == 0){
+      target_blockchain_height = 0;
+      m_target_blockchain_height = target_blockchain_height;
+    }
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::get_target_blockchain_height() const
