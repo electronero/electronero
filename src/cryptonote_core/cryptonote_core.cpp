@@ -1542,26 +1542,32 @@ namespace cryptonote
   void core::set_target_blockchain_height(uint64_t target_blockchain_height)
   {
     uint64_t target_height = get_current_blockchain_height();
-    uint64_t target_controller = target_blockchain_height;
-    if(target_controller < target_height) {
-      m_target_blockchain_height = target_height;
-    }
-    else {
+    uint64_t target_block_height = target_blockchain_height;
+    if(target_block_height < target_height) {
+      target_blockchain_height = target_height;
+      m_target_blockchain_height = target_blockchain_height;
+    } else if (target_blockchain_height != target_height) {
+      target_blockchain_height = target_height;
+      m_target_blockchain_height = target_blockchain_height;
+    } else {
       m_target_blockchain_height = target_blockchain_height;      
     }    
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::get_target_blockchain_height() const
   {
-    uint64_t target_height = m_target_blockchain_height;
-    uint64_t target_controller = get_current_blockchain_height();
-    uint64_t target_limitations = std::max(target_controller, target_height);
+    uint64_t target_bc_height = m_target_blockchain_height;
+    uint64_t target_height = get_current_blockchain_height();
+    uint64_t target_limitations = m_target_blockchain_height ? m_target_blockchain_height : std::max(target_height, target_bc_height);
     if (m_target_blockchain_height != 0) {
-        return target_limitations;
-    } else if (target_height < target_controller) {
-      return target_limitations;
+        m_target_blockchain_height = target_limitations;
+        return m_target_blockchain_height;
+    } else if (m_target_blockchain_height < target_height) {
+      m_target_blockchain_height = target_limitations;
+      return m_target_blockchain_height;
     } else {
-        return 0;
+      m_target_blockchain_height = 0;
+        return m_target_blockchain_height;
     }
   }
   //-----------------------------------------------------------------------------------------------
