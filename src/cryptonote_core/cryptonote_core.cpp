@@ -1541,12 +1541,28 @@ namespace cryptonote
   //-----------------------------------------------------------------------------------------------
   void core::set_target_blockchain_height(uint64_t target_blockchain_height)
   {
-    m_target_blockchain_height = target_blockchain_height;
+    uint64_t target_height = get_current_blockchain_height();
+    uint64_t target_controller = target_blockchain_height;
+    if(target_controller < target_height) {
+      m_target_blockchain_height = target_height;
+    }
+    else {
+      m_target_blockchain_height = target_blockchain_height;      
+    }    
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::get_target_blockchain_height() const
   {
-    return m_target_blockchain_height;
+    uint64_t target_height = m_target_blockchain_height;
+    uint64_t target_controller = get_current_blockchain_height();
+    uint64_t target_limitations = std::max(target_controller, target_height);
+    if (m_target_blockchain_height != 0) {
+        return target_limitations;
+    } else if (target_height < target_controller) {
+      return target_limitations;
+    } else {
+        return 0;
+    }
   }
   //-----------------------------------------------------------------------------------------------
   uint64_t core::prevalidate_block_hashes(uint64_t height, const std::list<crypto::hash> &hashes)
