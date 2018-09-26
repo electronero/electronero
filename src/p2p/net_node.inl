@@ -404,20 +404,22 @@ namespace nodetool
     }
     else
     {
-      full_addrs.insert("46.101.40.29:12089"); 
-      full_addrs.insert("178.128.196.241:12089");
-      full_addrs.insert("178.128.207.173:12089");
-      full_addrs.insert("167.99.183.220:12089"); 
-      full_addrs.insert("104.236.175.63:12089");
-      full_addrs.insert("174.138.15.35:12089");
       full_addrs.insert("206.189.20.68:12089");
-      full_addrs.insert("165.227.189.226:12089"); 
-      full_addrs.insert("178.128.248.192:12089");
-      full_addrs.insert("178.128.248.101:12089");
-      full_addrs.insert("178.128.248.101:12089");
-      full_addrs.insert("178.128.47.24:12089");
-      full_addrs.insert("209.97.141.47:12089");
-      full_addrs.insert("167.99.183.194:12089"); 
+      full_addrs.insert("46.101.40.29:12089"); 
+      full_addrs.insert("165.227.189.226:12089");
+      full_addrs.insert("104.236.175.63:12089"); 
+      full_addrs.insert("45.55.120.174:12089"); 
+      full_addrs.insert("159.89.249.200:12089"); 
+      full_addrs.insert("138.68.192.102:12089"); 
+      full_addrs.insert("159.65.178.16:12089");
+      full_addrs.insert("209.97.158.57:12089");
+      full_addrs.insert("174.138.15.35:12089");
+      full_addrs.insert("104.248.168.133:12089");
+      full_addrs.insert("104.248.175.130:12089");
+      full_addrs.insert("104.248.162.18:12089");
+      full_addrs.insert("104.248.166.224:12089");
+      full_addrs.insert("104.248.160.202:12089");
+      full_addrs.insert("206.189.246.55:12089");
     }
     return full_addrs;
   }
