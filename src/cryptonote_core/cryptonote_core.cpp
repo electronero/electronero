@@ -1542,12 +1542,7 @@ namespace cryptonote
   void core::set_target_blockchain_height(uint64_t target_blockchain_height)
   {
     uint64_t target_height = get_current_blockchain_height();
-    uint64_t target_limitations = target_blockchain_height ? std::max(target_height, target_blockchain_height) : target_height;
-    if(target_blockchain_height < target_height) {
-      target_blockchain_height = get_current_blockchain_height();
-      m_target_blockchain_height = target_blockchain_height;
-    } else if (target_blockchain_height != target_limitations) {
-      target_blockchain_height = get_current_blockchain_height();
+    if(target_blockchain_height > target_height) {
       m_target_blockchain_height = target_blockchain_height;
     } else {
       target_blockchain_height = get_current_blockchain_height();
