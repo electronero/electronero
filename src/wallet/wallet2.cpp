@@ -1105,7 +1105,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   // (that is, the prunable stuff may or may not be included)
   if (!miner_tx && !pool)
     process_unconfirmed(txid, tx, height);
-  std::vector<size_t> outs;
+  
   std::unordered_map<cryptonote::subaddress_index, uint64_t> tx_money_got_in_outs;  // per receiving subaddress index
   crypto::public_key tx_pub_key = null_pkey;
 
@@ -1124,6 +1124,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   uint64_t total_received_1 = 0;
   while (!tx.vout.empty())
   {
+    std::vector<size_t> outs;
     // if tx.vout is not empty, we loop through all tx pubkeys
 
     tx_extra_pub_key pub_key_field;
@@ -1452,13 +1453,17 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   }
 
   // remove change sent to the spending subaddress account from the list of received funds
+  uint64_t sub_change = 0;
   for (auto i = tx_money_got_in_outs.begin(); i != tx_money_got_in_outs.end();)
   {
     if (subaddr_account && i->first.major == *subaddr_account)
+    {
+      sub_change += i->second;
       i = tx_money_got_in_outs.erase(i);
+    }
     else
       ++i;
-  }
+   }
 
   // create payment_details for each incoming transfer to a subaddress index
   if (tx_money_got_in_outs.size() > 0)
@@ -1502,7 +1507,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
       LOG_PRINT_L2("Found unencrypted payment ID: " << payment_id);
     }
 
-    uint64_t total_received_2 = 0;
+    uint64_t total_received_2 = sub_change;
     for (const auto& i : tx_money_got_in_outs)
       total_received_2 += i.second;
     if (total_received_1 != total_received_2)
