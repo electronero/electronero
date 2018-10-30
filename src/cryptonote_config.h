@@ -55,13 +55,13 @@
 #define MONEY_SUPPLY_ETN                                ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
-#define TOKENS_ETNX                                     ((uint64_t)(3600000000000000)) // after the ETNXP hard fork and ETNX burn
+#define TOKENS_ETNX                                     ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
 
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)5) // 5 coins
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)500000000) // 5 coins
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -76,10 +76,10 @@
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)5000000) // 0.05 
-#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500) // .1 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500) // .10 * pow(10, 1)
-#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
+#define FEE_PER_KB                                      ((uint64_t)16023018) // 0.16023018 
+#define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500000000) // .25 * pow(10, 8)
+#define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500000000) // .25 * pow(10, 8)
+#define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500000000 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
@@ -165,7 +165,7 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".shared-etnx-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".shared-bitelectronero-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
 #define MAX_MIXIN                                       100    // maximum mixin allowed
@@ -181,7 +181,7 @@ namespace config
 {
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)5000000); // 
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)16023018); // 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
