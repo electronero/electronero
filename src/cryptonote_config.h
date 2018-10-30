@@ -55,11 +55,13 @@
 #define MONEY_SUPPLY_ETN                                ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
+#define TOKENS_ETNX                                     ((uint64_t)(3600000000000000)) // after the ETNXP hard fork and ETNX burn
+
 // Number of smallest units in one coin
-#define COIN                                            ((uint64_t)100) // pow(10, 2)
+#define COIN                                            ((uint64_t)100000000) // pow(10, 8)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)10000000) // 100k coins
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)5) // 5 coins
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -67,14 +69,14 @@
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000 //size of block (bytes) after which reward for block calculated using block size - before first fork
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5    300000 //size of block (bytes) after which reward for block calculated using block size - second change, from v5
 #define CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE          600
-#define CRYPTONOTE_DISPLAY_DECIMAL_POINT                2
+#define CRYPTONOTE_DISPLAY_DECIMAL_POINT                8
 
 #define CRYPTONOTE_TX_FEE_RESERVED_SIZE                 3
 #define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5             21
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)40) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)5000) // 50 * pow(10, 2)
+#define FEE_PER_KB                                      ((uint64_t)5000000) // 0.05 
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500) // .1 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500) // .10 * pow(10, 1)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
@@ -139,7 +141,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "electronero"
+#define CRYPTONOTE_NAME                                 "bitelectronero"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -157,7 +159,6 @@
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
-#define HARD_FORK_SPLIT                                 0 
 
 #define HF_VERSION_DYNAMIC_FEE                          100
 #define HF_VERSION_ENFORCE_RCT                          6
@@ -180,18 +181,18 @@ namespace config
 {
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)20); // .20 
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)5000000); // 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 12089;
-  uint16_t const RPC_DEFAULT_PORT = 12090;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 12091;
+  uint16_t const P2P_DEFAULT_PORT = 21089;
+  uint16_t const RPC_DEFAULT_PORT = 21090;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21091;
   boost::uuids::uuid const NETWORK_ID = { {
-     0x5D, 0xEA, 0x85, 0xF3 ,0xF3, 0xF3, 0xD1, 0xF3, 0xC8, 0x39, 0x2C, 0xF3 , 0xF3 , 0xE3, 0x8E, 0xA4
+     0x5D, 0xEA, 0x85, 0x39, 0xF3 , 0xE3, 0x8E, 0xF3, 0xD1, 0xF3, 0xF3 , 0xC8, 0xA4, 0x2C, 0xF3 ,0xF3
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
@@ -202,11 +203,11 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 33080;
-    uint16_t const RPC_DEFAULT_PORT = 33081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 33082;
+    uint16_t const P2P_DEFAULT_PORT = 13080;
+    uint16_t const RPC_DEFAULT_PORT = 13081;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 13082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x40
+        0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C,0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2,  0x85, 0x8E, 0xC8, 0x40
       } }; // Bender's daydream
     std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
     uint32_t const GENESIS_NONCE = 10001;
@@ -218,11 +219,11 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 44080;
-    uint16_t const RPC_DEFAULT_PORT = 44081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 44082;
+    uint16_t const P2P_DEFAULT_PORT = 14080;
+    uint16_t const RPC_DEFAULT_PORT = 14081;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 14082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x41
+         0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C,0x04, 0x8E, 0xC8, 0x41, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0x85
       } }; // Bender's daydream
     std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
     uint32_t const GENESIS_NONCE = 10002;
