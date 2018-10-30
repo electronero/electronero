@@ -71,27 +71,37 @@
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500000)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500070)) // MAINNET v17 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
 #define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
-#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(57)) // TESTNET v8 hard fork 
-#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(4313)) // TESTNET v9 hard fork
-#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(4357)) // TESTNET v10 hard fork
-#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(12308)) // TESTNET v11 hard fork
-#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(12775)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // TESTNET v8 hard fork 
+#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // TESTNET v9 hard fork
+#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // TESTNET v10 hard fork
+#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // TESTNET v11 hard fork
+#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // TESTNET v13 hard fork
+#define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // TESTNET v14 hard fork
+#define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // TESTNET v15 hard fork
+#define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // TESTNET v16 hard fork
+#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // TESTNET v17 hard fork
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
-#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
-#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
-#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
-#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
-#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
-#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
-#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(4)) // MAINNET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // MAINNET v8 hard fork 
+#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // MAINNET v9 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // MAINNET v10 hard fork 
+#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // MAINNET v11 hard fork -- 70 blocks difference from 10
+#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // MAINNET 72289156 hard fork 
+#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // MAINNET v13 hard fork  
+#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // MAINNET v14 hard fork
+#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // MAINNET v15 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // MAINNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // MAINNET v17 hard fork
+
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -149,7 +159,11 @@ static const struct {
   // Version 14
   { 14, MAINNET_HARDFORK_V14_HEIGHT, 0, 1530884769 },
   // Version 15
-  { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1531327124 }
+  { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1530885769 },
+  // Version 15
+  { 16, MAINNET_HARDFORK_V16_HEIGHT, 0, 1530886769 }, 
+  // Version 15
+  { 17, MAINNET_HARDFORK_V17_HEIGHT, 0, 1530887769 }
 
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -165,9 +179,14 @@ static const struct {
   { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 },
   { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1526030997 },
   { 9, TESTNET_HARDFORK_V9_HEIGHT, 0, 1526625013 },
-  { 10, TESTNET_HARDFORK_V10_HEIGHT, 0, 1526625163 },
-  { 11, TESTNET_HARDFORK_V11_HEIGHT, 0, 1527566303 },
-  { 12, TESTNET_HARDFORK_V12_HEIGHT, 0, 1527629571 }
+  { 10, TESTNET_HARDFORK_V10_HEIGHT, 0, 1526625023 },
+  { 11, TESTNET_HARDFORK_V11_HEIGHT, 0, 1526625043 },
+  { 12, TESTNET_HARDFORK_V12_HEIGHT, 0, 1527629671 },
+  { 13, TESTNET_HARDFORK_V13_HEIGHT, 0, 1527629791 },
+  { 14, TESTNET_HARDFORK_V14_HEIGHT, 0, 1527629871 },
+  { 15, TESTNET_HARDFORK_V15_HEIGHT, 0, 1527629971 },
+  { 16, TESTNET_HARDFORK_V16_HEIGHT, 0, 1527639871 },
+  { 17, TESTNET_HARDFORK_V17_HEIGHT, 0, 1527659871 }
 };
 static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
@@ -203,7 +222,11 @@ static const struct {
   // Version 15
   { 14, STAGENET_HARDFORK_V14_HEIGHT, 0, 1530884769 }, 
 	
-  { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }
+  { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }, 
+	
+  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 }, 
+	
+  { 17, STAGENET_HARDFORK_V16_HEIGHT, 0, 1561318928 }
 };
 
 //------------------------------------------------------------------
@@ -3763,7 +3786,7 @@ leave:
   if (m_nettype == TESTNET)
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
@@ -3776,7 +3799,7 @@ leave:
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 2) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
@@ -3789,10 +3812,10 @@ leave:
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 6) 
   {
-   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
+   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
   } else 
   {
    already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
