@@ -157,7 +157,6 @@
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
 
-#define HARD_FORK_SPLIT                                 0 
 
 #define HF_VERSION_DYNAMIC_FEE                          100
 #define HF_VERSION_ENFORCE_RCT                          6
