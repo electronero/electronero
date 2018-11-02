@@ -890,22 +890,64 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
   uint64_t versionHeight = height;
-  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-  size_t difficulty_blocks_count;
 
-  // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } 
-  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+  // TESTNET, STAGENET and MAINNET
+  if (m_nettype == TESTNET)
+  {
+	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
-  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  else if (m_nettype == STAGENET)
+  {
+	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
+	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
-  else{
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+  else {
+	  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+ 	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
+
+	// stagenet wouldnt have these difficulty issues inherited so height is appropriate. 
+	
   if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 3 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + 6)
   {
   return (difficulty_type) 255;
@@ -970,6 +1012,11 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     uint8_t version = 1;
+	  // stagenet wouldnt agree
+	  
+    if(version < get_current_hard_fork_version()){
+    version = get_current_hard_fork_version();
+    }
     difficulty_type diffV1 = next_difficulty(timestamps, difficulties, target);
     m_difficulty_for_next_block_top_hash = top_hash;
     m_difficulty_for_next_block = diffV1;
@@ -1149,21 +1196,61 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   std::vector<difficulty_type> cumulative_difficulties;
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
-  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-  size_t difficulty_blocks_count;
-	
-  // pick DIFFICULTY_BLOCKS_COUNT based on version
-  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-  } 
-  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+
+  // TESTNET, STAGENET and MAINNET
+  if (m_nettype == TESTNET)
+  {	  LOG_PRINT_L3("Blockchain TESTNET TARGET ADJUSTED");
+	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
-  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  else if (m_nettype == STAGENET)
+  {	  LOG_PRINT_L3("Blockchain STAGENET TARGET ADJUSTED");
+	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
+	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
-  else{
-    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+  else {
+	  LOG_PRINT_L3("Blockchain MAINNET TARGET ADJUSTED");
+	  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+ 	  size_t difficulty_blocks_count;
+	  // pick DIFFICULTY_BLOCKS_COUNT based on version
+	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+	  } 
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+	  }
+	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+	  }
+	  else{
+	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+	  }
   }
 
   // if the alt chain isn't long enough to calculate the difficulty target
@@ -1217,6 +1304,11 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   }
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     uint8_t version = 1;
+	 // stagenet wouldn't agree 
+	  
+    if(version < get_current_hard_fork_version()){
+    version = get_current_hard_fork_version();
+    }
     difficulty_type diffV1 = next_difficulty(timestamps, cumulative_difficulties, target);
     return diffV1;
   } 
