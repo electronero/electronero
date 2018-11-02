@@ -54,7 +54,36 @@ using namespace epee;
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500001)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500071)) // MAINNET v17 hard fork 
+
+#define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
+#define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
+#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // TESTNET v8 hard fork 
+#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // TESTNET v9 hard fork
+#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // TESTNET v10 hard fork
+#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // TESTNET v11 hard fork
+#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // TESTNET v13 hard fork
+#define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // TESTNET v14 hard fork
+#define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // TESTNET v15 hard fork
+#define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // TESTNET v16 hard fork
+#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // TESTNET v17 hard fork
+
+#define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(4)) // MAINNET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // MAINNET v8 hard fork 
+#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // MAINNET v9 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // MAINNET v10 hard fork 
+#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // MAINNET v11 hard fork -- 70 blocks difference from 10
+#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // MAINNET 72289156 hard fork 
+#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // MAINNET v13 hard fork  
+#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // MAINNET v14 hard fork
+#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // MAINNET v15 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // MAINNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // MAINNET v17 hard fork
 namespace cryptonote {
 
   struct integrated_address {
