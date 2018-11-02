@@ -53,7 +53,10 @@ using namespace epee;
 #define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500001)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500071)) // MAINNET v17 hard fork 
+
 #define ENCRYPTED_PAYMENT_ID_TAIL 0x8d
 
 // #define ENABLE_HASH_CASH_INTEGRITY_CHECK
