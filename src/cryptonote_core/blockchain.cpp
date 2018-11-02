@@ -892,7 +892,19 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   uint64_t versionHeight = height;
   size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   size_t difficulty_blocks_count;
-
+  // pick DIFFICULTY_BLOCKS_COUNT based on version
+  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+  } 
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+  }
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  }
+  else{
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+  }
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
@@ -912,7 +924,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
   }
-  else if (m_nettype == STAGENET)
+  if (m_nettype == STAGENET)
   {
 	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
 	  size_t difficulty_blocks_count;
@@ -924,21 +936,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
 	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
-	  else{
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
-	  }
-  }
-  else {
-	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
@@ -1198,7 +1195,19 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   uint64_t versionHeight = height;
   size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
   size_t difficulty_blocks_count;
-
+  // pick DIFFICULTY_BLOCKS_COUNT based on version
+  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
+  } 
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
+  }
+  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
+  }
+  else{
+    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
+  }
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {	  LOG_PRINT_L3("Blockchain TESTNET TARGET ADJUSTED");
@@ -1218,7 +1227,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
   }
-  else if (m_nettype == STAGENET)
+  if (m_nettype == STAGENET)
   {	  LOG_PRINT_L3("Blockchain STAGENET TARGET ADJUSTED");
 	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
 	  size_t difficulty_blocks_count;
@@ -1230,22 +1239,6 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
 	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
-	  else{
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
-	  }
-  }
-  else {
-	  LOG_PRINT_L3("Blockchain MAINNET TARGET ADJUSTED");
-	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
