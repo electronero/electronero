@@ -908,8 +908,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-	  size_t difficulty_blocks_count;
+	  target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
@@ -926,8 +925,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   }
   if (m_nettype == STAGENET)
   {
-	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
-	  size_t difficulty_blocks_count;
+	  target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
@@ -1211,8 +1209,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {	  LOG_PRINT_L3("Blockchain TESTNET TARGET ADJUSTED");
-	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-	  size_t difficulty_blocks_count;
+	  target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
@@ -1229,8 +1226,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   }
   if (m_nettype == STAGENET)
   {	  LOG_PRINT_L3("Blockchain STAGENET TARGET ADJUSTED");
-	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
-	  size_t difficulty_blocks_count;
+	  target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2; 
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
