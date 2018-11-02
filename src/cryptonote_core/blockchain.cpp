@@ -3786,7 +3786,7 @@ leave:
   if (m_nettype == TESTNET)
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 16 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
@@ -3799,7 +3799,7 @@ leave:
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 16 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 2) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
@@ -3812,7 +3812,7 @@ leave:
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version >= 10 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 16 ? TOKENS : version >= 16 ? TOKENS_ETNX : MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
