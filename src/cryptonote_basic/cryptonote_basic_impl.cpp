@@ -152,9 +152,8 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
-    const uint64_t genesis_reward = genesis;
     if ((uint64_t)height == STAGENET_HARDFORK_V16_HEIGHT+1) {
-      reward = genesis;
+      reward = electronero_genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
