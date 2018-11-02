@@ -127,9 +127,9 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-//     uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight >= MAINNET_HARDFORK_V16_HEIGHT ? TOKENS_ETNX : MONEY_SUPPLY;
+//     uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : ELECTRONERO_TOKENS;
 //     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight >= STAGENET_HARDFORK_V16_HEIGHT ? TOKENS_ETNX : MONEY_SUPPLY;
+    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < STAGENET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? TOKENS : ELECTRONERO_TOKENS;
     const int target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     
     const int target_minutes = target / 60;
