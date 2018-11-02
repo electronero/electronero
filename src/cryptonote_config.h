@@ -188,9 +188,9 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 21089;
-  uint16_t const RPC_DEFAULT_PORT = 21090;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21091;
+  uint16_t const P2P_DEFAULT_PORT = 18680;
+  uint16_t const RPC_DEFAULT_PORT = 18689;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 18690;
   boost::uuids::uuid const NETWORK_ID = { {
      0x5D, 0xEA, 0x85, 0x39, 0xF3 , 0xE3, 0x8E, 0xF3, 0xD1, 0xF3, 0xF3 , 0xC8, 0xA4, 0x2C, 0xF3 ,0xF3
     } }; // Bender's nightmare
