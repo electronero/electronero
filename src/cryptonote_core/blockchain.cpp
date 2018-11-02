@@ -890,6 +890,8 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   std::vector<difficulty_type> difficulties;
   uint64_t height = m_db->height();  
   uint64_t versionHeight = height;
+  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t difficulty_blocks_count;
 
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
@@ -897,13 +899,13 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V10_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
@@ -915,13 +917,13 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V10_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
@@ -929,8 +931,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  }
   }
   else {
-	  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
- 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
@@ -1196,6 +1196,8 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   std::vector<difficulty_type> cumulative_difficulties;
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
+  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t difficulty_blocks_count;
 
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
@@ -1203,13 +1205,13 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 	  size_t target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V10_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
@@ -1221,13 +1223,13 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 	  size_t target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
+	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V10_HEIGHT) {
+	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V10_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
 	  }
-	  else if((uint64_t)versionHeight <= MAINNET_HARDFORK_V11_HEIGHT) {
+	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
 	  }
 	  else{
@@ -1236,8 +1238,6 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   }
   else {
 	  LOG_PRINT_L3("Blockchain MAINNET TARGET ADJUSTED");
-	  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
- 	  size_t difficulty_blocks_count;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
