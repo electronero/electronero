@@ -127,29 +127,38 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight >= MAINNET_HARDFORK_V16_HEIGHT ? TOKENS_ETNX : MONEY_SUPPLY;
-    const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+//     uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight >= MAINNET_HARDFORK_V16_HEIGHT ? TOKENS_ETNX : MONEY_SUPPLY;
+//     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight >= STAGENET_HARDFORK_V16_HEIGHT ? TOKENS_ETNX : MONEY_SUPPLY;
+    const int target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+    
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight >= MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v2;
+//     uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight >= MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v2;
+    
+    uint64_t emission_speed = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight >= STAGENET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v2;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t premine = 1260000000000U;
-    const uint64_t airdrop = premine;
-    if (height == 1 || height == 307003 || height == 310790) {
-      reward = airdrop;
+    if ((uint64_t)height == STAGENET_HARDFORK_V1_HEIGHT) {
+      reward = premine;
+      return true;
+    }
+    const uint64_t communityAirdrop = premine;
+    if ((uint64_t)height == STAGENET_HARDFORK_V7_HEIGHT || (uint64_t)height == STAGENET_HARDFORK_V10_HEIGHT) {
+      reward = communityAirdrop;
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
     const uint64_t genesis_reward = genesis;
-    if (height == 500004) {
+    if ((uint64_t)height == STAGENET_HARDFORK_V16_HEIGHT+1) {
       reward = genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if (version >= 7 && height > 307003)
+    if (version >= 7 && (uint64_t)height > STAGENET_HARDFORK_V7_HEIGHT)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
