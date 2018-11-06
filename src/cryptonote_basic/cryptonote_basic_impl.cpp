@@ -45,13 +45,15 @@ using namespace epee;
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
+
+#define ELECTRONERO_HARDFORK ((uint64_t)(310787)) 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
 #define MAINNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
 #define MAINNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
 #define MAINNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
-#define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET v12 hard fork 
+#define MAINNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
@@ -60,30 +62,30 @@ using namespace epee;
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
-#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
-#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // TESTNET v8 hard fork 
-#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // TESTNET v9 hard fork
-#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // TESTNET v10 hard fork
-#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // TESTNET v11 hard fork
-#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // TESTNET v12 hard fork
-#define TESTNET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // TESTNET v13 hard fork
-#define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // TESTNET v14 hard fork
-#define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // TESTNET v15 hard fork
-#define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // TESTNET v16 hard fork
-#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(109)) // TESTNET v17 hard fork
+#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // TESTNET v7 hard fork 
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // TESTNET v8 hard fork 
+#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // TESTNET v9 hard fork
+#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // TESTNET v10 hard fork
+#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // TESTNET v11 hard fork
+#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // TESTNET v13 hard fork
+#define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // TESTNET v14 hard fork
+#define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // TESTNET v15 hard fork
+#define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // TESTNET v16 hard fork
+#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // TESTNET v17 hard fork
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(4)) // MAINNET v7 hard fork 
-#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(5)) // MAINNET v8 hard fork 
-#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(7)) // MAINNET v9 hard fork 
-#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(12)) // MAINNET v10 hard fork 
-#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(15)) // MAINNET v11 hard fork -- 70 blocks difference from 10
-#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(18)) // MAINNET 72289156 hard fork 
-#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(25)) // MAINNET v13 hard fork  
-#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // MAINNET v14 hard fork
-#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // MAINNET v15 hard fork
-#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // MAINNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(109)) // MAINNET v17 hard fork
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
+#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
+#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
+#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
+#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
+#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
+#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // MAINNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // MAINNET v17 hard fork
 namespace cryptonote {
 
   struct integrated_address {
@@ -127,37 +129,33 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-//     uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : ELECTRONERO_TOKENS;
-//     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < STAGENET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? TOKENS : ELECTRONERO_TOKENS;
-    const int target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-    
+    uint64_t TOKEN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : XP_TOKENS;
+    const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10
-//     uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight >= MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v2;
-    
-    uint64_t emission_speed = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight >= STAGENET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v2;
+    const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes+1); // v16 - 18 emf
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v4;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t premine = 1260000000000U;
-    if ((uint64_t)height == STAGENET_HARDFORK_V1_HEIGHT) {
+    if ((uint64_t)height == MAINNET_HARDFORK_V1_HEIGHT) {
       reward = premine;
       return true;
     }
     const uint64_t communityAirdrop = premine;
-    if ((uint64_t)height == STAGENET_HARDFORK_V7_HEIGHT || (uint64_t)height == STAGENET_HARDFORK_V10_HEIGHT) {
+    if ((uint64_t)height == MAINNET_HARDFORK_V7_HEIGHT || (uint64_t)height == MAINNET_HARDFORK_V10_HEIGHT) {
       reward = communityAirdrop;
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
-    if ((uint64_t)height == STAGENET_HARDFORK_V16_HEIGHT+1) {
+    if ((uint64_t)height == MAINNET_HARDFORK_V16_HEIGHT+1) {
       reward = electronero_genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if (version >= 7 && (uint64_t)height > STAGENET_HARDFORK_V7_HEIGHT)
+    if (version >= 7 && (uint64_t)height > MAINNET_HARDFORK_V7_HEIGHT)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
@@ -175,7 +173,7 @@ namespace cryptonote {
     }
     
     // maybe work on better final subsidy later
-   const uint64_t FINITE_SUBSIDY = 6660U;
+   const uint64_t FINITE_SUBSIDY = 66600U;
     if (base_reward < FINITE_SUBSIDY){
      if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
