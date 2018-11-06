@@ -72,8 +72,8 @@
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
-#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500001)) // MAINNET v16 hard fork 
-#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500071)) // MAINNET v17 hard fork 
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(499999)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500070)) // MAINNET v17 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -87,7 +87,7 @@
 #define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // TESTNET v14 hard fork
 #define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // TESTNET v15 hard fork
 #define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // TESTNET v16 hard fork
-#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // TESTNET v17 hard fork
+#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(109)) // TESTNET v17 hard fork
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(4)) // MAINNET v7 hard fork 
@@ -100,7 +100,7 @@
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(28)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(33)) // MAINNET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(39)) // MAINNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(50)) // MAINNET v17 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(109)) // MAINNET v17 hard fork
 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
@@ -939,6 +939,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  else{
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
+	  if ((uint64_t)height >= STAGENET_HARDFORK_V16_HEIGHT && (uint64_t)height <= STAGENET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
+	  {
+	  return (difficulty_type) 100;
+	  }
   }
 
 	// stagenet wouldnt have these difficulty issues inherited so height is appropriate. 
@@ -966,6 +970,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= MAINNET_HARDFORK_V16_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 100;
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
