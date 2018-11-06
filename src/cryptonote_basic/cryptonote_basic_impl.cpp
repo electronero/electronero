@@ -150,7 +150,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
-    if ((uint64_t)height == MAINNET_HARDFORK_V16_HEIGHT) {
+    if ((uint64_t)height == STAGENET_HARDFORK_V16_HEIGHT) {
       reward = electronero_genesis;
       return true;
     }
