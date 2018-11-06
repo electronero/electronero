@@ -226,7 +226,7 @@ static const struct {
 	
   { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 }, 
 	
-  { 17, STAGENET_HARDFORK_V16_HEIGHT, 0, 1561318928 }
+  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1561319928 }
 };
 
 //------------------------------------------------------------------
