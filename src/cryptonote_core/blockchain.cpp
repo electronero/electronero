@@ -159,11 +159,7 @@ static const struct {
   // Version 14
   { 14, MAINNET_HARDFORK_V14_HEIGHT, 0, 1530884769 },
   // Version 15
-  { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1530885769 },
-  // Version 15
-  { 16, MAINNET_HARDFORK_V16_HEIGHT, 0, 1530886769 }, 
-  // Version 15
-  { 17, MAINNET_HARDFORK_V17_HEIGHT, 0, 1530887769 }
+  { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1530885769 }
 
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -939,10 +935,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 	  else{
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
-	  if ((uint64_t)height >= STAGENET_HARDFORK_V16_HEIGHT && (uint64_t)height <= STAGENET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
-	  {
-	  return (difficulty_type) 100;
-	  }
   }
 
 	// stagenet wouldnt have these difficulty issues inherited so height is appropriate. 
@@ -971,7 +963,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   {
   return (difficulty_type) 52289156;
   }
-  if ((uint64_t)height >= MAINNET_HARDFORK_V16_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
+  if ((uint64_t)height >= STAGENET_HARDFORK_V16_HEIGHT && (uint64_t)height <= STAGENET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 100;
   }
