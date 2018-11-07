@@ -141,7 +141,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t xP_genesis = 25500000000000U;
-    if (height == STAGENET_HARDFORK_V16_HEIGHT) {
+    if (height == 492503) {
       reward = xP_genesis;
       return true;
     }
