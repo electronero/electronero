@@ -203,9 +203,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 13080;
-    uint16_t const RPC_DEFAULT_PORT = 13081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 33082;
+    uint16_t const P2P_DEFAULT_PORT = 43080;
+    uint16_t const RPC_DEFAULT_PORT = 43081;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 43082;
     boost::uuids::uuid const NETWORK_ID = { {
         0xEA, 0x85, 0x8E, 0xC8, 0x40, 0x5D, 0x04, 0xF8,0xC2, 0xE3, 0xA4, 0x23, 0xE1, 0x66, 0x8E, 0xA4
       } }; // Bender's daydream
@@ -219,9 +219,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 14080;
-    uint16_t const RPC_DEFAULT_PORT = 14081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 44082;
+    uint16_t const P2P_DEFAULT_PORT = 34080;
+    uint16_t const RPC_DEFAULT_PORT = 34081;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 34082;
     boost::uuids::uuid const NETWORK_ID = { {
         0xC2, 0x8E, 0xC8, 0x41, 0xE3, 0xA4, 0xEA, 0x5D, 0x04, 0xF8, 0x23, 0xE1, 0x66, 0xD1, 0x2C, 0x85
       } }; // Bender's daydream
