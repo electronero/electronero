@@ -960,11 +960,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
 
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
     uint8_t version = 1;
-	  // stagenet wouldnt agree
-	  
-    if(version < get_current_hard_fork_version()){
-    version = get_current_hard_fork_version();
-    }
     difficulty_type diffV1 = next_difficulty(timestamps, difficulties, target);
     m_difficulty_for_next_block_top_hash = top_hash;
     m_difficulty_for_next_block = diffV1;
