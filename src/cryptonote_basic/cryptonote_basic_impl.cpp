@@ -163,15 +163,13 @@ namespace cryptonote {
       base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed;
     }
     
-   const uint64_t FINITE_SUBSIDY = 100U;
-   if (base_reward < FINITE_SUBSIDY){
-     if (already_generated_coins >= (TOKEN_SUPPLY - already_generated_coins)){
+    // maybe work on better final subsidy later
+   const uint64_t FINITE_SUBSIDY = 66600U;
+    if (base_reward < FINITE_SUBSIDY){
+     if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
      }
-     else{
-       base_reward = FINITE_SUBSIDY/2;
-     }
-   }
+    }
     
     // rounding (floor) base reward
     if (version > 7)
