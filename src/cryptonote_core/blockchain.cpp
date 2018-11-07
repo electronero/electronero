@@ -72,8 +72,7 @@
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
-#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500000)) // MAINNET v16 hard fork 
-#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500071)) // MAINNET v17 hard fork 
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500000)) // MAINNET v16 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -87,7 +86,6 @@
 #define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // TESTNET v14 hard fork
 #define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // TESTNET v15 hard fork
 #define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
-#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(492571)) // TESTNET v17 hard fork
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
@@ -100,7 +98,6 @@
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492571)) // TESTNET v17 hard fork
 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
@@ -181,8 +178,7 @@ static const struct {
   { 13, TESTNET_HARDFORK_V13_HEIGHT, 0, 1527629791 },
   { 14, TESTNET_HARDFORK_V14_HEIGHT, 0, 1527629871 },
   { 15, TESTNET_HARDFORK_V15_HEIGHT, 0, 1527629971 },
-  { 16, TESTNET_HARDFORK_V16_HEIGHT, 0, 1527639871 },
-  { 17, TESTNET_HARDFORK_V17_HEIGHT, 0, 1527659871 }
+  { 16, TESTNET_HARDFORK_V16_HEIGHT, 0, 1527639871 }
 };
 static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
@@ -220,9 +216,7 @@ static const struct {
 	
   { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }, 
 	
-  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 }, 
-	
-  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1561319928 }
+  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 }
 };
 
 //------------------------------------------------------------------
@@ -901,43 +895,6 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   else{
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
-  // TESTNET, STAGENET and MAINNET
-  if (m_nettype == TESTNET)
-  {
-	  target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
-	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-	  } 
-	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
-	  else{
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
-	  }
-  }
-  if (m_nettype == STAGENET)
-  {
-	  target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;  
-	  // pick DIFFICULTY_BLOCKS_COUNT based on version
-	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
-	  } 
-	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
-	  else{
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
-	  }
-  }
-
-	// stagenet wouldnt have these difficulty issues inherited so height is appropriate. 
 	
   if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 3 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + 6)
   {
