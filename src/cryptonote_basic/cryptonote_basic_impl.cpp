@@ -68,7 +68,7 @@ using namespace epee;
 #define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // TESTNET v14 hard fork
 #define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // TESTNET v15 hard fork
 #define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // TESTNET v16 hard fork
-#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // TESTNET v17 hard fork
+
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
@@ -81,7 +81,7 @@ using namespace epee;
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // TESTNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // TESTNET v17 hard fork
+
 namespace cryptonote {
 
   struct integrated_address {
