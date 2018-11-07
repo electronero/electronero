@@ -140,7 +140,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "electronero"
+#define CRYPTONOTE_NAME                                 "electroneropulse"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -164,7 +164,8 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".shared-etnx-ringdb" // shared-ringdb"
+
+#define CRYPTONOTE_RINGDB_DIR                           ".shared-pulse-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
 #define MAX_MIXIN                                       100    // maximum mixin allowed
@@ -187,11 +188,11 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 12089;
-  uint16_t const RPC_DEFAULT_PORT = 12090;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 12091;
+  uint16_t const P2P_DEFAULT_PORT = 21089;
+  uint16_t const RPC_DEFAULT_PORT = 21090;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21091;
   boost::uuids::uuid const NETWORK_ID = { {
-     0x5D, 0xEA, 0x85, 0xF3 ,0xF3, 0xF3, 0xD1, 0xF3, 0xC8, 0x39, 0x2C, 0xF3 , 0xF3 , 0xE3, 0x8E, 0xA4
+      0x5D, 0xEA, 0x85, 0xF3 ,0xC8, 0x39, 0x2C, 0xF3 ,0xF3, 0xF3, 0xD1, 0xF3, 0xF3 , 0xE3, 0xD1, 0x2C
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
@@ -202,11 +203,11 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 33080;
-    uint16_t const RPC_DEFAULT_PORT = 33081;
+    uint16_t const P2P_DEFAULT_PORT = 13080;
+    uint16_t const RPC_DEFAULT_PORT = 13081;
     uint16_t const ZMQ_RPC_DEFAULT_PORT = 33082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x40
+        0xEA, 0x85, 0x8E, 0xC8, 0x40, 0x5D, 0x04, 0xF8,0xC2, 0xE3, 0xA4, 0x23, 0xE1, 0x66, 0x8E, 0xA4
       } }; // Bender's daydream
     std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
     uint32_t const GENESIS_NONCE = 10001;
@@ -218,11 +219,11 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 44080;
-    uint16_t const RPC_DEFAULT_PORT = 44081;
+    uint16_t const P2P_DEFAULT_PORT = 14080;
+    uint16_t const RPC_DEFAULT_PORT = 14081;
     uint16_t const ZMQ_RPC_DEFAULT_PORT = 44082;
     boost::uuids::uuid const NETWORK_ID = { {
-        0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C, 0x85, 0x8E, 0xC8, 0x41
+        0xC2, 0x8E, 0xC8, 0x41, 0xE3, 0xA4, 0xEA, 0x5D, 0x04, 0xF8, 0x23, 0xE1, 0x66, 0xD1, 0x2C, 0x85
       } }; // Bender's daydream
     std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
     uint32_t const GENESIS_NONCE = 10002;
