@@ -72,15 +72,22 @@
 #define MAINNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500000)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(500071)) // MAINNET v17 hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
-#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(3)) // TESTNET v7 hard fork 
-#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(57)) // TESTNET v8 hard fork 
-#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(4313)) // TESTNET v9 hard fork
-#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(4357)) // TESTNET v10 hard fork
-#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(12308)) // TESTNET v11 hard fork
-#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(12775)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // TESTNET v7 hard fork 
+#define TESTNET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // TESTNET v8 hard fork 
+#define TESTNET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // TESTNET v9 hard fork
+#define TESTNET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // TESTNET v10 hard fork
+#define TESTNET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // TESTNET v11 hard fork
+#define TESTNET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // TESTNET v12 hard fork
+#define TESTNET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // TESTNET v13 hard fork
+#define TESTNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // TESTNET v14 hard fork
+#define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // TESTNET v15 hard fork
+#define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // TESTNET v16 hard fork
+#define TESTNET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // TESTNET v17 hard fork
 
 #define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
@@ -91,7 +98,9 @@
 #define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
 #define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork test
+#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492499)) // TESTNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492570)) // TESTNET v17 hard fork
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -167,7 +176,14 @@ static const struct {
   { 9, TESTNET_HARDFORK_V9_HEIGHT, 0, 1526625013 },
   { 10, TESTNET_HARDFORK_V10_HEIGHT, 0, 1526625163 },
   { 11, TESTNET_HARDFORK_V11_HEIGHT, 0, 1527566303 },
-  { 12, TESTNET_HARDFORK_V12_HEIGHT, 0, 1527629571 }
+  { 12, TESTNET_HARDFORK_V12_HEIGHT, 0, 1527566403 },
+  { 13, TESTNET_HARDFORK_V13_HEIGHT, 0, 1527566503 },
+  { 14, TESTNET_HARDFORK_V14_HEIGHT, 0, 1527566603 },
+  { 15, TESTNET_HARDFORK_V15_HEIGHT, 0, 1527566703 },
+  { 16, TESTNET_HARDFORK_V16_HEIGHT, 0, 1527566803 },
+  { 17, TESTNET_HARDFORK_V17_HEIGHT, 0, 1527566903 }
+	
+	
 };
 static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
@@ -200,10 +216,15 @@ static const struct {
   { 12, STAGENET_HARDFORK_V12_HEIGHT, 0, 1528100954 },
   // Version 13
   { 13, STAGENET_HARDFORK_V13_HEIGHT, 0, 1530783171 },
-  // Version 15
+  // Version 14
   { 14, STAGENET_HARDFORK_V14_HEIGHT, 0, 1530884769 }, 
 	
-  { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }
+  { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1530884869 },
+  
+  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1530884969 },
+	  
+  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1530885169 }
+	
 };
 
 //------------------------------------------------------------------
@@ -906,6 +927,10 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
   if ((uint64_t)height >= MAINNET_HARDFORK_V13_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V13_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 52289156;
+  }
+  if ((uint64_t)height >= STAGENET_HARDFORK_V16_HEIGHT - 2 && (uint64_t)height <= STAGENET_HARDFORK_V16_HEIGHT + (uint64_t)difficulty_blocks_count)
+  {
+  return (difficulty_type) 250;
   }
   // 1. Keep a list of the last 735 (or less) blocks that is used to compute difficulty,
   //    then when the next block difficulty is queried, push the latest height data and
