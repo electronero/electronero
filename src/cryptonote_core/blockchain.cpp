@@ -87,17 +87,18 @@
 #define TESTNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // TESTNET v15 hard fork
 #define TESTNET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
 
-#define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
-#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // MAINNET v8 hard fork 
-#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // MAINNET v9 hard fork 
-#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // MAINNET v10 hard fork 
-#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // MAINNET v11 hard fork -- 70 blocks difference from 10
-#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // MAINNET 72289156 hard fork 
-#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
-#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
-#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
-#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
+#define STAGENET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // STAGENET v1 
+#define STAGENET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // STAGENET v7 hard fork 
+#define STAGENET_HARDFORK_V8_HEIGHT ((uint64_t)(307054)) // STAGENET v8 hard fork 
+#define STAGENET_HARDFORK_V9_HEIGHT ((uint64_t)(308110)) // STAGENET v9 hard fork 
+#define STAGENET_HARDFORK_V10_HEIGHT ((uint64_t)(310790)) // STAGENET v10 hard fork 
+#define STAGENET_HARDFORK_V11_HEIGHT ((uint64_t)(310860)) // STAGENET v11 hard fork -- 70 blocks difference from 10
+#define STAGENET_HARDFORK_V12_HEIGHT ((uint64_t)(333690)) // STAGENET 72289156 hard fork 
+#define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // STAGENET v13 hard fork  
+#define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // STAGENET v14 hard fork
+#define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // STAGENET v15 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // STAGENET v16 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492530)) // STAGENET v17 hard fork
 
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
@@ -216,7 +217,9 @@ static const struct {
 	
   { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }, 
 	
-  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 }
+  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 },
+	
+  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 }
 };
 
 //------------------------------------------------------------------
