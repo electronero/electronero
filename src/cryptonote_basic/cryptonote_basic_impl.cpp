@@ -83,6 +83,9 @@ using namespace epee;
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492530)) // TESTNET v17 hard fork
+#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(492540)) // TESTNET v18 hard fork
+
 namespace cryptonote {
 
   struct integrated_address {
@@ -133,7 +136,10 @@ namespace cryptonote {
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10
     const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes+3); // v16 - 16 emf
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v4;
+    // above was too high, so we're testing v5 and v6 to see which plays out better.
+    const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v17 - 20 emf until 120 seconds block then 19 emf
+    const int emission_speed_factor_v6 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes); // v18 - 19 emf
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < STAGENET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < STAGENET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < STAGENET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v5 : emission_speed_factor_v6;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t premine = 1260000000000U;
