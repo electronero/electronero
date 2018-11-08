@@ -99,7 +99,7 @@
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // STAGENET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // STAGENET v16 hard fork
 #define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492530)) // STAGENET v17 hard fork
-
+#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(492540)) // TESTNET v18 hard fork
 
 #define FIND_BLOCKCHAIN_SUPPLEMENT_MAX_SIZE (100*1024*1024) // 100 MB
 
@@ -219,7 +219,9 @@ static const struct {
 	
   { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 },
 	
-  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 }
+  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 },
+	  
+  { 18, STAGENET_HARDFORK_V18_HEIGHT, 0, 1531532298 },
 };
 
 //------------------------------------------------------------------
