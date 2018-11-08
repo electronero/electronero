@@ -61,7 +61,7 @@
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)500000000) // 5 coins
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)100000000) // 1 coin
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
