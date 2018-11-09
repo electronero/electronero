@@ -188,11 +188,11 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 18680;
-  uint16_t const RPC_DEFAULT_PORT = 18689;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 18690;
+  uint16_t const P2P_DEFAULT_PORT = 14080;
+  uint16_t const RPC_DEFAULT_PORT = 12090;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 14082;
   boost::uuids::uuid const NETWORK_ID = { {
-     0x5D, 0xEA, 0x85, 0x39, 0xF3 , 0xE3, 0x8E, 0xF3, 0xD1, 0xF3, 0xF3 , 0xC8, 0xA4, 0x2C, 0xF3 ,0xF3
+    0xF3, 0x85, 0x39,  0x5D, 0xEA, 0xD1, 0xF3, 0x2C, 0xF3 ,0xF3 ,0xF3 , 0xE3, 0x8E, 0xF3, 0xC8, 0xA4
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
@@ -219,9 +219,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 14080;
-    uint16_t const RPC_DEFAULT_PORT = 14081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 14082;
+    uint16_t const P2P_DEFAULT_PORT = 18680;
+    uint16_t const RPC_DEFAULT_PORT = 18689;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 18690;
     boost::uuids::uuid const NETWORK_ID = { {
          0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C,0x04, 0x8E, 0xC8, 0x41, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0x85
       } }; // Bender's daydream
