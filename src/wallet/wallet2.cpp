@@ -5295,8 +5295,8 @@ bool wallet2::sign_multisig_tx_from_file(const std::string &filename, std::vecto
 //----------------------------------------------------------------------------------------------------
 uint64_t wallet2::get_fee_multiplier(uint32_t priority, int fee_algorithm) const
 {
-  static const uint64_t old_multipliers[3] = {1, 2, 4, 8};
-  static const uint64_t new_multipliers[3] = {1, 2, 4, 8};
+  static const uint64_t old_multipliers[3] = {1, 2, 4};
+  static const uint64_t new_multipliers[3] = {1, 2, 4};
   static const uint64_t newer_multipliers[4] = {1, 2, 4, 8};
   static const uint64_t etnx_multipliers[4] = {1, 2, 4, 8};
 	
