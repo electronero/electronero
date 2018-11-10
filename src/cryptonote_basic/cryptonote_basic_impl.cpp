@@ -150,7 +150,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
-    if ((uint64_t)height == 500100) {
+    if ((uint64_t)height == 500060) {
       reward = electronero_genesis;
       return true;
     }
