@@ -209,6 +209,31 @@ namespace cryptonote
     }
     return true;
   }
+ //------------------------------------------------------------------------------------------------------------------------------
+  bool core_rpc_server::on_get_coins(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res)
+  {
+    PERF_TIMER(on_get_info);
+    bool r;
+    if (use_bootstrap_daemon_if_necessary<COMMAND_RPC_GET_INFO>(invoke_http_mode::JON, "/getinfo", req, res, r))
+    {
+      res.bootstrap_daemon_address = m_bootstrap_daemon_address;
+      crypto::hash top_hash;
+      m_core.get_blockchain_top(res.height_without_bootstrap, top_hash);
+      ++res.height_without_bootstrap; // turn top block height into blockchain height
+      res.was_bootstrap_ever_used = true;
+      return r;
+    }
+
+    crypto::hash top_hash;
+    m_core.get_blockchain_top(res.height, top_hash);
+    ++res.height; // turn top block height into blockchain height
+    // response = already_generated_coins  
+    res = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(res.height - 1);
+    {
+      boost::shared_lock<boost::shared_mutex> lock(m_bootstrap_daemon_mutex);
+    }
+    return true;
+  }
   //------------------------------------------------------------------------------------------------------------------------------
   static cryptonote::blobdata get_pruned_tx_blob(const cryptonote::blobdata &blobdata)
   {
@@ -1538,6 +1563,31 @@ namespace cryptonote
 
     res.status = CORE_RPC_STATUS_OK;
 
+    return true;
+  }
+   //------------------------------------------------------------------------------------------------------------------------------
+  bool core_rpc_server::on_get_coins_json(const COMMAND_RPC_GET_INFO::request& req, COMMAND_RPC_GET_INFO::response& res)
+  {
+    PERF_TIMER(on_get_info_json);
+    bool r;
+    if (use_bootstrap_daemon_if_necessary<COMMAND_RPC_GET_INFO>(invoke_http_mode::JON, "/get_info", req, res, r))
+    {
+      res.bootstrap_daemon_address = m_bootstrap_daemon_address;
+      crypto::hash top_hash;
+      m_core.get_blockchain_top(res.height_without_bootstrap, top_hash);
+      ++res.height_without_bootstrap; // turn top block height into blockchain height
+      res.was_bootstrap_ever_used = true;
+      return r;
+    }
+
+    crypto::hash top_hash;
+    m_core.get_blockchain_top(res.height, top_hash);
+    ++res.height; // turn top block height into blockchain height
+    // response = already_generated_coins  
+    res = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(res.height - 1);
+    {
+      boost::shared_lock<boost::shared_mutex> lock(m_bootstrap_daemon_mutex);
+    }
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
