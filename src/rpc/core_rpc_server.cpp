@@ -1552,7 +1552,7 @@ namespace cryptonote
     return true;
   }
    //------------------------------------------------------------------------------------------------------------------------------
-  bool core_rpc_server::on_get_coins_json(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res)
+  bool core_rpc_server::on_get_coins_json(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res, epee::json_rpc::error& error_resp)
   {
     PERF_TIMER(on_get_info_json);
 
