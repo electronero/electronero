@@ -210,7 +210,7 @@ namespace cryptonote
     return true;
   }
  //------------------------------------------------------------------------------------------------------------------------------
-  bool core_rpc_server::on_get_coins(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res)
+  bool core_rpc_server::on_get_coins(const COMMAND_RPC_GET_INFO::request& req, COMMAND_RPC_GET_INFO::response& res)
   {
     PERF_TIMER(on_get_info);
     bool r;
@@ -229,9 +229,7 @@ namespace cryptonote
     ++res.height; // turn top block height into blockchain height
     // response = already_generated_coins  
     res = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(res.height - 1);
-    {
-      boost::shared_lock<boost::shared_mutex> lock(m_bootstrap_daemon_mutex);
-    }
+
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
@@ -1583,11 +1581,10 @@ namespace cryptonote
     crypto::hash top_hash;
     m_core.get_blockchain_top(res.height, top_hash);
     ++res.height; // turn top block height into blockchain height
+	  
     // response = already_generated_coins  
     res = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(res.height - 1);
-    {
-      boost::shared_lock<boost::shared_mutex> lock(m_bootstrap_daemon_mutex);
-    }
+
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
