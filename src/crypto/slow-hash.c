@@ -52,7 +52,7 @@ extern int aesb_single_round(const uint8_t *in, uint8_t*out, const uint8_t *expa
 extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *expandedKey);
 
 #define VARIANT1_1(p) \
-  do if (variant >= 2) \
+  do if (variant <= 2) \
   { \
     const uint8_t tmp = ((const uint8_t*)(p))[11]; \
     static const uint32_t table = 0x75310; \
@@ -61,7 +61,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   } while(0)
 
 #define VARIANT1_2(p) \
-  do if (variant >= 2) \
+  do if (variant <= 2) \
   { \
     xor64(p, tweak1_2); \
   } while(0)
