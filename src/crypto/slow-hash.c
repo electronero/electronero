@@ -69,7 +69,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
 #define VARIANT1_CHECK() \
   do if (length < 43) \
   { \
-    fprintf(stderr, "Cryptonight variant 1 needs at least 43 bytes of data"); \
+    fprintf(stderr, "Cryptonight variants need at least 43 bytes of data"); \
     _exit(1); \
   } while(0)
 
