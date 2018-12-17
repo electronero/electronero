@@ -41,8 +41,8 @@
 #include "oaes_lib.h"
 #include "variant2_int_sqrt.h"
 
-#define MEMORY() (variant < 2 ? (1 << 21) : variant < 4 ? (1 << 22) : (1 << 23)) // 2-8MB scratchpad
-#define ITER() (variant < 2 ? (1 << 20) : variant < 4 ? (1 << 19) : (1 << 18))
+#define MEMORY() (variant < 2 ? (1 << 21) : (1 << 23)) // 2-8MB scratchpad
+#define ITER() (variant < 2 ? (1 << 20) : (1 << 19))
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32
 #define INIT_SIZE_BLK   8
