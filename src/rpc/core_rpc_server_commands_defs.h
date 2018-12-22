@@ -1004,17 +1004,17 @@ namespace cryptonote
     struct request
     {
 
-      BEGIN_SERIALIZE()
-      END_SERIALIZE()
+      BEGIN_KV_SERIALIZE_OBJECT()
+      END_KV_SERIALIZE_OBJECT()
     };
 
     struct response
     {
       uint64_t already_generated_coins;
 
-      BEGIN_SERIALIZE()
+      BEGIN_KV_SERIALIZE_OBJECT()
         FIELDS(already_generated_coins)
-      END_SERIALIZE()
+      END_KV_SERIALIZE_OBJECT()
     };
   };
 
