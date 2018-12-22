@@ -1004,8 +1004,8 @@ namespace cryptonote
     struct request
     {
 
-      BEGIN_KV_SERIALIZE_OBJECT()
-      END_KV_SERIALIZE_OBJECT()
+      BEGIN_KV_SERIALIZE_OBJECT();
+      END_KV_SERIALIZE_OBJECT();
     };
 
     struct response
