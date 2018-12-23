@@ -41,7 +41,7 @@
 #include "oaes_lib.h"
 #include "variant2_int_sqrt.h"
 
-#define MEMORY() (variant < 2 ? (1 << 21) : (1 << 23)) // 2-8MB scratchpad
+#define MEMORY() (variant < 2 ? (1 << 21) : (1 << 22)) // 2-4MB scratchpad
 #define ITER() (variant < 2 ? (1 << 20) : (1 << 19))
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32
@@ -52,7 +52,7 @@ extern int aesb_single_round(const uint8_t *in, uint8_t*out, const uint8_t *expa
 extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *expandedKey);
 
 #define VARIANT1_1(p) \
-  do if (variant <= 2) \
+  do if (variant > 0 && variant < 3) \
   { \
     const uint8_t tmp = ((const uint8_t*)(p))[11]; \
     static const uint32_t table = 0x75310; \
@@ -61,7 +61,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   } while(0)
 
 #define VARIANT1_2(p) \
-  do if (variant <= 2) \
+  do if (variant > 0 && variant < 3) \
   { \
     xor64(p, tweak1_2); \
   } while(0)
@@ -77,7 +77,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
 
 #define VARIANT1_PORTABLE_INIT() \
   uint8_t tweak1_2[8]; \
-  do if (variant <= 2) \
+  do if (variant > 0 && variant < 3) \
   { \
     VARIANT1_CHECK(); \
     memcpy(&tweak1_2, &state.hs.b[192], sizeof(tweak1_2)); \
@@ -85,16 +85,16 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   } while(0)
 
 #define VARIANT1_INIT64() \
-  if (variant <= 2) \
+  if (variant < 3) \
   { \
     VARIANT1_CHECK(); \
   } \
-  const uint64_t tweak1_2 = variant <= 2 ? (state.hs.w[24] ^ (*((const uint64_t*)NONCE_POINTER))) : 0
+  const uint64_t tweak1_2 = variant <= 1 ? (state.hs.w[24] ^ (*((const uint64_t*)NONCE_POINTER))) : 0
 
 #define VARIANT2_INIT64() \
   uint64_t division_result = 0; \
   uint64_t sqrt_result = 0; \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     U64(b)[2] = state.hs.w[8] ^ state.hs.w[10]; \
     U64(b)[3] = state.hs.w[9] ^ state.hs.w[11]; \
@@ -104,7 +104,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
  #define VARIANT2_PORTABLE_INIT() \
   uint64_t division_result = 0; \
   uint64_t sqrt_result = 0; \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     memcpy(b + AES_BLOCK_SIZE, state.hs.b + 64, AES_BLOCK_SIZE); \
     xor64(b + AES_BLOCK_SIZE, state.hs.b + 80); \
@@ -113,7 +113,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
     sqrt_result = state.hs.w[13]; \
   } while (0)
  #define VARIANT2_SHUFFLE_ADD_SSE2(base_ptr, offset) \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     const __m128i chunk1 = _mm_load_si128((__m128i *)((base_ptr) + ((offset) ^ 0x10))); \
     const __m128i chunk2 = _mm_load_si128((__m128i *)((base_ptr) + ((offset) ^ 0x20))); \
@@ -123,7 +123,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
     _mm_store_si128((__m128i *)((base_ptr) + ((offset) ^ 0x30)), _mm_add_epi64(chunk2, _a)); \
   } while (0)
  #define VARIANT2_SHUFFLE_ADD_NEON(base_ptr, offset) \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     const uint64x2_t chunk1 = vld1q_u64(U64((base_ptr) + ((offset) ^ 0x10))); \
     const uint64x2_t chunk2 = vld1q_u64(U64((base_ptr) + ((offset) ^ 0x20))); \
@@ -133,7 +133,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
     vst1q_u64(U64((base_ptr) + ((offset) ^ 0x30)), vaddq_u64(chunk2, vreinterpretq_u64_u8(_a))); \
   } while (0)
  #define VARIANT2_PORTABLE_SHUFFLE_ADD(base_ptr, offset) \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     uint64_t* chunk1 = U64((base_ptr) + ((offset) ^ 0x10)); \
     uint64_t* chunk2 = U64((base_ptr) + ((offset) ^ 0x20)); \
@@ -166,7 +166,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   } \
   const uint64_t sqrt_input = ((uint64_t*)(ptr))[0] + division_result
  #define VARIANT2_INTEGER_MATH_SSE2(b, ptr) \
-  do if (variant >= 2) \
+  do if (variant > 0 && variant >= 3) \
   { \
     VARIANT2_INTEGER_MATH_DIVISION_STEP(b, ptr); \
     VARIANT2_INTEGER_MATH_SQRT_STEP_SSE2(); \
@@ -175,7 +175,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
  #if defined DBL_MANT_DIG && (DBL_MANT_DIG >= 50)
   // double precision floating point type has enough bits of precision on current platform
   #define VARIANT2_PORTABLE_INTEGER_MATH(b, ptr) \
-    do if (variant >= 2) \
+    do if (variant >= 3) \
     { \
       VARIANT2_INTEGER_MATH_DIVISION_STEP(b, ptr); \
       VARIANT2_INTEGER_MATH_SQRT_STEP_FP64(); \
@@ -185,7 +185,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   // double precision floating point type is not good enough on current platform
   // fall back to the reference code (integer only)
   #define VARIANT2_PORTABLE_INTEGER_MATH(b, ptr) \
-    do if (variant >= 2) \
+    do if (variant >= 3) \
     { \
       VARIANT2_INTEGER_MATH_DIVISION_STEP(b, ptr); \
       VARIANT2_INTEGER_MATH_SQRT_STEP_REF(); \
@@ -193,12 +193,12 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
 #endif
 
 #define VARIANT2_2_PORTABLE() \
-    if (variant >= 2) { \
+    if (variant >= 3) { \
       xor_blocks(long_state + (j ^ 0x10), d); \
       xor_blocks(d, long_state + (j ^ 0x20)); \
     }
  #define VARIANT2_2() \
-  do if (variant >= 2) \
+  do if (variant >= 3) \
   { \
     *U64(hp_state + (j ^ 0x10)) ^= hi; \
     *(U64(hp_state + (j ^ 0x10)) + 1) ^= lo; \
@@ -592,9 +592,9 @@ BOOL SetLockPagesPrivilege(HANDLE hProcess, BOOL bEnable)
 #endif
 
 /**
- * @brief allocate the 2MB scratch buffer using OS support for huge pages, if available
+ * @brief allocate the ScratchPad buffer using OS support for huge pages, if available
  *
- * This function tries to allocate the 2MB scratch buffer using a single
+ * This function tries to allocate the ScratchPad buffer using a single
  * 2MB "huge page" (instead of the usual 4KB page sizes) to reduce TLB misses
  * during the random accesses to the scratch buffer.  This is one of the
  * important speed optimizations needed to make CryptoNight faster.
