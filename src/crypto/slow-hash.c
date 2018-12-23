@@ -1313,7 +1313,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant)
       xor_blocks(a, c);
       VARIANT1_2(U64(c) + 1);
       copy_block(p, c);
-       if (variant >= 2) {
+       if (variant >= 3) {
         copy_block(b + AES_BLOCK_SIZE, b);
       }
       copy_block(b, c1);
@@ -1492,7 +1492,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant) {
     VARIANT1_2(c2 + 8);
     copy_block(&long_state[j], c2);
     assert(j == e2i(a, MEMORY / AES_BLOCK_SIZE) * AES_BLOCK_SIZE);
-    if (variant >= 2) {
+    if (variant >= 3) {
       copy_block(b + AES_BLOCK_SIZE, b);
     }
     copy_block(b, a);
