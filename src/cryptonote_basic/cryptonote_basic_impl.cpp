@@ -135,18 +135,20 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10
-    const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf until 120 seconds block then 19 emf
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v4;
+    const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf 
+    const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes); // v17 - 21 emf 
+    const int emission_speed_factor_v6 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes+1); // v18 - 22 emf 
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v5 : emission_speed_factor_v6;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
-    const uint64_t premine = 1260000000000U;
+    const uint64_t electroneum_genesis = 1260000000000U;
     if ((uint64_t)height == 1) {
-      reward = premine;
+      reward = electroneum_genesis;
       return true;
     }
-    const uint64_t communityAirdrop = premine;
+    const uint64_t community_airdrop = premine;
     if ((uint64_t)height == 307003 || (uint64_t)height == 310790) {
-      reward = communityAirdrop;
+      reward = community_airdrop;
       return true;
     }
     const uint64_t electronero_genesis = 613090000000000U;
@@ -155,7 +157,7 @@ namespace cryptonote {
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if (version >= 7 && (uint64_t)height > 307003)
+    if (version >= 7 && version < 17)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
@@ -181,7 +183,7 @@ namespace cryptonote {
     }
 
     // rounding (floor) base reward
-    if (version > 7)
+    if (version > 7 && version < 17)
     {
     base_reward = base_reward / round_factor * round_factor;
     }
