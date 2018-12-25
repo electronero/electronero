@@ -82,9 +82,9 @@ using namespace epee;
 #define STAGENET_HARDFORK_V13_HEIGHT ((uint64_t)(337496)) // MAINNET v13 hard fork  
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
-#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(492500)) // TESTNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(492530)) // TESTNET v17 hard fork
-#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(492540)) // TESTNET v18 hard fork
+#define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // TESTNET v16 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(561230)) // TESTNET v17 hard fork
+#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(561530)) // TESTNET v18 hard fork
 
 namespace cryptonote {
 
@@ -138,7 +138,7 @@ namespace cryptonote {
     const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf 
     const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes); // v17 - 21 emf 
     const int emission_speed_factor_v6 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+1); // v18 - 22 emf 
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v5 : emission_speed_factor_v6;
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < STAGENET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < STAGENET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v5 : emission_speed_factor_v6;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t electroneum_genesis = 1260000000000U;
@@ -146,7 +146,7 @@ namespace cryptonote {
       reward = electroneum_genesis;
       return true;
     }
-    const uint64_t community_airdrop = premine;
+    const uint64_t community_airdrop = electroneum_genesis;
     if ((uint64_t)height == 307003 || (uint64_t)height == 310790) {
       reward = community_airdrop;
       return true;
@@ -157,7 +157,7 @@ namespace cryptonote {
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if (version >= 7 && version < 17)
+    if ((uint64_t)height > 307003 && version < 17)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
@@ -173,14 +173,6 @@ namespace cryptonote {
       // do something
       base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed;
     }
-    
-    // maybe work on better final subsidy later
-   const uint64_t FINITE_SUBSIDY = 66600U;
-    if (base_reward < FINITE_SUBSIDY){
-     if (already_generated_coins >= TOKEN_SUPPLY){
-       base_reward = FINAL_SUBSIDY_PER_MINUTE;
-     }
-    }
 
     // rounding (floor) base reward
     if (version > 7 && version < 17)
@@ -191,6 +183,15 @@ namespace cryptonote {
     {
      base_reward = (MONEY_SUPPLY_ETN - already_generated_coins) >> emission_speed;
     }
+    
+   // maybe work on better final subsidy later
+   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 66600U;
+    if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
+     if (already_generated_coins >= TOKEN_SUPPLY){
+       base_reward = FINAL_SUBSIDY_PER_MINUTE;
+     }
+    }
+    
     uint64_t full_reward_zone = get_min_block_size(version);
 
     //make it soft
