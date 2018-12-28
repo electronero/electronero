@@ -3275,7 +3275,8 @@ bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
   const uint8_t version = get_current_hard_fork_version();
   uint64_t block_height = m_db->height() - 1;
   uint64_t fee_per_kb;
-  if (version < HF_VERSION_DYNAMIC_FEE)
+  auto DYNAMIC_FEE_APPROVAL = 0;
+  if (DYNAMIC_FEE_APPROVAL != 100)
   {
     fee_per_kb = FEE_PER_KB;
   }
@@ -3308,7 +3309,8 @@ uint64_t Blockchain::get_dynamic_per_kb_fee_estimate(uint64_t grace_blocks) cons
   const uint8_t version = get_current_hard_fork_version();
   uint64_t block_height = m_db->height() - 1;
 	
-  if (version < HF_VERSION_DYNAMIC_FEE)
+   auto DYNAMIC_FEE_APPROVAL = 0;
+  if (DYNAMIC_FEE_APPROVAL != 100)
     return FEE_PER_KB;
 
   if (grace_blocks >= CRYPTONOTE_REWARD_BLOCKS_WINDOW)
