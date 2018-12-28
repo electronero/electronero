@@ -1565,7 +1565,7 @@ namespace cryptonote
   //------------------------------------------------------------------------------------------------------------------------------
   bool core_rpc_server::on_get_info_json(const COMMAND_RPC_GET_INFO::request& req, COMMAND_RPC_GET_INFO::response& res, epee::json_rpc::error& error_resp)
   {
-    PERF_TIMER(on_get_info_json);
+    PERF_TIMER(on_get_coins_json);
     bool r;
     if (use_bootstrap_daemon_if_necessary<COMMAND_RPC_GET_INFO>(invoke_http_mode::JON_RPC, "get_info", req, res, r))
     {
