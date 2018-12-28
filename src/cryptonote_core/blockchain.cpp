@@ -73,6 +73,7 @@
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
 #define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // MAINNET v16 hard fork
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(571550)) // MAINNET v17 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -159,7 +160,9 @@ static const struct {
   // Version 15
   { 15, MAINNET_HARDFORK_V15_HEIGHT, 0, 1530885769 },
   // Version 16 finalized on November 10th, 2018
-  { 16, MAINNET_HARDFORK_V16_HEIGHT, 0, 1541902465 }
+  { 16, MAINNET_HARDFORK_V16_HEIGHT, 0, 1541902465 },
+  // Version 17 
+  { 17, MAINNET_HARDFORK_V17_HEIGHT, 0, 1546327363 }
 
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -221,9 +224,7 @@ static const struct {
 	
   { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 },
 	
-  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 },
-	  
-  { 18, STAGENET_HARDFORK_V18_HEIGHT, 0, 1531532298 }
+  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 }
 };
 
 //------------------------------------------------------------------
@@ -3274,7 +3275,8 @@ bool Blockchain::check_fee(size_t blob_size, uint64_t fee) const
   const uint8_t version = get_current_hard_fork_version();
   uint64_t block_height = m_db->height() - 1;
   uint64_t fee_per_kb;
-  if (version < HF_VERSION_DYNAMIC_FEE)
+  auto DYNAMIC_FEE_APPROVAL = 0;
+  if (DYNAMIC_FEE_APPROVAL != 100)
   {
     fee_per_kb = FEE_PER_KB;
   }
@@ -3307,7 +3309,8 @@ uint64_t Blockchain::get_dynamic_per_kb_fee_estimate(uint64_t grace_blocks) cons
   const uint8_t version = get_current_hard_fork_version();
   uint64_t block_height = m_db->height() - 1;
 	
-  if (version < HF_VERSION_DYNAMIC_FEE)
+   auto DYNAMIC_FEE_APPROVAL = 0;
+  if (DYNAMIC_FEE_APPROVAL != 100)
     return FEE_PER_KB;
 
   if (grace_blocks >= CRYPTONOTE_REWARD_BLOCKS_WINDOW)

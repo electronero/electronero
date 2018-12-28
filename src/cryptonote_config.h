@@ -76,7 +76,7 @@
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)3000000) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)3000000) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)3000000) // 0.03 
+#define FEE_PER_KB                                      ((uint64_t)50000) // 0.00050000
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500000000) // .25 * pow(10, 8)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500000000) // .25 * pow(10, 8)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500000000 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
@@ -165,7 +165,7 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".shared-bitelectronero-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".bitelectronero-shared-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
 #define MAX_MIXIN                                       100    // maximum mixin allowed
@@ -181,7 +181,7 @@ namespace config
 {
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)3000000); // 
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)50000); // 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
@@ -192,7 +192,7 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 12090;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 14082;
   boost::uuids::uuid const NETWORK_ID = { {
-    0x2C, 0xF3, 0x85, 0x39,  0x5D, 0xEA, 0xD1, 0xF3, 0xF3, 0xC8, 0xA4, 0xF3 ,0xF3 ,0xF3 , 0xE3, 0x8E
+    0x2C, 0xF3, 0x21, 0x88,  0x2D, 0xEA, 0xD2, 0xF7, 0xF1, 0xC9, 0xA8, 0xF5 ,0xF8 ,0xF2 , 0xE9, 0x2E
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
