@@ -176,7 +176,7 @@ namespace cryptonote {
     }
 
     // rounding (floor) base reward
-    if (version >= 7)
+    if (version > 7)
     {
     base_reward = base_reward / round_factor * round_factor;
     }
