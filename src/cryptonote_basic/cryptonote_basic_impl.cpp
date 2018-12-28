@@ -58,6 +58,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define MAINNET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork 
 #define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // MAINNET v16 hard fork 
+#define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(571550)) // TESTNET v17 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -83,8 +84,8 @@ using namespace epee;
 #define STAGENET_HARDFORK_V14_HEIGHT ((uint64_t)(337816)) // MAINNET v14 hard fork
 #define STAGENET_HARDFORK_V15_HEIGHT ((uint64_t)(337838)) // MAINNET v15 hard fork
 #define STAGENET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // TESTNET v16 hard fork
-#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(561230)) // TESTNET v17 hard fork
-#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(561530)) // TESTNET v18 hard fork
+#define STAGENET_HARDFORK_V17_HEIGHT ((uint64_t)(571550)) // TESTNET v17 hard fork
+#define STAGENET_HARDFORK_V18_HEIGHT ((uint64_t)(586670)) // TESTNET v18 hard fork
 
 namespace cryptonote {
 
@@ -138,7 +139,7 @@ namespace cryptonote {
     const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf 
     const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes); // v17 - 21 emf 
     const int emission_speed_factor_v6 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+1); // v18 - 22 emf 
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < STAGENET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < STAGENET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v5 : emission_speed_factor_v6;
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : emission_speed_factor_v6;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t electroneum_genesis = 1260000000000U;
@@ -157,7 +158,7 @@ namespace cryptonote {
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if ((uint64_t)height > 307003 && version < 17)
+    if ((uint64_t)height > 307003 && version >= 7)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
@@ -175,7 +176,7 @@ namespace cryptonote {
     }
 
     // rounding (floor) base reward
-    if (version > 7 && version < 17)
+    if (version >= 7)
     {
     base_reward = base_reward / round_factor * round_factor;
     }
