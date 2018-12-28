@@ -1004,8 +1004,10 @@ namespace cryptonote
     struct request
     {
 
-      BEGIN_KV_SERIALIZE_MAP()
-      END_KV_SERIALIZE_MAP()
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(already_generated_coins)
+    END_SERIALIZE()
+
     };
 
     struct response
