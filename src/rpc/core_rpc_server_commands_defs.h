@@ -1003,20 +1003,16 @@ namespace cryptonote
   {
     struct request
     {
-    std::vector<uint64_t> already_generated_coins;
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(already_generated_coins)
-    END_SERIALIZE()
-
+     BEGIN_SERIALIZE_OBJECT()
+     END_SERIALIZE()
     };
 
     struct response
     {
       uint64_t already_generated_coins;
-
-      BEGIN_KV_SERIALIZE_MAP()
-	KV_SERIALIZE(already_generated_coins)
-      END_KV_SERIALIZE_MAP()
+     BEGIN_SERIALIZE_OBJECT()
+       FIELD(already_generated_coins)
+     END_SERIALIZE()
     };
   };
 
