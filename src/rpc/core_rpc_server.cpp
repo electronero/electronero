@@ -209,6 +209,17 @@ namespace cryptonote
     }
     return true;
   }
+   //------------------------------------------------------------------------------------------------------------------------------
+  bool core_rpc_server::on_get_coins(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res)
+  {
+    PERF_TIMER(on_get_coins);
+
+    // response = already_generated_coins  
+    uint64_t height = m_core.get_current_blockchain_height();
+    res.already_generated_coins = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(height - 1);
+
+    return true;
+  }
   //------------------------------------------------------------------------------------------------------------------------------
   static cryptonote::blobdata get_pruned_tx_blob(const cryptonote::blobdata &blobdata)
   {
@@ -1537,6 +1548,17 @@ namespace cryptonote
     res.connections = m_p2p.get_payload_object().get_connections();
 
     res.status = CORE_RPC_STATUS_OK;
+
+    return true;
+  }
+  //------------------------------------------------------------------------------------------------------------------------------
+  bool core_rpc_server::on_get_coins_json(const COMMAND_RPC_GET_COINS::request& req, COMMAND_RPC_GET_COINS::response& res, epee::json_rpc::error& error_resp)
+  {
+    PERF_TIMER(on_get_coins_json);
+
+    // response = already_generated_coins  
+    uint64_t height = m_core.get_current_blockchain_height();
+    res.already_generated_coins = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(height - 1);
 
     return true;
   }
