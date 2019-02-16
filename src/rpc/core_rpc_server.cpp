@@ -1555,21 +1555,6 @@ namespace cryptonote
 
     return true;
   }
-   //------------------------------------------------------------------------------------------------------------------------------
-  bool core_rpc_server::on_get_coins_json(epee::net_utils::http::http_response_info& response_info)
-  {
-    PERF_TIMER(on_get_coins_json);
-
-    uint64_t height = m_core.get_current_blockchain_height();
-    uint64_t already_generated_coins = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(height - 1);
-    
-    // response = already_generated_coins  
-    response_info.m_body = std::to_string(already_generated_coins);
-    response_info.m_mime_tipe = "application/json";
-    response_info.m_header_info.m_content_type = " application/json";
-
-    return true;
-  }
   //------------------------------------------------------------------------------------------------------------------------------
   bool core_rpc_server::on_get_info_json(const COMMAND_RPC_GET_INFO::request& req, COMMAND_RPC_GET_INFO::response& res, epee::json_rpc::error& error_resp)
   {
