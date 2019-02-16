@@ -212,7 +212,7 @@ namespace cryptonote
    //------------------------------------------------------------------------------------------------------------------------------
   bool core_rpc_server::on_get_coins(epee::net_utils::http::http_response_info& response_info)
   {
-    PERF_TIMER(on_get_coins_json);
+    PERF_TIMER(on_get_coins);
 
     uint64_t height = m_core.get_current_blockchain_height();
     uint64_t already_generated_coins = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(height - 1);
@@ -1552,21 +1552,6 @@ namespace cryptonote
     res.connections = m_p2p.get_payload_object().get_connections();
 
     res.status = CORE_RPC_STATUS_OK;
-
-    return true;
-  }
-  //------------------------------------------------------------------------------------------------------------------------------
-  bool core_rpc_server::on_get_coins_json(epee::net_utils::http::http_response_info& response_info)
-  {
-    PERF_TIMER(on_get_coins_json);
-
-    uint64_t height = m_core.get_current_blockchain_height();
-    uint64_t already_generated_coins = m_core.get_blockchain_storage().get_db().get_block_already_generated_coins(height - 1);
-    
-    // response = already_generated_coins  
-    response_info.m_body = std::to_string(already_generated_coins);
-    response_info.m_mime_tipe = "application/json";
-    response_info.m_header_info.m_content_type = " application/json";
 
     return true;
   }
