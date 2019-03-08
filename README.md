@@ -22,10 +22,6 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 - Monero [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
 - Monero is also available via [HackerOne](https://hackerone.com/monero)
 
-## Announcements
-
-You can subscribe to an [announcement listserv](https://lists.getmonero.org) to get critical announcements from the Monero core team. The announcement list can be very helpful for knowing when software updates are needed.
-
 ## Introduction
 
 Electronero Pulse is a private, secure, untraceable, decentralised digital currency. You control your funds, and nobody can trace your transfers unless you allow them to do so.
