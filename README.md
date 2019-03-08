@@ -1,6 +1,6 @@
-# Electronero
+# Electronero Pulse
 
-Source code forked from Monero
+Source code forked from Electronero, based on Monero
 
 `Copyright (c) 2014-2018 The Monero Project.  
 Portions Copyright (c) 2017-2018 The Electroneum developers.
@@ -12,10 +12,10 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 
 ## Development resources
 
-- Web: [electronero.org](https://electronero.org)
-- Chat: [t.me/electronero](https://t.me/electronero)
+- Web: [electroneropulse.org](https://electroneropulse.org)
+- Chat: [t.me/etnxp](https://t.me/etnxp)
 - Mail: [support@electronero.org](mailto:support@electronero.org)
-- GitHub: [github.com/electronero/electronero](https://github.com/electronero/electronero)
+- GitHub: [github.com/electronero-pulse/electroneropulse](https://github.com/electronero-pulse/electroneropulse)
 
 ## Vulnerability response
 
@@ -26,35 +26,11 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.`
 
 You can subscribe to an [announcement listserv](https://lists.getmonero.org) to get critical announcements from the Monero core team. The announcement list can be very helpful for knowing when software updates are needed.
 
-## Build
-
-| Operating System      | Processor | Status |
-| --------------------- | -------- |--------|
-| Ubuntu 16.04          |  i686    | [![Ubuntu 16.04 i686](https://build.getmonero.org/png?builder=monero-static-ubuntu-i686)](https://build.getmonero.org/builders/monero-static-ubuntu-i686)
-| Ubuntu 16.04          |  amd64   | [![Ubuntu 16.04 amd64](https://build.getmonero.org/png?builder=monero-static-ubuntu-amd64)](https://build.getmonero.org/builders/monero-static-ubuntu-amd64)
-| Ubuntu 16.04          |  armv7   | [![Ubuntu 16.04 armv7](https://build.getmonero.org/png?builder=monero-static-ubuntu-arm7)](https://build.getmonero.org/builders/monero-static-ubuntu-arm7)
-| Debian Stable         |  armv8   | [![Debian armv8](https://build.getmonero.org/png?builder=monero-static-debian-armv8)](https://build.getmonero.org/builders/monero-static-debian-armv8)
-| OSX 10.10             |  amd64   | [![OSX 10.10 amd64](https://build.getmonero.org/png?builder=monero-static-osx-10.10)](https://build.getmonero.org/builders/monero-static-osx-10.10)
-| OSX 10.11             |  amd64   | [![OSX 10.11 amd64](https://build.getmonero.org/png?builder=monero-static-osx-10.11)](https://build.getmonero.org/builders/monero-static-osx-10.11)
-| OSX 10.12             |  amd64   | [![OSX 10.12 amd64](https://build.getmonero.org/png?builder=monero-static-osx-10.12)](https://build.getmonero.org/builders/monero-static-osx-10.12)
-| FreeBSD 11            |  amd64   | [![FreeBSD 11 amd64](https://build.getmonero.org/png?builder=monero-static-freebsd64)](https://build.getmonero.org/builders/monero-static-freebsd64)
-| DragonFly BSD 4.6     |  amd64   | [![DragonFly BSD amd64](https://build.getmonero.org/png?builder=monero-static-dragonflybsd-amd64)](https://build.getmonero.org/builders/monero-static-dragonflybsd-amd64)
-| Windows (MSYS2/MinGW) |  i686    | [![Windows (MSYS2/MinGW) i686](https://build.getmonero.org/png?builder=monero-static-win32)](https://build.getmonero.org/builders/monero-static-win32)
-| Windows (MSYS2/MinGW) |  amd64   | [![Windows (MSYS2/MinGW) amd64](https://build.getmonero.org/png?builder=monero-static-win64)](https://build.getmonero.org/builders/monero-static-win64)
-
-## Coverage
-
-| Type      | Status |
-|-----------|--------|
-| Coverity  | [![Coverity Status](https://scan.coverity.com/projects/9657/badge.svg)](https://scan.coverity.com/projects/9657/)
-| Coveralls | [![Coveralls Status](https://coveralls.io/repos/github/monero-project/monero/badge.svg?branch=master)](https://coveralls.io/github/monero-project/monero?branch=master)
-| License   | [![License](https://img.shields.io/badge/license-BSD3-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-
 ## Introduction
 
-Electronero is a private, secure, untraceable, decentralised digital currency. You are your bank, you control your funds, and nobody can trace your transfers unless you allow them to do so.
+Electronero Pulse is a private, secure, untraceable, decentralised digital currency. You control your funds, and nobody can trace your transfers unless you allow them to do so.
 
-**Privacy:** Electronero uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain (the ledger of transactions that everyone has). This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
+**Privacy:** Electronero Pulse uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain (the ledger of transactions that everyone has). This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
 
 **Security:** Using the power of a distributed peer-to-peer consensus network, every transaction on the network is cryptographically secured. Individual wallets have a 25 word mnemonic seed that is only displayed once, and can be written down to backup the wallet. Wallet files are encrypted with a passphrase to ensure they are useless if stolen.
 
@@ -68,7 +44,7 @@ Electronero is a private, secure, untraceable, decentralised digital currency. Y
 
 ## Supporting the project
 
-Electronero is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Electronero donations can be made to the Electronero donation address via the `donate` command (type `help` in the command-line wallet for details). Else, here are our dev teams addresses. The funding goes to many developers who contribute and believe me, they are greatful for our assistance! 
+Electronero Pulse is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Electronero donations can be made to the Electronero donation address via the `donate` command (type `help` in the command-line wallet for details). Else, here are our dev teams addresses. The funding goes to many developers who contribute and believe me, they are greatful for our assistance! 
 
 The Monero donation address is: `449JLhz9p6756c5tGACveuX76qa8UxMkFMd5uqG9SEJ3LcVJLjh4KvxJQ1Pf4yJmYgQRTrNPZhaga8eYynVqHfac9VWhF1m`
 
@@ -87,11 +63,11 @@ The Sumokoin donation address is: `Sumoo47CGenbHfZtpCVV4PRMSsXP38idFdt5JSj7VuJrD
 
 ## About this project
 
-This is the core implementation of Monero. It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Monero that uses the protocol and network in a compatible manner.
+This is the core implementation of Electronero Pulse. It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Monero that uses the protocol and network in a compatible manner.
 
 As with many development projects, the repository on Github is considered to be the "staging" area for the latest changes. Before changes are merged into that branch on the main repository, they are tested by individual developers in their own branches, submitted as a pull request, and then subsequently tested by contributors who focus on testing and code reviews. That having been said, the repository should be carefully considered before using it in a production environment, unless there is a patch in the repository for a particular show-stopping issue you are experiencing. It is generally a better idea to use a tagged release for stability.
 
-**Anyone is welcome to contribute to Monero's codebase!** If you have a fix or code change, feel free to submit it as a pull request directly to the "master" branch. In cases where the change is relatively small or does not affect other parts of the codebase it may be merged in immediately by any one of the collaborators. On the other hand, if the change is particularly large or complex, it is expected that it will be discussed at length either well in advance of the pull request being submitted, or even directly on the pull request.
+**Anyone is welcome to contribute to Electronero's codebase!** If you have a fix or code change, feel free to submit it as a pull request directly to the "master" branch. In cases where the change is relatively small or does not affect other parts of the codebase it may be merged in immediately by any one of the collaborators. On the other hand, if the change is particularly large or complex, it is expected that it will be discussed at length either well in advance of the pull request being submitted, or even directly on the pull request.
 
 ## License
 
@@ -124,7 +100,7 @@ X's indicate that these details have not been determined as of commit date.
 
 Approximately three months prior to a scheduled software upgrade, a branch from Master will be created with the new release version tag. Pull requests that address bugs should then be made to both Master and the new release branch. Pull requests that require extensive review and testing (generally, optimizations and new features) should *not* be made to the release branch. 
 
-## Compiling Electronero from source
+## Compiling Electronero Pulse from source
 
 ### Dependencies
 
@@ -165,7 +141,7 @@ build the library binary manually. This can be done with the following command `
 
 Clone recursively to pull-in needed submodule(s):
 
-`$ git clone --recursive https://github.com/electronero/electronero`
+`$ git clone --recursive https://github.com/electronero-pulse/electroneropulse`
 
 If you already have a repo cloned, initialize and update:
 
@@ -181,7 +157,7 @@ invokes cmake commands as needed.
 * Install the dependencies
 * Change to the root of the source code directory and build:
 
-        cd electronero
+        cd electroneropulse
         make
 
     *Optional*: If your machine has several cores and enough memory, enable
@@ -194,9 +170,9 @@ invokes cmake commands as needed.
 
 * The resulting executables can be found in `build/release/bin`
 
-* Add `PATH="$PATH:$HOME/electronero/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/electroneropulse/build/release/bin"` to `.profile`
 
-* Run Electronero with `electronerod --detach`
+* Run Electronero with `pulsed --detach`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
@@ -235,9 +211,8 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 ```
 * Clone electronero and checkout most recent release version:
 ```
-        git clone https://github.com/electronero/electronero.git
-	cd electronero
-	git checkout tags/v0.11.1.0
+        git clone https://github.com/electronero-pulse/electroneropulse.git
+	cd electroneropulse
 ```
 * Build:
 ```
@@ -247,9 +222,9 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 
 * The resulting executables can be found in `build/release/bin`
 
-* Add `PATH="$PATH:$HOME/electronero/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/electroneropulse/build/release/bin"` to `.profile`
 
-* Run Electronero with `electronero --detach`
+* Run Electronero with `pulsed --detach`
 
 * You may wish to reduce the size of the swap file after the build has finished, and delete the boost directory from your home directory
 
@@ -460,15 +435,15 @@ By default, in either dynamically or statically linked builds, binaries target t
 * ```make release-static-win64``` builds binaries on 64-bit Windows portable across 64-bit Windows systems
 * ```make release-static-win32``` builds binaries on 64-bit or 32-bit Windows portable across 32-bit Windows systems
 
-## Running electronerod
+## Running pulsed
 
 The build places the binary in `bin/` sub-directory within the build directory
 from which cmake was invoked (repository root by default). To run in
 foreground:
 
-    ./bin/electronero
+    ./bin/pulsed
 
-To list all available options, run `./bin/electronerod --help`.  Options can be
+To list all available options, run `./bin/pulsed --help`.  Options can be
 specified either on the command line or in a configuration file passed by the
 `--config-file` argument.  To specify an option in the configuration file, add
 a line with the syntax `argumentname=value`, where `argumentname` is the name
@@ -476,14 +451,14 @@ of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
-    ./bin/electronerod --log-file electronerod.log --detach
+    ./bin/pulsed --log-file pulsed.log --detach
 
 To run as a systemd service, copy
-[electronerod.service](utils/systemd/electronerod.service) to `/etc/systemd/system/` and
-[electronerod.conf](utils/conf/electronerod.conf) to `/etc/`. The [example
-service](utils/systemd/electronerod.service) assumes that the user `electronero` exists
+[electroneropulse.service](utils/systemd/electroneropulse.service) to `/etc/systemd/system/` and
+[pulsed.conf](utils/conf/pulsed.conf) to `/etc/`. The [example
+service](utils/systemd/pulsed.service) assumes that the user `electroneropulse` exists
 and its home is the data directory specified in the [example
-config](utils/conf/electronerod.conf).
+config](utils/conf/pulsed.conf).
 
 If you're on Mac, you may need to add the `--max-concurrency 1` option to
-electronero-wallet-cli, and possibly electronerod, if you get crashes refreshing.
+pulse-wallet-cli, and possibly pulsed, if you get crashes refreshing.
