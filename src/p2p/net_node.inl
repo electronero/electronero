@@ -372,7 +372,6 @@ namespace nodetool
     {
       full_addrs.insert("206.189.20.68:43080");
       full_addrs.insert("46.101.40.29:43080"); 
-      full_addrs.insert("165.227.189.226:43080");
       full_addrs.insert("104.236.175.63:43080"); 
       full_addrs.insert("159.89.249.200:43080");
       full_addrs.insert("174.138.15.35:43080");
@@ -385,7 +384,6 @@ namespace nodetool
     {
       full_addrs.insert("206.189.20.68:34080");
       full_addrs.insert("46.101.40.29:34080"); 
-      full_addrs.insert("165.227.189.226:34080");
       full_addrs.insert("104.236.175.63:34080"); 
       full_addrs.insert("159.89.249.200:34080"); 
       full_addrs.insert("174.138.15.35:34080");
@@ -398,12 +396,10 @@ namespace nodetool
     {
       full_addrs.insert("46.101.40.29:20389"); 
       full_addrs.insert("107.170.236.49:20389"); 
-      full_addrs.insert("165.227.189.226:20389");
       full_addrs.insert("104.236.175.63:20389"); 
       full_addrs.insert("159.89.249.200:20389"); 
       full_addrs.insert("174.138.15.35:20389");
-      full_addrs.insert("138.68.192.102:20389");
-      full_addrs.insert("45.55.120.174:20389");      
+      full_addrs.insert("138.68.192.102:20389");      
       full_addrs.insert("206.189.20.68:20389");
       full_addrs.insert("142.93.38.51:20389");
       full_addrs.insert("104.248.162.18:20389");
