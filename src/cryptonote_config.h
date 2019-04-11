@@ -57,6 +57,8 @@
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
 
+#define LITENERO_TOKENS                                 ((uint64_t)(18436103009011211991)) // the LTNX hard fork 
+
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
 
@@ -141,7 +143,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "bitelectronero"
+#define CRYPTONOTE_NAME                                 "litenero"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -165,11 +167,11 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".bitelectronero-shared-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".litenero-shared-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
-#define MAX_MIXIN                                       100    // maximum mixin allowed
-#define DEFAULT_MIXIN                                   12     // default mixin
+#define MAX_MIXIN                                       110    // maximum mixin allowed
+#define DEFAULT_MIXIN                                   6     // default mixin
 #define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 
 #define HASH_OF_HASHES_STEP                             256
@@ -192,7 +194,7 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 12090;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 14082;
   boost::uuids::uuid const NETWORK_ID = { {
-    0x66, 0x66, 0x66, 0xD6, 0xF6 , 0xF6, 0xF6,0xEA, 0xA6, 0xA6, 0xF6 , 0x6D, 0xD6, 0x66,  0x6E, 0xEA
+    0x88, 0x88, 0x88, 0xD6, 0xF8 , 0xF8, 0xF8,0xEA, 0xA8, 0xA2, 0xF2 , 0x2D, 0xD2, 0x88,  0x2E, 0xEA
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
