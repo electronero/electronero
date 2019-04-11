@@ -50,5 +50,5 @@ add_dependencies(gen_multisig
   version)
 set_property(TARGET gen_multisig
   PROPERTY
-    OUTPUT_NAME "electronero-gen-trusted-multisig")
+    OUTPUT_NAME "litenero-gen-trusted-multisig-beta")
 install(TARGETS gen_multisig DESTINATION bin)
