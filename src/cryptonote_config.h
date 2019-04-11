@@ -143,7 +143,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "litenero"
+#define CRYPTONOTE_NAME                                 "bitelectronero"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -167,11 +167,11 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".litenero-shared-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".bitelectronero-shared-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
-#define MAX_MIXIN                                       110    // maximum mixin allowed
-#define DEFAULT_MIXIN                                   6     // default mixin
+#define MAX_MIXIN                                       100    // maximum mixin allowed
+#define DEFAULT_MIXIN                                   12     // default mixin
 #define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 
 #define HASH_OF_HASHES_STEP                             256
