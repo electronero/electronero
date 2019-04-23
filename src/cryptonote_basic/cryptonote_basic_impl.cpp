@@ -61,7 +61,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // MAINNET v16 hard fork
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
-#define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(712800)) // MAINNET v19 hard fork
+#define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(738734)) // MAINNET v19 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -163,7 +163,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t litenero_genesis = 13610309000000000U;
-    if ((uint64_t)height == 712880) {
+    if ((uint64_t)height == 738744) {
       reward = litenero_genesis;
       return true;
     }
