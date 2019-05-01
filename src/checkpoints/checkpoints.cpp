@@ -330,22 +330,22 @@ namespace cryptonote
     std::vector<std::string> records;
 
     // All four MoneroPulse domains have DNSSEC on and valid
-    static const std::vector<std::string> dns_urls = { "checkpoints.electronero.com"
-						     , "checkpoints.electronero.org"
-						     , "checkpoints.electronero.net"
-						     , "checkpoints.electronero.info"
+    static const std::vector<std::string> dns_urls = { "checkpoints.goldnero.com"
+						     , "checkpoints.goldnero.org"
+						     , "checkpoints.goldnero.net"
+						     , "checkpoints.goldnero.info"
     };
 
-    static const std::vector<std::string> testnet_dns_urls = { "testpoints.electronero.com"
-							     , "testpoints.electronero.org"
-							     , "testpoints.electronero.net"
-							     , "testpoints.electronero.info"
+    static const std::vector<std::string> testnet_dns_urls = { "testpoints.goldnero.com"
+							     , "testpoints.goldnero.org"
+							     , "testpoints.goldnero.net"
+							     , "testpoints.goldnero.info"
     };
 
-    static const std::vector<std::string> stagenet_dns_urls = { "stagenetpoints.electronero.com"
-                   , "stagenetpoints.electronero.org"
-                   , "stagenetpoints.electronero.net"
-                   , "stagenetpoints.electronero.info"
+    static const std::vector<std::string> stagenet_dns_urls = { "stagenetpoints.goldnero.com"
+                   , "stagenetpoints.goldnero.org"
+                   , "stagenetpoints.goldnero.net"
+                   , "stagenetpoints.goldnero.info"
     };
 
     if (!tools::dns_utils::load_txt_records_from_dns(records, nettype == TESTNET ? testnet_dns_urls : nettype == STAGENET ? stagenet_dns_urls : dns_urls))
