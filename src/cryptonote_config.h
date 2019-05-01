@@ -56,7 +56,7 @@
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
-#define GOLDNERO_TOKENS                                 ((uint64_t)(18103090103090031291)) // the GLDX chain split, during LTNX hard fork 
+#define GOLDNERO_TOKENS                                 ((uint64_t)(18000000103090031291)) // the GLDX chain split, during LTNX hard fork 
 
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)1000000000000) // pow(10, 12)
