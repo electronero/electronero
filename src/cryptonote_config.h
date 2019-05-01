@@ -56,14 +56,13 @@
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
-
-#define LITENERO_TOKENS                                 ((uint64_t)(18436103009011211991)) // the LTNX hard fork 
+#define GOLDNERO_TOKENS                                 ((uint64_t)(18103090103090031291)) // the GLDX chain split, during LTNX hard fork 
 
 // Number of smallest units in one coin
-#define COIN                                            ((uint64_t)100000000) // pow(10, 8)
+#define COIN                                            ((uint64_t)1000000000000) // pow(10, 12)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)100000000) // 1 coin
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)10000000000) // 0.01 coin
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -71,14 +70,14 @@
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V1    20000 //size of block (bytes) after which reward for block calculated using block size - before first fork
 #define CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE_V5    300000 //size of block (bytes) after which reward for block calculated using block size - second change, from v5
 #define CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE          600
-#define CRYPTONOTE_DISPLAY_DECIMAL_POINT                8
+#define CRYPTONOTE_DISPLAY_DECIMAL_POINT                12
 
 #define CRYPTONOTE_TX_FEE_RESERVED_SIZE                 3
 #define CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5             21
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)3000000) // .1 * pow(10, 1)
 #define FEE_PER_KB_V2                                   ((uint64_t)3000000) // .4 * pow(10, 1)
-#define FEE_PER_KB                                      ((uint64_t)5000) // 0.00005000
+#define FEE_PER_KB                                      ((uint64_t)300000) 
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2500000000) // .25 * pow(10, 8)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)2500000000) // .25 * pow(10, 8)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE_V5                  ((uint64_t)2500000000 * (uint64_t)CRYPTONOTE_TX_FEE_RESERVED_SIZE / CRYPTONOTE_BLOCK_FEE_REWARD_ZONE_V5)
@@ -143,7 +142,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "litenero"
+#define CRYPTONOTE_NAME                                 "goldnero"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -167,10 +166,10 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".litenero-shared-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".goldnero-shared-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
-#define MAX_MIXIN                                       110    // maximum mixin allowed
+#define MAX_MIXIN                                       150    // maximum mixin allowed
 #define DEFAULT_MIXIN                                   6     // default mixin
 #define PER_KB_FEE_QUANTIZATION_DECIMALS                8
 
@@ -183,18 +182,18 @@ namespace config
 {
   uint64_t const DEFAULT_FEE_ATOMIC_XMR_PER_KB = 5;
   uint8_t const FEE_CALCULATION_MAX_RETRIES = 10;
-  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)5000); // 
+  uint64_t const DEFAULT_DUST_THRESHOLD = ((uint64_t)300000); // 
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 18390;
-  uint16_t const RPC_DEFAULT_PORT = 18100;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 13011;
+  uint16_t const P2P_DEFAULT_PORT = 19421;
+  uint16_t const RPC_DEFAULT_PORT = 19420;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 19417;
   boost::uuids::uuid const NETWORK_ID = { {
-    0x88, 0x88, 0x88, 0xD6, 0xF8 , 0xF8, 0xF8,0xEA, 0xA8, 0xA2, 0xF2 , 0x2D, 0xD2, 0x88,  0x2E, 0xEA
+    0x66, 0x66, 0x6, 0xD8, 0xF6 , 0xF8, 0xF6,0xMM, 0xA8, 0xM3, 0xM1 , 0x8D, 0xD6, 0x88,  0x6E, 0xEH
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
