@@ -56,8 +56,7 @@
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
-
-#define LITENERO_TOKENS                                 ((uint64_t)(18436103009011211991)) // the LTNX hard fork 
+#define LITENERO_TOKENS                                 ((uint64_t)(13610309003129100)) // the LTNX hard fork 
 
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
