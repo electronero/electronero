@@ -1581,7 +1581,7 @@ bool simple_wallet::save_known_rings(const std::vector<std::string> &args)
 }
 bool simple_wallet::version(const std::vector<std::string> &args)		
 {		
-  message_writer() << "Electronero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";		
+  message_writer() << "Goldnero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";		
   return true;		
 }
 bool simple_wallet::set_always_confirm_transfers(const std::vector<std::string> &args/* = std::vector<std::string>()*/)
@@ -1784,7 +1784,7 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
   const std::string &unit = args[1];
   unsigned int decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
 	  
-  if (unit == "electronero")
+  if (unit == "goldnero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
   else if (unit == "virbovonero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 1;
@@ -1798,6 +1798,8 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 5;
   else if (unit == "micronero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 6;
+  else if (unit == "nanonero")
+    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 9;
   else if (unit == "piconero")
     decimal_point = 0;
   else
@@ -2155,7 +2157,7 @@ simple_wallet::simple_wallet()
                                   "  Set the fee too default/unimportant/normal/elevated/priority.\n "
                                   "confirm-missing-payment-id <1|0>\n "
                                   "ask-password <1|0>\n "
-                                  "unit <electronero|virbovonero|portenero|millinero|fortonero|macronero|micronero|piconero>\n "
+                                  "unit <goldnero|virbovonero|portenero|millinero|fortonero|macronero|micronero|nanonero|piconero>\n "
                                   "  Set the default electronero (sub-)unit.\n "
                                   "min-outputs-count [n]\n "
                                   "  Try to keep at least that many outputs of value at least min-outputs-value.\n "
@@ -2424,7 +2426,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     CHECK_SIMPLE_VARIABLE("priority", set_default_priority, tr("0, 1, 2, 3, or 4"));
     CHECK_SIMPLE_VARIABLE("confirm-missing-payment-id", set_confirm_missing_payment_id, tr("0 or 1"));
     CHECK_SIMPLE_VARIABLE("ask-password", set_ask_password, tr("0 or 1"));
-    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("electronero, virbovonero, portenero, millinero, fortonero, macronero, micronero, piconero"));
+    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("goldnero, virbovonero, portenero, millinero, fortonero, macronero, micronero, nanonero, piconero"));
     CHECK_SIMPLE_VARIABLE("min-outputs-count", set_min_output_count, tr("unsigned integer"));
     CHECK_SIMPLE_VARIABLE("min-outputs-value", set_min_output_value, tr("amount"));
     CHECK_SIMPLE_VARIABLE("merge-destinations", set_merge_destinations, tr("0 or 1"));
