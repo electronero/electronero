@@ -1801,7 +1801,7 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
   else if (unit == "nanonero")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 9;
   else if (unit == "neropulse")
-    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 9;
+    decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT - 10;
   else if (unit == "piconero")
     decimal_point = 0;
   else
