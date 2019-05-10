@@ -59,7 +59,8 @@ using namespace epee;
 #define MAINNET_HARDFORK_V16_HEIGHT ((uint64_t)(500060)) // MAINNET v16 hard fork
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
-#define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(740174)) // MAINNET v19 hard fork
+#define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(749498)) // MAINNET v20 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -770,6 +771,7 @@ namespace cryptonote
       case 7:
       case 6:
       case 3:
+      case 2:
       case 0:
         default_decimal_point = decimal_point;
         break;
@@ -798,13 +800,15 @@ namespace cryptonote
       case 9:
         return "millinero";
       case 8:
-        return "fortonero";
+        return "electronero";
       case 7:
         return "macronero";
       case 6:
         return "micronero";
       case 3:
         return "nanonero";
+      case 2:
+        return "neropulse";
       case 0:
         return "piconero";
       default:
