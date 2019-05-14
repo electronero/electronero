@@ -199,7 +199,7 @@ namespace cryptonote {
     }
     
    // maybe work on better final subsidy later - todo, once emissions is final 
-   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 66600000000U;
+   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 666000U;
     if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
      if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
