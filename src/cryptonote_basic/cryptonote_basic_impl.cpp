@@ -165,7 +165,7 @@ namespace cryptonote {
       reward = electronero_genesis;
       return true;
     }
-    const uint64_t goldnero_genesis = 7400000103090031291U;
+    const uint64_t goldnero_genesis = 9000000103090031291U;
     if ((uint64_t)height == 756650) {
       reward = goldnero_genesis;
       return true;
