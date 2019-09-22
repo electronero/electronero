@@ -1,6 +1,7 @@
-# Electronero
+# Litenero
 
-Source code forked from Monero
+Source code forked from Electronero
+Originally forked from Monero
 
 `Copyright (c) 2014-2018 The Monero Project.  
 Portions Copyright (c) 2017-2018 The Electroneum developers.
