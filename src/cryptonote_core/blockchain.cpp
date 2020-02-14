@@ -165,7 +165,7 @@ static const struct {
   { 17, MAINNET_HARDFORK_V17_HEIGHT, 0, 1551826958 },
   // Version 18
   { 18, MAINNET_HARDFORK_V18_HEIGHT, 0, 1581655928 },
-  // Version 18
+  // Version 19
   { 19, MAINNET_HARDFORK_V19_HEIGHT, 0, 1582955928 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
@@ -4804,12 +4804,12 @@ bool Blockchain::for_all_transactions(std::function<bool(const crypto::hash&, co
 
 bool Blockchain::for_all_outputs(std::function<bool(uint64_t amount, const crypto::hash &tx_hash, uint64_t height, size_t tx_idx)> f) const
 {
-  return m_db->for_all_outputs(f);;
+  return m_db->for_all_outputs(f);
 }
 
 bool Blockchain::for_all_outputs(uint64_t amount, std::function<bool(uint64_t height)> f) const
 {
-  return m_db->for_all_outputs(amount, f);;
+  return m_db->for_all_outputs(amount, f);
 }
 
 namespace cryptonote {
