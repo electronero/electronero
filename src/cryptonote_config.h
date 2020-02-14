@@ -56,6 +56,7 @@
 #define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
+#define ELECTRONERO_PULSE                               ((uint64_t)(333333333333610309000000000)) // after the ETNX genesis hard fork
 
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
@@ -165,7 +166,7 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".bitelectronero-shared-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".bitelectronero-shared-ring-db" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
 #define MAX_MIXIN                                       100    // maximum mixin allowed
