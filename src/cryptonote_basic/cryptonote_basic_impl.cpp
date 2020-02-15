@@ -146,8 +146,8 @@ namespace cryptonote {
     const int emission_speed_factor_v6 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+1); // v17 - 22 emf 
     const int emission_speed_factor_v7 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v18 - 30 emf 
     const int emission_speed_factor_v8 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+6); // v19 - 27 emf 
-    const int emission_speed_factor_v9 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v19 - 30 emf 
-    const int emission_speed_factor_v10 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+7); // v20 - 28 emf 
+    const int emission_speed_factor_v9 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v20 - 30 emf 
+    const int emission_speed_factor_v10 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+7); // v21 - 28 emf 
     uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : emission_speed_factor_v10 ;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
