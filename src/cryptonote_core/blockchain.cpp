@@ -78,6 +78,7 @@
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
 #define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132596‬)) // MAINNET v20 hard fork (skipped)
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
+#define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -169,6 +170,8 @@ static const struct {
   { 19, MAINNET_HARDFORK_V19_HEIGHT, 0, 1555050968 },
   // Version 21
   { 21, MAINNET_HARDFORK_V21_HEIGHT, 0, 1582695928 }
+  // Version 22
+  { 22, MAINNET_HARDFORK_V22_HEIGHT, 0, 1582765436 }
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
