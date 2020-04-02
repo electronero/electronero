@@ -76,7 +76,7 @@
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
-#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132596‬)) // MAINNET v20 hard fork (skipped)
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132597‬)) // MAINNET v20 hard fork (skipped)
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork 
 #define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork 
@@ -3836,9 +3836,11 @@ leave:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+  uint64_t height = m_db->height();  
+  uint64_t versionHeight = height;
+  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
   uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY = version <= 22 ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
+  uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
   
   if (version < 6) 
   {
@@ -3850,9 +3852,11 @@ leave:
   }
   else if (m_nettype == STAGENET)
   {
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+  uint64_t height = m_db->height();  
+  uint64_t versionHeight = height;
+  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
   uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY = version <= 22 ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
+  uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
   if (version < 2) 
@@ -3865,7 +3869,10 @@ leave:
   }
   else
   {
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+  uint64_t height = m_db->height();  
+  uint64_t versionHeight = height;
+  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+  uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
   uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
