@@ -3862,6 +3862,7 @@ leave:
   {
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
+
   uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : ELECTRONERO_TOKENS;
   uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
   uint64_t COIN_SUPPLY = versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
