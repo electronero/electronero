@@ -167,7 +167,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_genesis_byte_size = 613090000000000U;
-    if ((uint64_t)height == 500060 || (uint64_t)height == 1183410) {
+    if ((uint64_t)height == 500060 || (uint64_t)height == 1183410 || (uint64_t)height == 1183411 || (uint64_t)height == 1183412 || (uint64_t)height == 1183413) {
       reward = electronero_genesis_byte_size;
       return true;
     }
