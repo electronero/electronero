@@ -138,9 +138,7 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-    uint64_t COIN_SUPPLY_V1 = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : ELECTRONERO_TOKENS;
-    uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-    uint64_t COIN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V20_B_HEIGHT ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
+    uint64_t COIN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
@@ -153,8 +151,9 @@ namespace cryptonote {
     const int emission_speed_factor_v8 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+6); // v19 - 27 emf 
     const int emission_speed_factor_v9 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v20 - 30 emf 
     const int emission_speed_factor_v10 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+7); // v21 - 28 emf 
-    const int emission_speed_factor_v11 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v22 - 30 emf 
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : (uint64_t)versionHeight < MAINNET_HARDFORK_V22_HEIGHT ? emission_speed_factor_v10 : emission_speed_factor_v11 ;
+    const int emission_speed_factor_v11 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v22 - 30 emf
+    const int emission_speed_factor_v12 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+8); // v22 - 30 emf
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : (uint64_t)versionHeight < MAINNET_HARDFORK_V22_HEIGHT ? emission_speed_factor_v10 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_HEIGHT ? emission_speed_factor_v11 : emission_speed_factor_v12 ;
     uint64_t base_reward = (COIN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t electroneum_genesis_byte_size = 1260000000000U;
