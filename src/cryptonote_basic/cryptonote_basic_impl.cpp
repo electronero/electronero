@@ -139,7 +139,7 @@ namespace cryptonote {
     uint64_t versionHeight = height; // alias used for emissions
     uint64_t COIN_SUPPLY_V1 = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
     uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-    uint64_t COIN_SUPPLY = version <= 22 ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
+    uint64_t COIN_SUPPLY = (uint64_t)versionHeight <= MAINNET_HARDFORK_V22_HEIGHT ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
@@ -172,7 +172,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_parking_genesis_byte_size = 3333333333310301990U;
-    if ((uint64_t)height == 1132597 || (uint64_t)height == 1183410) {
+    if ((uint64_t)height == 1132597) {
       reward = electronero_parking_genesis_byte_size;
       return true;
     }
