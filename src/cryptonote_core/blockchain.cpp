@@ -76,7 +76,7 @@
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
-#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132597‬)) // MAINNET v20 hard fork (skipped)
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132597)) // MAINNET v20 hard fork (skipped)
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork 
 #define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork 
