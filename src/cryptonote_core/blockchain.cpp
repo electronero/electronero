@@ -3863,7 +3863,6 @@ leave:
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
   uint64_t COIN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : (unit64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
-
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
