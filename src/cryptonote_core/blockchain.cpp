@@ -3836,11 +3836,7 @@ leave:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-  uint64_t height = m_db->height();
-  uint64_t versionHeight = height; 
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
-  
+  uint64_t COIN_SUPPLY = MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
@@ -3851,10 +3847,7 @@ leave:
   }
   else if (m_nettype == STAGENET)
   {
-  uint64_t height = m_db->height();
-  uint64_t versionHeight = height;
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
+  uint64_t COIN_SUPPLY = ELECTRONERO_TOKENS;
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
   // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
   if (version < 2) 
@@ -3869,12 +3862,8 @@ leave:
   {
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
-	  
-  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY = COIN_SUPPLY_V1;
-	  
-  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  uint64_t COIN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : (unit64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
+
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
