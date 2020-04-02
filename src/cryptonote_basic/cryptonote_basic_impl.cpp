@@ -62,9 +62,10 @@ using namespace epee;
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
-#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132596)) // MAINNET v20 hard fork
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132596)) // MAINNET v20 hard fork -- skipped
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork
+#define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -136,7 +137,9 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE;
+    uint64_t COIN_SUPPLY_V1 = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? MONEY_SUPPLY_ETN : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? MONEY_SUPPLY : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? TOKENS : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+    uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
+    uint64_t COIN_SUPPLY = version <= 22 ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
@@ -151,44 +154,45 @@ namespace cryptonote {
     const int emission_speed_factor_v10 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+7); // v21 - 28 emf 
     const int emission_speed_factor_v11 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v22 - 30 emf 
     uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : (uint64_t)versionHeight < MAINNET_HARDFORK_V22_HEIGHT ? emission_speed_factor_v10 : emission_speed_factor_v11 ;
-    uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed_factor;
+    uint64_t base_reward = (COIN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
-    const uint64_t electroneum_genesis = 1260000000000U;
+    const uint64_t electroneum_genesis_byte_size = 1260000000000U;
     if ((uint64_t)height == 1) {
-      reward = electroneum_genesis;
+      reward = electroneum_genesis_byte_size;
       return true;
     }
-    const uint64_t community_airdrop = electroneum_genesis;
+    const uint64_t community_airdrop_byte_size = electroneum_genesis_byte_size;
     if ((uint64_t)height == 307003 || (uint64_t)height == 310790) {
-      reward = community_airdrop;
+      reward = community_airdrop_byte_size;
       return true;
     }
-    const uint64_t electronero_genesis = 613090000000000U;
+    const uint64_t electronero_genesis_byte_size = 613090000000000U;
     if ((uint64_t)height == 500060) {
-      reward = electronero_genesis;
+      reward = electronero_genesis_byte_size;
       return true;
     }
-    const uint64_t genesis = 3333333333310301990U;
-    if ((uint64_t)height == 1132597) {
-      reward = genesis;
+    const uint64_t electronero_parking_genesis_byte_size = 3333333333310301990U;
+    if ((uint64_t)height == 1132597 || (uint64_t)height == 1183410) {
+      reward = electronero_parking_genesis_byte_size;
       return true;
     }
+    
     uint64_t round_factor = 10; // 1 * pow(10, 1)
     if ((uint64_t)height > 307003 && version >= 7)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
         double money_supply_pct = 0.1888 + interval_num*(0.023 + interval_num*0.0032);
-        base_reward = ((uint64_t)(TOKEN_SUPPLY * money_supply_pct)) >> emission_speed;
+        base_reward = ((uint64_t)(COIN_SUPPLY * money_supply_pct)) >> emission_speed;
       }
       else{
-        base_reward = ((uint64_t)(TOKEN_SUPPLY - already_generated_coins)) >> emission_speed;
+        base_reward = ((uint64_t)(COIN_SUPPLY - already_generated_coins)) >> emission_speed;
       }
     }
     else
     {
       // do something
-      base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed;
+      base_reward = (COIN_SUPPLY - already_generated_coins) >> emission_speed;
     }
 
     // rounding (floor) base reward
@@ -204,7 +208,7 @@ namespace cryptonote {
    // maybe work on better final subsidy later
    const uint64_t FINAL_SUBSIDY_ACTIVATOR = 666U;
     if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
-     if (already_generated_coins >= TOKEN_SUPPLY){
+     if (already_generated_coins >= COIN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
      }
     }
