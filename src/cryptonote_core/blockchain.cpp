@@ -61,6 +61,7 @@
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
+
 #define ELECTRONERO_HARDFORK ((uint64_t)(310787)) 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
 #define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
@@ -76,9 +77,11 @@
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(739800)) // MAINNET v19 hard fork
-#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132596‬)) // MAINNET v20 hard fork (skipped)
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132597)) // MAINNET v20 hard fork (skipped)
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
-#define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork
+#define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork 
+#define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
+#define MAINNET_HARDFORK_V23_B_HEIGHT ((uint64_t)(1183485)) // MAINNET v23_b soft fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -166,12 +169,14 @@ static const struct {
   { 17, MAINNET_HARDFORK_V17_HEIGHT, 0, 1546327363 },
   // Version 18
   { 18, MAINNET_HARDFORK_V18_HEIGHT, 0, 1551802541 },
-  // Version 19
+  // Version 19 ran until version 21	
   { 19, MAINNET_HARDFORK_V19_HEIGHT, 0, 1555050968 },
   // Version 21
   { 21, MAINNET_HARDFORK_V21_HEIGHT, 0, 1582695928 },
   // Version 22
-  { 22, MAINNET_HARDFORK_V22_HEIGHT, 0, 1582765436 }
+  { 22, MAINNET_HARDFORK_V22_HEIGHT, 0, 1582765436 },
+  // Version 23
+  { 23, MAINNET_HARDFORK_V23_HEIGHT, 0, 1585987920 }
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
@@ -3833,40 +3838,45 @@ leave:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 19 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
-  if (version < 6) 
-  {
-   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
-  } else 
-  {
-   already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
-  }
-  }
-  else if (m_nettype == STAGENET)
-  {
-  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 19 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
-  if (version < 2) 
-  {
-   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
-  } else 
-  {
-   already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
-  }
-  }
-  else
-  {
-  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v6 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  // uint64_t TOKEN_SUPPLY = version < 6 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 19 ? ELECTRONERO_TOKENS : ELECTRONERO_PULSE ;
+  uint64_t COIN_SUPPLY = MONEY_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
   } else 
   {
-   already_generated_coins = base_reward < (TOKEN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : TOKEN_SUPPLY ;
+   already_generated_coins = base_reward < (COIN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : COIN_SUPPLY;
   }
+  }
+  else if (m_nettype == STAGENET)
+  {
+  uint64_t COIN_SUPPLY = ELECTRONERO_TOKENS;
+  // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
+  // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
+  if (version < 2) 
+  {
+   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
+  } else 
+  {
+   already_generated_coins = base_reward < (COIN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : COIN_SUPPLY ;
+  }
+  }
+  else
+  {
+
+  uint64_t height = m_db->height();
+  uint64_t versionHeight = height;
+
+  uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : ELECTRONERO_TOKENS;
+  uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
+  uint64_t COIN_SUPPLY = versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : COIN_SUPPLY_V2;
+
+  if (version < 6) 
+  {
+   already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN;
+  } else 
+  {
+   already_generated_coins = base_reward < (COIN_SUPPLY-already_generated_coins) ? already_generated_coins + base_reward : COIN_SUPPLY;
+  }	
   }
   if(m_db->height())
     cumulative_difficulty += m_db->get_block_cumulative_difficulty(m_db->height() - 1);
@@ -4730,7 +4740,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "f1b849377d8fd7bb4f4f09103c795c2ba8add21a73e0a6164b525acb425e010d";
+static const char expected_block_hashes_hash[] = "cb3068fcac6c4a1a591cbcbfb5c1d92a85fdee0ead46b57b78c6c2e815a9f565";
 void Blockchain::load_compiled_in_block_hashes()
 {
   const bool testnet = m_nettype == TESTNET;
