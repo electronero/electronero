@@ -80,9 +80,8 @@
 #define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(1132597)) // MAINNET v20 hard fork (skipped)
 #define MAINNET_HARDFORK_V21_HEIGHT ((uint64_t)(1132900)) // MAINNET v21 hard fork
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork 
-#define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork 
-#define MAINNET_HARDFORK_V24_HEIGHT ((uint64_t)(1183485)) // MAINNET v24 hard fork
-#define MAINNET_HARDFORK_V25_HEIGHT ((uint64_t)(1183540)) // MAINNET v25 hard fork
+#define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
+#define MAINNET_HARDFORK_V23_B_HEIGHT ((uint64_t)(1183485)) // MAINNET v23_b soft fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
