@@ -35,3 +35,6 @@
 [submodule "coins/electroneropulse"]
 	path = coins/electroneropulse
 	url = https://github.com/electronero-pulse/electroneropulse
+[submodule "electronero-passport/nero-php"]
+	path = electronero-passport/nero-php
+	url = https://github.com/electronero-project/nero-php
