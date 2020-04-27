@@ -1,0 +1,24 @@
+[submodule "desknero/electronero-gui"]
+	path = desknero/electronero-gui
+	url = https://github.com/electronero-project/electronero-gui
+[submodule "desknero/litenero-gui"]
+	path = desknero/litenero-gui
+	url = https://github.com/litenero-project/litenero-gui
+[submodule "desknero/goldnero-gui"]
+	path = desknero/goldnero-gui
+	url = https://github.com/goldnero-project/goldnero-gui
+[submodule "desknero/pulse-gui"]
+	path = desknero/pulse-gui
+	url = https://github.com/electronero-pulse/pulse-gui
+[submodule "neroexplorer/Electronero-Pulse-Blockchain-Explorer"]
+	path = neroexplorer/Electronero-Pulse-Blockchain-Explorer
+	url = https://github.com/electronero/Electronero-Pulse-Blockchain-Explorer
+[submodule "neroexplorer/Electronero-Blockchain-Explorer"]
+	path = neroexplorer/Electronero-Blockchain-Explorer
+	url = https://github.com/electronero-project/Electronero-Blockchain-Explorer
+[submodule "neroexplorer/Goldnero-Blockchain-Explorer"]
+	path = neroexplorer/Goldnero-Blockchain-Explorer
+	url = https://github.com/goldnero-project/Goldnero-Blockchain-Explorer
+[submodule "neroexplorer/Litenero-Blockchain-Explorer"]
+	path = neroexplorer/Litenero-Blockchain-Explorer
+	url = https://github.com/litenero-project/Electronero-Blockchain-Explorer
