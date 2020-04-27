@@ -1,8 +1,14 @@
 # Electronero Network
 
+## ETNX / ETNXP / LTNX / GLDX
+
 Source code forked from Monero
 
 `Copyright (c) 2014-2018 The Monero Project.  
+opyright (c) 2014-2018 The Electronero Project.  
+opyright (c) 2014-2018 The Electronero Pulse Project.  
+opyright (c) 2014-2018 The Litenero Project.  
+opyright (c) 2014-2018 The Goldnero Project.  
 Portions Copyright (c) 2017-2018 The Electroneum developers.
 Portions Copyright (c) ~2018 The Masari developers.
 Portions Copyright (c) ~2018 The Sumokoin developers.
