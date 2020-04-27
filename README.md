@@ -1,4 +1,4 @@
-# Electronero
+# Electronero Network
 
 Source code forked from Monero
 
