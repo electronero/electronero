@@ -50,3 +50,9 @@
 [submodule "webnero/electroneropulse.github.io"]
 	path = webnero/electroneropulse.github.io
 	url = https://github.com/electronero-pulse/electroneropulse.github.io
+[submodule "poolnero/cryptonote-nodejs-pool"]
+	path = poolnero/cryptonote-nodejs-pool
+	url = https://github.com/electroneropool/cryptonote-nodejs-pool
+[submodule "poolnero/nodejs-pool"]
+	path = poolnero/nodejs-pool
+	url = https://github.com/electroneropool/nodejs-pool
