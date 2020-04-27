@@ -22,3 +22,16 @@
 [submodule "neroexplorer/Litenero-Blockchain-Explorer"]
 	path = neroexplorer/Litenero-Blockchain-Explorer
 	url = https://github.com/litenero-project/Electronero-Blockchain-Explorer
+[submodule "coins/electronero"]
+	path = coins/electronero
+	url = https://github.com/electronero/electronero/
+	branch = release
+[submodule "coins/litenero"]
+	path = coins/litenero
+	url = https://github.com/litenero/litenero
+[submodule "coins/goldnero"]
+	path = coins/goldnero
+	url = https://github.com/goldnero/goldnero
+[submodule "coins/electroneropulse"]
+	path = coins/electroneropulse
+	url = https://github.com/electronero-pulse/electroneropulse
