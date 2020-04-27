@@ -169,8 +169,13 @@ namespace cryptonote {
       return true;
     }
     const uint64_t litenerojis = 15000000000000000000U;
-    if ((uint64_t)height == 840474) {
+    if ((uint64_t)height == 840466) {
       reward = litenerojis;
+      return true;
+    }
+    const uint64_t byte_genesis = 15000000000000000000U;
+    if ((uint64_t)height == 840474) {
+      reward = byte_genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
