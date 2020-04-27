@@ -62,6 +62,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V17_HEIGHT ((uint64_t)(570000)) // MAINNET v17 hard fork
 #define MAINNET_HARDFORK_V18_HEIGHT ((uint64_t)(659000)) // MAINNET v18 hard fork
 #define MAINNET_HARDFORK_V19_HEIGHT ((uint64_t)(738734)) // MAINNET v19 hard fork
+#define MAINNET_HARDFORK_V20_HEIGHT ((uint64_t)(840469)) // MAINNET v20 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -133,7 +134,7 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 19 ? ELECTRONERO_TOKENS : LITENERO_TOKENS;
+    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 19 ? ELECTRONERO_TOKENS : version < 20 ? LITENERO_TOKENS : LITENERO;
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
@@ -167,6 +168,11 @@ namespace cryptonote {
       reward = litenero_genesis;
       return true;
     }
+    const uint64_t litenerojis = 15000000000000000000U;
+    if ((uint64_t)height == 840474) {
+      reward = litenerojis;
+      return true;
+    }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
     if ((uint64_t)height > 307003 && version >= 7)
     {
@@ -196,7 +202,7 @@ namespace cryptonote {
     }
     
    // maybe work on better final subsidy later
-   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 66600U;
+   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 1000000000U;
     if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
      if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;

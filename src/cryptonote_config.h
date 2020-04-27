@@ -57,12 +57,12 @@
 #define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
 #define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
 #define LITENERO_TOKENS                                 ((uint64_t)(13610309003129100)) // the LTNX hard fork 
-
+#define LITENERO                                        ((uint64_t)(-1)) // unlimited
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)100000000) // pow(10, 8)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)100000000) // 1 coin
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)103090312) // 10.3090312 coin
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -193,7 +193,7 @@ namespace config
   uint16_t const RPC_DEFAULT_PORT = 18100;
   uint16_t const ZMQ_RPC_DEFAULT_PORT = 13011;
   boost::uuids::uuid const NETWORK_ID = { {
-    0x28, 0x82, 0x62, 0xE1, 0xF1 , 0xF1, 0xF1,0xEA, 0xA6, 0xA1, 0xF2 , 0x2D, 0xD2, 0x28,  0x2E, 0xEA
+    0x22, 0x88, 0x82, 0xE8, 0xF8 , 0xF6, 0xF8,0xEA, 0xA2, 0xA8, 0xF6 , 0x6D, 0xD6, 0x68,  0x6E, 0xEA
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
