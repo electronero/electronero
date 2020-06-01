@@ -4,16 +4,16 @@
 
 Source code forked from Monero
 
-`Copyright (c) 2014-2018 The Monero Project.  
-opyright (c) 2014-2018 The Electronero Project.  
-opyright (c) 2014-2018 The Electronero Pulse Project.  
-opyright (c) 2014-2018 The Litenero Project.  
-opyright (c) 2014-2018 The Goldnero Project.  
-Portions Copyright (c) 2017-2018 The Electroneum developers.
+`Copyright (c) 2014-2018 The Monero Project.
+Portions Copyright (c) 2012-2013 The Cryptonote developers.
+Portions Copyright (c) 2017-2018 The Electroneum developers.  
 Portions Copyright (c) ~2018 The Masari developers.
 Portions Copyright (c) ~2018 The Sumokoin developers.
 Portions Copyright (c) ~2018 The Stellite developers.
-Portions Copyright (c) 2012-2013 The Cryptonote developers.`
+Portions Copyright (c) 2014-2018 The Electronero Project.  
+Portions Copyright (c) 2014-2018 The Electronero Pulse Project.  
+Portions Copyright (c) 2014-2018 The Litenero Project.  
+Portions Copyright (c) 2014-2018 The Goldnero Project.`
 
 
 ## Development resources
@@ -22,28 +22,22 @@ electronero ETNX - Web: [electronero.org](https://electronero.org)
 electronero pulse ETNXP - Web: [electroneropulse.org](https://electroneropulse.org)
 litenero LTNX - Web: [litenero.org](https://litenero.org)
 goldnero GLDX - Web: [goldnero.org](https://goldnero.org)
-electronero core - Chat: [t.me/electronero](https://t.me/electronero)
+electronero unnoffical - Chat: [t.me/electronero](https://t.me/electronero)
+electronero network - Chat: [t.me/electronero_network](https://t.me/electronero_network)
+electronero pulse - Chat: [t.me/etnxp](https://t.me/etnxp)
+litenero - Chat: [t.me/litenero](https://t.me/litenero)
+goldnero - Chat: [t.me/goldnero](https://t.me/goldnero)
 electronero core - Mail: [support@electronero.org](mailto:support@electronero.org)
 electronero network - GitHub: [github.com/electronero/electronero](https://github.com/electronero/electronero)
 
 ## Vulnerability response
 
-- Monero [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
+- Monero source [Vulnerability Response Process](https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
 - Monero is also available via [HackerOne](https://hackerone.com/monero)
 
 ## Announcements
 
-You can subscribe to an [announcement listserv](https://lists.getmonero.org) to get critical announcements from the Monero core team. The announcement list can be very helpful for knowing when software updates are needed.
-
-## Build
-
-## Coverage
-
-| Type      | Status |
-|-----------|--------|
-| Coverity  | [![Coverity Status](https://scan.coverity.com/projects/9657/badge.svg)](https://scan.coverity.com/projects/9657/)
-| Coveralls | [![Coveralls Status](https://coveralls.io/repos/github/monero-project/monero/badge.svg?branch=master)](https://coveralls.io/github/monero-project/monero?branch=master)
-| License   | [![License](https://img.shields.io/badge/license-BSD3-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+You can subscribe to [electronero announcements](https://t.me/etnxnews) to get critical announcements from Electronero core. The announcement list can be very helpful for knowing when software updates are needed, etc. 
 
 ## Introduction
 
@@ -53,7 +47,7 @@ Electronero is a private, secure, untraceable, decentralised digital currency. Y
 
 **Security:** Using the power of a distributed peer-to-peer consensus network, every transaction on the network is cryptographically secured. Individual wallets have a 25 word mnemonic seed that is only displayed once, and can be written down to backup the wallet. Wallet files are encrypted with a passphrase to ensure they are useless if stolen.
 
-**Untraceability:** By taking advantage of ring signatures, a special property of a certain type of cryptography, Monero is able to ensure that transactions are not only untraceable, but have an optional measure of ambiguity that ensures that transactions cannot easily be tied back to an individual user or computer.
+**Untraceability:** By taking advantage of ring signatures, a special property of a certain type of cryptography, Electronero is able to ensure that transactions are not only untraceable, but have an optional measure of ambiguity that ensures that transactions cannot easily be tied back to an individual user or computer.
 
 ## Sponsors
 
@@ -63,7 +57,7 @@ Electronero is a private, secure, untraceable, decentralised digital currency. Y
 
 ## Supporting the project
 
-Electronero is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Electronero donations can be made to the Electronero donation address via the `donate` command (type `help` in the command-line wallet for details). Else, here are our dev teams addresses. The funding goes to many developers who contribute and believe me, they are greatful for our assistance! 
+Electronero is a 100% community driven endeavor. To join community efforts, the easiest thing you can do is support the project financially. Electronero donations can be made to the Electronero donation address via the `donate` command (type `help` in the command-line wallet for details). Else, here are our dev teams addresses. The funding goes to many developers, and volunteers who contribute, they are grateful for our donations! 
 
 The Monero donation address is: `449JLhz9p6756c5tGACveuX76qa8UxMkFMd5uqG9SEJ3LcVJLjh4KvxJQ1Pf4yJmYgQRTrNPZhaga8eYynVqHfac9VWhF1m`
 
@@ -82,11 +76,11 @@ The Sumokoin donation address is: `Sumoo47CGenbHfZtpCVV4PRMSsXP38idFdt5JSj7VuJrD
 
 ## About this project
 
-This is the core implementation of Monero. It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Monero that uses the protocol and network in a compatible manner.
+This is a modified core implementation of Monero/Electroneum. It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Monero that uses the protocol and network in a compatible manner.
 
 As with many development projects, the repository on Github is considered to be the "staging" area for the latest changes. Before changes are merged into that branch on the main repository, they are tested by individual developers in their own branches, submitted as a pull request, and then subsequently tested by contributors who focus on testing and code reviews. That having been said, the repository should be carefully considered before using it in a production environment, unless there is a patch in the repository for a particular show-stopping issue you are experiencing. It is generally a better idea to use a tagged release for stability.
 
-**Anyone is welcome to contribute to Monero's codebase!** If you have a fix or code change, feel free to submit it as a pull request directly to the "master" branch. In cases where the change is relatively small or does not affect other parts of the codebase it may be merged in immediately by any one of the collaborators. On the other hand, if the change is particularly large or complex, it is expected that it will be discussed at length either well in advance of the pull request being submitted, or even directly on the pull request.
+**Anyone is welcome to contribute to Electronero's codebase!** If you have a fix or code change, feel free to submit it as a pull request directly to the "master" branch. In cases where the change is relatively small or does not affect other parts of the codebase it may be merged in immediately by any one of the collaborators. On the other hand, if the change is particularly large or complex, it is expected that it will be discussed at length either well in advance of the pull request being submitted, or even directly on the pull request.
 
 ## License
 
@@ -98,22 +92,7 @@ If you want to help out, see [CONTRIBUTING](CONTRIBUTING.md) for a set of guidel
 
 ## Scheduled software upgrades
 
-Monero uses a fixed-schedule software upgrade (hard fork) mechanism to implement new features. This means that users of Monero (end users and service providers) should run current versions and upgrade their software on a regular schedule. Software upgrades occur during the months of April and October. The required software for these upgrades will be available prior to the scheduled date. Please check the repository prior to this date for the proper Monero software version. Below is the historical schedule and the projected schedule for the next upgrade.
-Dates are provided in the format YYYY-MM-DD. 
-
-
-| Software upgrade block height | Date       | Fork version | Minimum Monero version | Recommended Monero version | Details                                                                            |  
-| ------------------------------ | -----------| ----------------- | ---------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
-| 1009827                        | 2016-03-22 | v2                | v0.9.4                 | v0.9.4                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
-| 1141317                        | 2016-09-21 | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
-| 1220516                        | 2017-01-05 | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
-| 1288616                        | 2017-04-15 | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
-| 1400000                        | 2017-09-16 | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
-| 1546000                        | 2018-04-06 | v7                | v0.12.0.0              | v0.12.0.0                  | Cryptonight variant 1, ringsize >= 7, sorted inputs
-| 337838                        | 2018-07-11 | v15                | v12.3.0               | v12.3.1                  | Cryptonight fast, variant 4, ringsize >=1
-| xxxxxx                        | 2018-10-30 | v16                | v12.3.4               | v12.3.5                  | ETNXP, supply burn
-
-X's indicate that these details have not been determined as of commit date.
+Electronero utilizes a software upgrade (hard fork) mechanism to implement new features. This means that users of Electronero (end users and service providers) should run current versions and upgrade their software on a regular basis. The required software for these upgrades will be available prior to the scheduled date. Please check the repository prior to this date for the proper Electronero software version. 
 
 ## Release staging schedule and protocol
 
@@ -176,8 +155,7 @@ invokes cmake commands as needed.
 * Install the dependencies
 * Change to the root of the source code directory and build:
 
-        cd electronero
-        make
+        `$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2`
 
     *Optional*: If your machine has several cores and enough memory, enable
     parallel build by running `make -j<number of threads>` instead of `make`. For
@@ -191,7 +169,7 @@ invokes cmake commands as needed.
 
 * Add `PATH="$PATH:$HOME/electronero/build/release/bin"` to `.profile`
 
-* Run Electronero with `electronerod --detach`
+* Run Electronero `electronerod`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
@@ -231,20 +209,11 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 * Clone electronero and checkout most recent release version:
 ```
         git clone https://github.com/electronero/electronero.git
-	cd electronero
-	git checkout tags/v0.11.1.0
 ```
 * Build:
-```
-        make release
-```
-* Wait 4-6 hours
-
-* The resulting executables can be found in `build/release/bin`
+`$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2`
 
 * Add `PATH="$PATH:$HOME/electronero/build/release/bin"` to `.profile`
-
-* Run Electronero with `electronero --detach`
 
 * You may wish to reduce the size of the swap file after the build has finished, and delete the boost directory from your home directory
 
@@ -326,12 +295,6 @@ application.
         make release-static-win32
 
 * The resulting executables can be found in `build/release/bin`
-
-### On FreeBSD:
-
-The project can be built from scratch by following instructions for Linux above. If you are running electronero in a jail you need to add the flag: `allow.sysvipc=1` to your jail configuration, otherwise lmdb will throw the error message: `Failed to open lmdb environment: Function not implemented`.
-
-We expect to add Electronero into the ports tree in the near future, which will aid in managing installations using ports or packages.
 
 ### On OpenBSD:
 
@@ -471,7 +434,7 @@ of the argument without the leading dashes, for example `log-level=1`.
 
 To run in background:
 
-    ./bin/electronerod --log-file electronerod.log --detach
+    ./bin/electronerod --log-file electronerod.log
 
 To run as a systemd service, copy
 [electronerod.service](utils/systemd/electronerod.service) to `/etc/systemd/system/` and
