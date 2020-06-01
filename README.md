@@ -52,7 +52,7 @@ Electronero is a private, secure, untraceable, decentralised digital currency. Y
 ## Sponsors
 
 <p align="center">
-  <img align="center" width="80" src="sponsors/mineful_logo.png"/>(https://mineful.com)
+  <img align="center" width="80" src="https://raw.githubusercontent.com/electronero/electronero/d0ae1788959a36a0415d18b4e69ab3ca5a321a6e/sponsors/mineful_logo.png"/>(https://mineful.com)
 </p>
 
 ## Supporting the project
