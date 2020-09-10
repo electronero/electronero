@@ -53,7 +53,7 @@
 
 // Total number coins to be generated
 #define MONEY_SUPPLY_ETN                                ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
-#define MONEY_SUPPLY                                    ((uint64_t)(100000000000000000)) // initial fork
+#define CRYSTALEUM_SUPPLY                               ((uint64_t)(100000000000000000)) // initial fork
 
 // Number of smallest units in one coin
 #define COIN                                            ((uint64_t)1000000000000) // 1 * pow(10, 12)
@@ -99,6 +99,7 @@
 #define DIFFICULTY_BLOCKS_COUNT_V12                     DIFFICULTY_WINDOW_V2
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V2           DIFFICULTY_TARGET_V1 * 2 // https://github.com/zawy12/difficulty-algorithms/issues/3
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V12          60*5
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_CRYSTALEUM   6*7
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET_V2 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -157,7 +158,6 @@
 #define COIN_EMISSION_HEIGHT_INTERVAL                   ((uint64_t) (COIN_EMISSION_MONTH_INTERVAL * (30.4375 * 24 * 3600) / DIFFICULTY_TARGET)) // calculated to # of heights to change emission speed
 #define PEAK_COIN_EMISSION_YEAR                         4
 #define PEAK_COIN_EMISSION_HEIGHT                       ((uint64_t) (((12 * 30.4375 * 24 * 3600)/DIFFICULTY_TARGET) * PEAK_COIN_EMISSION_YEAR)) // = (# of heights emmitted per year) * PEAK_COIN_EMISSION_YEAR
-
 
 #define HF_VERSION_DYNAMIC_FEE                          100
 #define HF_VERSION_ENFORCE_RCT                          6
