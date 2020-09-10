@@ -53,16 +53,13 @@
 
 // Total number coins to be generated
 #define MONEY_SUPPLY_ETN                                ((uint64_t)(2100000000000)) // ETN MONEY_SUPPLY
-#define MONEY_SUPPLY                                    ((uint64_t)(21000000000000)) // after the ETNX fork
-#define TOKENS                                          ((uint64_t)(20000000000000)) // after the first 10BB ETNX Coin Burn
-#define ELECTRONERO_TOKENS                              ((uint64_t)(3610309000000000)) // after the ETNXP hard fork and ETNX burn
-#define GOLDNERO_TOKENS                                 ((uint64_t)(-1)) // the GLDX chain split, during LTNX hard fork 
+#define MONEY_SUPPLY                                    ((uint64_t)(100000000000000000)) // initial fork
 
 // Number of smallest units in one coin
-#define COIN                                            ((uint64_t)1000000000000) // pow(10, 12)
+#define COIN                                            ((uint64_t)1000000000000) // 1 * pow(10, 12)
 
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (20)
-#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000000000) // 3 * pow(10, 11)
+#define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)300000) // 3 * pow(10, 5)
 
 #define CRYPTONOTE_REWARD_BLOCKS_WINDOW                 100
  
@@ -93,6 +90,7 @@
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + DIFFICULTY_LAG
 
 #define DIFFICULTY_TARGET_V2                            120  // seconds
+#define DIFFICULTY_TARGET_V3                            6  // seconds
 #define DIFFICULTY_WINDOW_V2                            70
 #define DIFFICULTY_WINDOW_V3                            60
 
@@ -142,7 +140,7 @@
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                                 "goldnero"
+#define CRYPTONOTE_NAME                                 "crystaleum"
 #define CRYPTONOTE_POOLDATA_FILENAME                    "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME              "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME         "lock.mdb"
@@ -166,7 +164,7 @@
 #define HF_VERSION_MIN_MIXIN_4                          7
 #define HF_VERSION_MIN_MIXIN_6                          8
 
-#define CRYPTONOTE_RINGDB_DIR                           ".goldnero-shared-ringdb" // shared-ringdb"
+#define CRYPTONOTE_RINGDB_DIR                           ".crystaleum-shared-ringdb" // shared-ringdb"
 
 #define MIN_MIXIN                                       1      // minimum mixin allowed
 #define MAX_MIXIN                                       150    // maximum mixin allowed
@@ -189,11 +187,11 @@ namespace config
   uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
   uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-  uint16_t const P2P_DEFAULT_PORT = 19421;
-  uint16_t const RPC_DEFAULT_PORT = 19420;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 19417;
+  uint16_t const P2P_DEFAULT_PORT = 11011;
+  uint16_t const RPC_DEFAULT_PORT = 11012;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 11013;
   boost::uuids::uuid const NETWORK_ID = { {
-    0x33, 0x66, 0x33, 0xD6, 0xF8 , 0xF3, 0xF3,0xEA, 0xA8, 0xA8, 0xF2 , 0x6D, 0xD6, 0x33,  0x6E, 0xEA
+    0x22, 0x44, 0x66, 0xA8, 0xF8 , 0xF4, 0xF2,0xE4, 0xA8, 0xA4, 0xF2 , 0x46, 0xD8, 0x42,  0x68, 0xEA
     } }; // Bender's nightmare
   std::string const GENESIS_TX = "011201ff00011e026bc5c7db8a664f652d78adb587ac4d759c6757258b64ef9cba3c0354e64fb2e42101abca6a39c561d0897be183eb0143990eba201aa7d2c652ab0555d28bb4b70728";
   uint32_t const GENESIS_NONCE = 10000;
@@ -204,9 +202,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 13080;
-    uint16_t const RPC_DEFAULT_PORT = 13081;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 13082;
+    uint16_t const P2P_DEFAULT_PORT = 12081;
+    uint16_t const RPC_DEFAULT_PORT = 12082;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 12083;
     boost::uuids::uuid const NETWORK_ID = { {
         0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C,0x04, 0xF8, 0x23, 0xE1, 0x66, 0xC2,  0x85, 0x8E, 0xC8, 0x40
       } }; // Bender's daydream
@@ -220,9 +218,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 18018;
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 18019;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 42;
-    uint16_t const P2P_DEFAULT_PORT = 18680;
-    uint16_t const RPC_DEFAULT_PORT = 18689;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 18690;
+    uint16_t const P2P_DEFAULT_PORT = 14681;
+    uint16_t const RPC_DEFAULT_PORT = 14682;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 14693;
     boost::uuids::uuid const NETWORK_ID = { {
          0xE3, 0xA4, 0xEA, 0x5D, 0xD1, 0x2C,0x04, 0x8E, 0xC8, 0x41, 0xF8, 0x23, 0xE1, 0x66, 0xC2, 0x85
       } }; // Bender's daydream
