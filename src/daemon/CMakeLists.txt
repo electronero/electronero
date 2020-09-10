@@ -106,5 +106,5 @@ target_link_libraries(daemon
     ${EXTRA_LIBRARIES})
 set_property(TARGET daemon
   PROPERTY
-    OUTPUT_NAME "goldnerod")
+    OUTPUT_NAME "crystaleumd")
 install(TARGETS daemon DESTINATION bin)
