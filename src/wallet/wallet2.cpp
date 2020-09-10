@@ -120,7 +120,7 @@ namespace
   std::string get_default_ringdb_path()
   {
     boost::filesystem::path dir = tools::get_default_data_dir();
-    // remove .electronero, and replace .shared-ringdb with .ringdb in config 
+    // remove .crystaleum, and replace .shared-ringdb with .ringdb in config 
     dir = dir.remove_filename();
     dir /= CRYPTONOTE_RINGDB_DIR; // CRYPTONOTE_RINGDB_DIR is in config
     return dir.string();
@@ -10500,7 +10500,7 @@ uint64_t wallet2::get_segregation_fork_height() const
   static const bool use_dns = true;
   if (use_dns)
   {
-    // All four MoneroPulse domains have DNSSEC on and valid
+    // All four CrystaleumPulse domains have DNSSEC on and valid
     static const std::vector<std::string> dns_urls = {
         "segheights.electroneropulse.org",
         "segheights.electroneropulse.net",
