@@ -397,15 +397,11 @@ namespace nodetool
     }
     else
     {
-      full_addrs.insert("46.101.40.29:19421"); 
-      full_addrs.insert("107.170.236.49:19421"); 
-      full_addrs.insert("104.236.175.63:19421"); 
-      full_addrs.insert("159.89.249.200:19421"); 
-      full_addrs.insert("174.138.15.35:19421");
-      full_addrs.insert("206.189.20.68:19421");
-      full_addrs.insert("142.93.38.51:19421");
-      full_addrs.insert("104.248.162.18:19421");
-      full_addrs.insert("104.248.166.224:19421");
+      full_addrs.insert("46.101.40.29:11011"); 
+      full_addrs.insert("107.170.236.49:11011"); 
+      full_addrs.insert("174.138.15.35:11011");
+      full_addrs.insert("142.93.38.51:11011");
+      full_addrs.insert("104.248.162.18:11011");
     }
     return full_addrs;
   }
