@@ -50,5 +50,5 @@ add_dependencies(gen_multisig
   version)
 set_property(TARGET gen_multisig
   PROPERTY
-    OUTPUT_NAME "goldnero-gen-trusted-multisig-beta")
+    OUTPUT_NAME "crystaleum-gem-multisig-beta")
 install(TARGETS gen_multisig DESTINATION bin)
