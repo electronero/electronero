@@ -792,25 +792,25 @@ namespace cryptonote
     switch (std::atomic_load(&default_decimal_point))
     {
       case 12:
-        return "goldnero";
+        return "crystaleum";
       case 11:
-        return "virbovonero";
+        return "virbovocrystal";
       case 10:
-        return "portenero";
+        return "portecrystal";
       case 9:
-        return "millinero";
+        return "millicrystal";
       case 8:
-        return "electronero";
+        return "electrocrystal";
       case 7:
-        return "macronero";
+        return "macrocrystal";
       case 6:
-        return "micronero";
+        return "microcrystal";
       case 3:
-        return "nanonero";
+        return "nanocrystal";
       case 2:
-        return "neropulse";
+        return "nerocrystal";
       case 0:
-        return "piconero";
+        return "picocrystal";
       default:
         ASSERT_MES_AND_THROW("Invalid decimal point specification: " << default_decimal_point);
     }
