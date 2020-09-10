@@ -1463,7 +1463,7 @@ bool Blockchain::complete_timestamps_vector(uint64_t start_top_height, std::vect
 {
   LOG_PRINT_L3("Blockchain::" << __func__);
   uint8_t hardfork_version = get_current_hard_fork_version();
-  size_t blockchain_timestamp_check_window = hardfork_version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
+  size_t blockchain_timestamp_check_window = hardfork_version < 8 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 	
   if(timestamps.size() >= blockchain_timestamp_check_window)
     return true;
@@ -3339,7 +3339,7 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
   LOG_PRINT_L3("Blockchain::" << __func__);
   median_ts = epee::misc_utils::median(timestamps);
   uint8_t hardfork_version = get_current_hard_fork_version();
-  size_t blockchain_timestamp_check_window = hardfork_version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
+  size_t blockchain_timestamp_check_window = hardfork_version < 8 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 
   if(b.timestamp < median_ts)
   {
@@ -3370,7 +3370,7 @@ bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) cons
    block_future_time_limit = CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_CRYSTALEUM;
   }
 
-  size_t blockchain_timestamp_check_window = version < 12 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
+  size_t blockchain_timestamp_check_window = version < 8 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V12;
 
   LOG_PRINT_L3("Blockchain::" << __func__);
   if(b.timestamp > get_adjusted_time() + block_future_time_limit)
