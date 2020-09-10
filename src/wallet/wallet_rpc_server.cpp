@@ -63,7 +63,7 @@ namespace
   const command_line::arg_descriptor<std::string> arg_wallet_dir = {"wallet-dir", "Directory for newly created wallets"};
   const command_line::arg_descriptor<bool> arg_prompt_for_password = {"prompt-for-password", "Prompts for password when not provided", false};
 
-  constexpr const char default_rpc_username[] = "electronero";
+  constexpr const char default_rpc_username[] = "crystaleum";
 
   boost::optional<tools::password_container> password_prompter(const char *prompt, bool verify)
   {
