@@ -2,7 +2,7 @@
 
 #define DEF_MONERO_VERSION "1.21-master"
 
-#define DEF_MONERO_RELEASE_NAME "Cryptic Crytal"
+#define DEF_MONERO_RELEASE_NAME "Cryptic Crystal"
 #define DEF_MONERO_VERSION_FULL DEF_MONERO_VERSION "-" DEF_MONERO_VERSION_TAG
 
 #include "version.h"
