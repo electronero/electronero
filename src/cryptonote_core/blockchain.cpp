@@ -121,16 +121,7 @@ static const struct {
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
   { 1, 1, 0, 1509360534 },
-  { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 },
-  { 8, TESTNET_HARDFORK_V8_HEIGHT, 0, 1526030997 },
-  { 9, TESTNET_HARDFORK_V9_HEIGHT, 0, 1526625013 },
-  { 10, TESTNET_HARDFORK_V10_HEIGHT, 0, 1526625023 },
-  { 11, TESTNET_HARDFORK_V11_HEIGHT, 0, 1526625043 },
-  { 12, TESTNET_HARDFORK_V12_HEIGHT, 0, 1527629671 },
-  { 13, TESTNET_HARDFORK_V13_HEIGHT, 0, 1527629791 },
-  { 14, TESTNET_HARDFORK_V14_HEIGHT, 0, 1527629871 },
-  { 15, TESTNET_HARDFORK_V15_HEIGHT, 0, 1527629971 },
-  { 16, TESTNET_HARDFORK_V16_HEIGHT, 0, 1527639871 }
+  { 7, TESTNET_HARDFORK_V7_HEIGHT, 0, 1526030397 }
 };
 static const uint64_t testnet_hard_fork_version_1_till = TESTNET_HARDFORK_V7_HEIGHT-1;
 
@@ -141,36 +132,7 @@ static const struct {
   time_t time;
 } stagenet_hard_forks[] = {
   // version 1 from the start of the blockchain
-  { 1, STAGENET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
-
-  // version 6 was tested but decided against implementation
-  // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
-
-  // version 7 starts from block 307003, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
-  { 7, STAGENET_HARDFORK_V7_HEIGHT, 0, 1527663660 },
-	
-  // version 8 starts from block 307054, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
-  { 8, STAGENET_HARDFORK_V8_HEIGHT, 0, 1527664267 },
-  
-  // version 9 starts from block 308110, which is on or around the 31st of May, 2018. Fork time finalised on 2018-05-31.
-  { 9, STAGENET_HARDFORK_V9_HEIGHT, 0, 1527780225 },
-	
-  // version 10 starts from block 310757, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 10, STAGENET_HARDFORK_V10_HEIGHT, 0, 1528100874 },
-  // version 10 starts from block 310800, which is on or around the 4th of June, 2018. Fork time finalised on 2018-06-04.
-  { 11, STAGENET_HARDFORK_V11_HEIGHT, 0, 1528100953 },
-  // Version 12 starts from 333690
-  { 12, STAGENET_HARDFORK_V12_HEIGHT, 0, 1528100954 },
-  // Version 13
-  { 13, STAGENET_HARDFORK_V13_HEIGHT, 0, 1530783171 },
-  // Version 15
-  { 14, STAGENET_HARDFORK_V14_HEIGHT, 0, 1530884769 }, 
-	
-  { 15, STAGENET_HARDFORK_V15_HEIGHT, 0, 1531318728 }, 
-	
-  { 16, STAGENET_HARDFORK_V16_HEIGHT, 0, 1531318798 },
-	
-  { 17, STAGENET_HARDFORK_V17_HEIGHT, 0, 1531319998 }
+  { 1, STAGENET_HARDFORK_V1_HEIGHT, 0, 1509360534 }
 };
 
 //------------------------------------------------------------------
@@ -896,7 +858,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     if(version < get_current_hard_fork_version()){
     version = get_current_hard_fork_version();
     }
-    difficulty_type diffV1 = next_difficulty(timestamps, cumulative_difficulties, target);
+    difficulty_type diffV1 = next_difficulty(timestamps, difficulties, target);
     return diffV1;
   } 
   else {
@@ -904,7 +866,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     if(version < get_current_hard_fork_version()){
     version = get_current_hard_fork_version();
     }
-    difficulty_type diffV4 = next_difficulty_v4(timestamps, cumulative_difficulties, target); 
+    difficulty_type diffV4 = next_difficulty_v4(timestamps, difficulties, target); 
     return diffV4;
   }
 
