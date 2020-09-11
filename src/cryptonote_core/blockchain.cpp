@@ -1019,7 +1019,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   std::vector<difficulty_type> cumulative_difficulties;
   uint64_t height = m_db->height();
   uint64_t versionHeight = height;
-  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+  size_t target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V3;
   size_t difficulty_blocks_count;
   // pick DIFFICULTY_BLOCKS_COUNT based on version	
   if ((uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT) {
@@ -1035,34 +1035,22 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {	  LOG_PRINT_L3("Blockchain TESTNET TARGET ADJUSTED");
-	  target = (uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= TESTNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
+	  target = DIFFICULTY_TARGET_V3 ;
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < TESTNET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= TESTNET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
 	  else{
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
   }
   if (m_nettype == STAGENET)
   {	  LOG_PRINT_L3("Blockchain STAGENET TARGET ADJUSTED");
-	  target = (uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= STAGENET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2; 
+	  target = DIFFICULTY_TARGET_V1; 
 	  // pick DIFFICULTY_BLOCKS_COUNT based on version
 	  if ((uint64_t)versionHeight < STAGENET_HARDFORK_V7_HEIGHT) {
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT;
 	  } 
-	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V10_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V3;
-	  }
-	  else if((uint64_t)versionHeight <= STAGENET_HARDFORK_V11_HEIGHT) {
-	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V2;
-	  }
 	  else{
 	    difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
 	  }
@@ -3684,7 +3672,7 @@ leave:
   // TESTNET, STAGENET and MAINNET
   if (m_nettype == TESTNET)
   {
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : GOLDNERO_TOKENS;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : CRYSTALEUM_SUPPLY;
   if (version < 6) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
@@ -3696,8 +3684,7 @@ leave:
   else if (m_nettype == STAGENET)
   {
   // MONEY_SUPPLY_ETN == MONEY_SUPPLY_V1, v2 fork enables MONEY_SUPPLY == FORK_MONEY_SUPPLY
-  // uint64_t TOKEN_SUPPLY = version < 2 ? MONEY_SUPPLY_ETN : MONEY_SUPPLY;
-  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : version < 20 ? ELECTRONERO_TOKENS : GOLDNERO_TOKENS;
+  uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : CRYSTALEUM_SUPPLY;
   if (version < 2) 
   {
    already_generated_coins = base_reward < (MONEY_SUPPLY_ETN-already_generated_coins) ? already_generated_coins + base_reward : MONEY_SUPPLY_ETN ;
