@@ -121,9 +121,9 @@ namespace cryptonote {
       reward = electroneum_genesis;
       return true;
     }
-    const uint64_t crystaleum_gem_genesis_vault = 100000000000000000U;
+    const uint64_t crystaleum_gem_vault_genesis = 100000000000000000U;
     if ((uint64_t)height == 307002) {
-      reward = crystaleum_gem_genesis;
+      reward = crystaleum_gem_vault_genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
