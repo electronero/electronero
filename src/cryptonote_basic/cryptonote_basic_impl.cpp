@@ -109,9 +109,9 @@ namespace cryptonote {
   bool get_block_reward(size_t median_size, size_t current_block_size, uint64_t already_generated_coins, uint64_t &reward, uint8_t version, uint64_t height) {
     //static_assert(DIFFICULTY_TARGET_V2%60==0&&DIFFICULTY_TARGET_V1%60==0,"difficulty targets must be a multiple of 60");
     uint64_t versionHeight = height; // alias used for emissions
-    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : CRYSTALEUM_SUPPLY;
-    const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V3;
-    const int target_minutes = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? target / 60 : target / 6;
+    uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : CRYSTALEUM_SUPPLY;
+    const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V3;
+    const int target_minutes = (uint64_t)versionHeight < MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ? target / 60 : target / 6;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     // alter emissions speed factor after testing. todo
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
@@ -125,7 +125,7 @@ namespace cryptonote {
     //     const int emission_speed_factor_v7 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v18 - 30 emf 
     //     const int emission_speed_factor_v8 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+6); // v19 - 27 emf 
     //     const int emission_speed_factor_v9 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+4); // v19 - 25 emf 
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v4;
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ? emission_speed_factor_v3 : emission_speed_factor_v4;
     uint64_t base_reward = (TOKEN_SUPPLY - already_generated_coins) >> emission_speed;
     
     const uint64_t electroneum_genesis = 1260000000000U;
