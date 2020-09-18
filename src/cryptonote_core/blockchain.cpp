@@ -809,7 +809,7 @@ difficulty_type Blockchain::get_difficulty_for_next_block()
     difficulty_blocks_count = DIFFICULTY_BLOCKS_COUNT_V12;
   }
 	
-  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + (uint64_t)difficulty_blocks_count)
+  if ((uint64_t)height >= MAINNET_HARDFORK_V7_HEIGHT - 1 && (uint64_t)height <= MAINNET_HARDFORK_V7_HEIGHT + (uint64_t)difficulty_blocks_count)
   {
   return (difficulty_type) 100;
   }
