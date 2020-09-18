@@ -110,6 +110,9 @@ static const struct {
   uint8_t threshold;
   time_t time;
 } mainnet_hard_forks[] = {
+  // version 1 from the start of the blockchain
+  { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
+
   // version 6 was tested but decided against implementation
   // { 6, MAINNET_HARDFORK_V6_HEIGHT, 0, 1524279224 },
 
