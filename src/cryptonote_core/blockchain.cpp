@@ -105,10 +105,10 @@ static const struct {
   { 1, MAINNET_HARDFORK_V1_HEIGHT, 0, 1509360534 },
 
   // version 7 starts from block 307001, which is on or around the 30th of May, 2018. Fork time finalised on 2018-05-30.
-  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527663660 },
+  { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527663660 }
 	  
   // version 20 starts from block 307004, which is on or around the 18th of September, 2020. Fork time finalised on 2020-09-18.
-  { 20, MAINNET_HARDFORK_CRYSTALEUM_HEIGHT, 0, 1600402349 }
+  //{ 20, MAINNET_HARDFORK_CRYSTALEUM_HEIGHT, 0, 1600402349 }
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
