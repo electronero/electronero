@@ -47,8 +47,8 @@ using namespace epee;
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
  
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(306941)) // MAINNET v7 hard fork 
-#define MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ((uint64_t)(306971)) // MAINNET crystaleum hard fork 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307003)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ((uint64_t)(307054)) // MAINNET crystaleum hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
