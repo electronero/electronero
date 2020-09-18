@@ -47,7 +47,7 @@ using namespace epee;
 #define MONERO_DEFAULT_LOG_CATEGORY "cn"
  
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307001)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(306943)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ((uint64_t)(307004)) // MAINNET crystaleum hard fork 
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
@@ -105,7 +105,7 @@ namespace cryptonote {
     const int target_minutes = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? target / 60 : target / 6;
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     // alter emissions speed factor after testing. todo
-    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
+    const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+1);
     //     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10 
     //     const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf 
     //     const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes); //  21 emf 
