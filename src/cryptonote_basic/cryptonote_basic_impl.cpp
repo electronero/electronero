@@ -116,7 +116,7 @@ namespace cryptonote {
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10 
-    const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+1); //v16
+    const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); //v16 - 30 emf
     //     const int emission_speed_factor_v3 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-2); // v10 
     //     const int emission_speed_factor_v4 = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); // v16 - 20 emf 
     //     const int emission_speed_factor_v5 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes); //  21 emf 
