@@ -121,6 +121,11 @@ namespace cryptonote {
       reward = electroneum_genesis;
       return true;
     }
+    const uint64_t crystaleum_gem_genesis_vault = 100000000000000000U;
+    if ((uint64_t)height == 307002) {
+      reward = crystaleum_gem_genesis;
+      return true;
+    }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
     if ((uint64_t)height > 307001 && version >= 7)
     {
@@ -150,7 +155,7 @@ namespace cryptonote {
     }
    // maybe throw chain into final subsidy after genesis? todo
    // maybe work on better final subsidy later - todo, once emissions is final 
-   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 666000U;
+   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 1000U;
     if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
      if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
