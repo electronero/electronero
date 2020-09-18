@@ -171,7 +171,7 @@ namespace cryptonote {
     }
    // maybe throw chain into final subsidy after genesis? todo
    // maybe work on better final subsidy later - todo, once emissions is final 
-   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 1000U;
+   const uint64_t FINAL_SUBSIDY_ACTIVATOR = 1000000000000U;
     if (base_reward < FINAL_SUBSIDY_ACTIVATOR){
      if (already_generated_coins >= TOKEN_SUPPLY){
        base_reward = FINAL_SUBSIDY_PER_MINUTE;
