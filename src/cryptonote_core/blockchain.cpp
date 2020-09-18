@@ -62,7 +62,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
 #define MAINNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // MAINNET v1 
-#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(307001)) // MAINNET v7 hard fork 
+#define MAINNET_HARDFORK_V7_HEIGHT ((uint64_t)(306943)) // MAINNET v7 hard fork 
 #define MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ((uint64_t)(307004)) // MAINNET crystaleum hard fork 
 
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
