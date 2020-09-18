@@ -122,12 +122,12 @@ namespace cryptonote {
       return true;
     }
     const uint64_t crystaleum_gem_vault_genesis = 100000000000000000U;
-    if ((uint64_t)height == 307005) {
+    if ((uint64_t)height == 307003) {
       reward = crystaleum_gem_vault_genesis;
       return true;
     }
     uint64_t round_factor = 10; // 1 * pow(10, 1)
-    if ((uint64_t)height > 307001 && version >= 7)
+    if ((uint64_t)height > 307003 && version >= 7)
     {
       if (height < (PEAK_COIN_EMISSION_HEIGHT + COIN_EMISSION_HEIGHT_INTERVAL)) {
         uint64_t interval_num = height / COIN_EMISSION_HEIGHT_INTERVAL;
