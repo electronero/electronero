@@ -108,7 +108,7 @@ static const struct {
   { 7, MAINNET_HARDFORK_V7_HEIGHT, 0, 1527663660 },
 	  
   // version 8 starts from block 307004, which is on or around the 18th of September, 2020. Fork time finalised on 2020-09-18.
-  { 8, MAINNET_HARDFORK_CRYSTALEUM_HEIGHT, 0, 1599712335 }
+  { 8, MAINNET_HARDFORK_CRYSTALEUM_HEIGHT, 0, 1600402349 }
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
