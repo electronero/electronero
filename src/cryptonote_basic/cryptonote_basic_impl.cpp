@@ -112,7 +112,6 @@ namespace cryptonote {
     uint64_t TOKEN_SUPPLY = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version < 16 ? TOKENS : CRYSTALEUM_SUPPLY;
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V3;
     const int target_minutes = (uint64_t)versionHeight < MAINNET_HARDFORK_CRYSTALEUM_HEIGHT ? target / 60 : target / 6;
-    const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     // alter emissions speed factor after testing. todo
     const int emission_speed_factor = EMISSION_SPEED_FACTOR_PER_MINUTE - (target_minutes-1); 
     const int emission_speed_factor_v2 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes-1);
