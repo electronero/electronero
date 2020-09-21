@@ -22,6 +22,9 @@
 [submodule "oracles/Litenero-Blockchain-Explorer"]
 	path = neroexplorer/Litenero-Blockchain-Explorer
 	url = https://github.com/litenero-project/Electronero-Blockchain-Explorer
+[submodule "oracles/Crystaleum-Blockchain-Explorer"]
+	path = oracles/Crystaleum-Blockchain-Explorer
+	url = https://github.com/crystaleum/Crystaleum-Blockchain-Explorer
 [submodule "coins/electronero"]
 	path = coins/electronero
 	url = https://github.com/electronero/electronero/
@@ -59,6 +62,3 @@
 [submodule "coins/crystaleum"]
 	path = coins/crystaleum
 	url = https://github.com/crystaleum/crystaleum
-[submodule "oracles/Crystaleum-Blockchain-Explorer"]
-	path = oracles/Crystaleum-Blockchain-Explorer
-	url = https://github.com/crystaleum/Crystaleum-Blockchain-Explorer
