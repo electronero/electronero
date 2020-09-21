@@ -21,7 +21,7 @@
 	url = https://github.com/goldnero-project/Goldnero-Blockchain-Explorer
 [submodule "oracles/Litenero-Blockchain-Explorer"]
 	path = oracles/Litenero-Blockchain-Explorer
-	url = https://github.com/litenero-project/Electronero-Blockchain-Explorer/
+	url = https://github.com/litenero-project/Litenero-Blockchain-Explorer/
 [submodule "oracles/Crystaleum-Blockchain-Explorer"]
 	path = oracles/Crystaleum-Blockchain-Explorer
 	url = https://github.com/crystaleum/Crystaleum-Blockchain-Explorer
