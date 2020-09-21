@@ -14,7 +14,7 @@
 	path = oracles/Electronero-Pulse-Blockchain-Explorer
 	url = http://github.com/electronero/Electronero-Pulse-Blockchain-Explorer
 [submodule "oracles/Electronero-Blockchain-Explorer"]
-	path = neroexplorer/Electronero-Blockchain-Explorer
+	path = oracles/Electronero-Blockchain-Explorer
 	url = https://github.com/electronero-project/Electronero-Blockchain-Explorer
 [submodule "oracles/Goldnero-Blockchain-Explorer"]
 	path = oracles/Goldnero-Blockchain-Explorer
