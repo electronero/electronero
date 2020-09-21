@@ -56,3 +56,6 @@
 [submodule "poolnero/nodejs-pool"]
 	path = poolnero/nodejs-pool
 	url = https://github.com/electroneropool/nodejs-pool
+[submodule "coins/crystaleum"]
+	path = coins/crystaleum
+	url = https://github.com/crystaleum/crystaleum
