@@ -10,18 +10,21 @@
 [submodule "desknero/pulse-gui"]
 	path = desknero/pulse-gui
 	url = https://github.com/electronero-pulse/pulse-gui
-[submodule "neroexplorer/Electronero-Pulse-Blockchain-Explorer"]
+[submodule "oracles/Electronero-Pulse-Blockchain-Explorer"]
 	path = neroexplorer/Electronero-Pulse-Blockchain-Explorer
 	url = https://github.com/electronero/Electronero-Pulse-Blockchain-Explorer
-[submodule "neroexplorer/Electronero-Blockchain-Explorer"]
+[submodule "oracles/Electronero-Blockchain-Explorer"]
 	path = neroexplorer/Electronero-Blockchain-Explorer
 	url = https://github.com/electronero-project/Electronero-Blockchain-Explorer
-[submodule "neroexplorer/Goldnero-Blockchain-Explorer"]
+[submodule "oracles/Goldnero-Blockchain-Explorer"]
 	path = neroexplorer/Goldnero-Blockchain-Explorer
 	url = https://github.com/goldnero-project/Goldnero-Blockchain-Explorer
-[submodule "neroexplorer/Litenero-Blockchain-Explorer"]
+[submodule "oracles/Litenero-Blockchain-Explorer"]
 	path = neroexplorer/Litenero-Blockchain-Explorer
 	url = https://github.com/litenero-project/Electronero-Blockchain-Explorer
+[submodule "oracles/Crystaleum-Blockchain-Explorer"]
+	path = oracles/Crystaleum-Blockchain-Explorer
+	url = https://github.com/crystaleum/Crystaleum-Blockchain-Explorer
 [submodule "coins/electronero"]
 	path = coins/electronero
 	url = https://github.com/electronero/electronero/
