@@ -13,18 +13,22 @@
 [submodule "oracles/Electronero-Pulse-Blockchain-Explorer"]
 	path = oracles/Electronero-Pulse-Blockchain-Explorer
 	url = http://github.com/electronero/Electronero-Pulse-Blockchain-Explorer
+	branch = devel
 [submodule "oracles/Electronero-Blockchain-Explorer"]
 	path = oracles/Electronero-Blockchain-Explorer
 	url = https://github.com/electronero-project/Electronero-Blockchain-Explorer
 [submodule "oracles/Goldnero-Blockchain-Explorer"]
 	path = oracles/Goldnero-Blockchain-Explorer
 	url = https://github.com/goldnero-project/Goldnero-Blockchain-Explorer
+	branch = devel
 [submodule "oracles/Litenero-Blockchain-Explorer"]
 	path = oracles/Litenero-Blockchain-Explorer
 	url = https://github.com/litenero-project/Litenero-Blockchain-Explorer/
+	branch = devel
 [submodule "oracles/Crystaleum-Blockchain-Explorer"]
 	path = oracles/Crystaleum-Blockchain-Explorer
 	url = https://github.com/crystaleum/Crystaleum-Blockchain-Explorer
+	branch = devel
 [submodule "coins/electronero"]
 	path = coins/electronero
 	url = https://github.com/electronero/electronero/
