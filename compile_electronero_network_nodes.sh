@@ -20,4 +20,4 @@ cd coins/crystaleum
 git submodule init
 git submodule update
 make -j4
-echo 'Electronero network compiled ETNX, ETNXP, LTNX, GLDX, CRFI successfully" 
+echo 'Electronero network compiled ETNX, ETNXP, LTNX, GLDX, CRFI successfully'
