@@ -66,3 +66,6 @@
 [submodule "coins/crystaleum"]
 	path = coins/crystaleum
 	url = https://github.com/crystaleum/crystaleum
+[submodule "webnero/crystaleum.org"]
+	path = webnero/crystaleum.org
+	url = https://github.com/crystaleum/crystaleum.org
