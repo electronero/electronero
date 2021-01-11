@@ -60,12 +60,6 @@ Electronero is a private, secure, untraceable, decentralised digital currency. Y
 
 **Untraceability:** By taking advantage of ring signatures, a special property of a certain type of cryptography, Monero is able to ensure that transactions are not only untraceable, but have an optional measure of ambiguity that ensures that transactions cannot easily be tied back to an individual user or computer.
 
-## Sponsors
-
-<p align="center">
-  <img align="center" width="80" src="sponsors/mineful_logo.png"/>(https://mineful.com)
-</p>
-
 ## Supporting the project
 
 Electronero is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Electronero donations can be made to the Electronero donation address via the `donate` command (type `help` in the command-line wallet for details). Else, here are our dev teams addresses. The funding goes to many developers who contribute and believe me, they are greatful for our assistance! 
