@@ -31,8 +31,8 @@
 	branch = devel
 [submodule "coins/electronero"]
 	path = coins/electronero
-	url = https://github.com/electronero/electronero/
-	branch = release
+	url = https://github.com/electronero-project/electronero/
+	branch = master
 [submodule "coins/litenero"]
 	path = coins/litenero
 	url = https://github.com/litenero/litenero
