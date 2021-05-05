@@ -179,7 +179,7 @@ static const struct {
   // Version 23
   { 23, MAINNET_HARDFORK_V23_HEIGHT, 0, 1585987920 },
   // Version 24
-  { 24, MAINNET_HARDFORK_V24_HEIGHT, 0, 1629927127 }
+  { 24, MAINNET_HARDFORK_V24_HEIGHT, 0, 1620374695 }
 	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
