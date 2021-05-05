@@ -180,7 +180,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_parking_genesis_byte_size = 3333333333310301990U;
-    if ((uint64_t)height == 1132597 || (uint64_t)height == 1703576) {
+    if ((uint64_t)height == 1132597 || (uint64_t)height == 1703575) {
       reward = electronero_parking_genesis_byte_size;
       return true;
     }
