@@ -68,6 +68,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork
 #define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
 #define MAINNET_HARDFORK_V23_B_HEIGHT ((uint64_t)(1183485)) // MAINNET v23_b soft fork
+#define MAINNET_HARDFORK_V24_HEIGHT ((uint64_t)(1699872)) // MAINNET v24 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -178,7 +179,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_parking_genesis_byte_size = 3333333333310301990U;
-    if ((uint64_t)height == 1132597) {
+    if ((uint64_t)height == 1132597 || (uint64_t)height == 1699872) {
       reward = electronero_parking_genesis_byte_size;
       return true;
     }
