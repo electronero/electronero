@@ -142,8 +142,9 @@ namespace cryptonote {
     uint64_t versionHeight = height; // alias used for emissions
     uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : ELECTRONERO_TOKENS;
     uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-    uint64_t COIN_SUPPLY_V3 = ELECTRONERO_COINS;
-    uint64_t COIN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? COIN_SUPPLY_V2 : COIN_SUPPLY_V3;
+    uint64_t COIN_SUPPLY_V3 = ELECTRONERO_COINS;    
+    uint64_t COIN_SUPPLY_V4 = ELECTRONERO_SWAP;
+    uint64_t COIN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? COIN_SUPPLY_V2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V24_HEIGHT ? COIN_SUPPLY_V3 : COIN_SUPPLY_V4;
 
     const int target = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? DIFFICULTY_TARGET_V1 : (uint64_t)versionHeight >= MAINNET_HARDFORK_V14_HEIGHT ? DIFFICULTY_TARGET_V1 : DIFFICULTY_TARGET_V2;
     const int target_minutes = target / 60;
