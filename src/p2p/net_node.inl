@@ -57,7 +57,7 @@
 #define MONERO_DEFAULT_LOG_CATEGORY "net.p2p"
 
 #define NET_MAKE_IP(b1,b2,b3,b4)  ((LPARAM)(((DWORD)(b1)<<24)+((DWORD)(b2)<<16)+((DWORD)(b3)<<8)+((DWORD)(b4))))
-#define MIN_WANTED_SEED_NODES 12
+#define MIN_WANTED_SEED_NODES 3
 
 namespace nodetool
 {
@@ -389,18 +389,10 @@ namespace nodetool
       full_addrs.insert("104.248.162.18:18680");
     }
     else
-    {      
-      full_addrs.insert("161.97.121.92:14080"); 
+    {       
       full_addrs.insert("161.97.121.89:14080"); 
       full_addrs.insert("161.97.121.84:14080"); 
-      full_addrs.insert("161.97.121.104:14080"); 
-      full_addrs.insert("46.101.40.29:14080"); 
-      full_addrs.insert("107.170.236.49:14080"); 
-      full_addrs.insert("174.138.15.35:14080");
-      full_addrs.insert("142.93.38.51:14080");
-      full_addrs.insert("104.248.162.18:14080");
-      full_addrs.insert("168.119.55.152:14080");
-      full_addrs.insert("208.87.132.191:14080");
+      full_addrs.insert("161.97.121.104:14080");
     }
     return full_addrs;
   }

@@ -82,6 +82,7 @@
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork 
 #define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
 #define MAINNET_HARDFORK_V23_B_HEIGHT ((uint64_t)(1183485)) // MAINNET v23_b soft fork
+#define MAINNET_HARDFORK_V24_HEIGHT ((uint64_t)(1714428)) // MAINNET v24 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -176,7 +177,10 @@ static const struct {
   // Version 22
   { 22, MAINNET_HARDFORK_V22_HEIGHT, 0, 1582765436 },
   // Version 23
-  { 23, MAINNET_HARDFORK_V23_HEIGHT, 0, 1585987920 }
+  { 23, MAINNET_HARDFORK_V23_HEIGHT, 0, 1585987920 },
+  // Version 24
+  { 24, MAINNET_HARDFORK_V24_HEIGHT, 0, 1620374695 }
+	
 };
 static const uint64_t mainnet_hard_fork_version_1_till = MAINNET_HARDFORK_V7_HEIGHT-1;
 
@@ -3868,8 +3872,9 @@ leave:
 
   uint64_t COIN_SUPPLY_V1 = version < 7 ? MONEY_SUPPLY_ETN : version < 10 ? MONEY_SUPPLY : version <  16 ? TOKENS : ELECTRONERO_TOKENS;
   uint64_t COIN_SUPPLY_V2 = ELECTRONERO_PULSE;
-  uint64_t COIN_SUPPLY_V3 = ELECTRONERO_COINS;
-  uint64_t COIN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? COIN_SUPPLY_V2 : COIN_SUPPLY_V3;
+  uint64_t COIN_SUPPLY_V3 = ELECTRONERO_COINS;	  
+  uint64_t COIN_SUPPLY_V4 = ELECTRONERO_SWAP;
+  uint64_t COIN_SUPPLY = (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? COIN_SUPPLY_V1 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? COIN_SUPPLY_V2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V24_HEIGHT ? COIN_SUPPLY_V3 : COIN_SUPPLY_V4;
 
   if (version < 6) 
   {
@@ -4741,7 +4746,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "cb3068fcac6c4a1a591cbcbfb5c1d92a85fdee0ead46b57b78c6c2e815a9f565";
+static const char expected_block_hashes_hash[] = "268c2630f8118cfa13239cc18cb7685a3c4a11690536634a20653731da62d0ae";
 void Blockchain::load_compiled_in_block_hashes()
 {
   const bool testnet = m_nettype == TESTNET;
