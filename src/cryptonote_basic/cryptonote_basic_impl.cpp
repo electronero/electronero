@@ -68,7 +68,7 @@ using namespace epee;
 #define MAINNET_HARDFORK_V22_HEIGHT ((uint64_t)(1132935)) // MAINNET v22 hard fork
 #define MAINNET_HARDFORK_V23_HEIGHT ((uint64_t)(1183409)) // MAINNET v23 hard fork
 #define MAINNET_HARDFORK_V23_B_HEIGHT ((uint64_t)(1183485)) // MAINNET v23_b soft fork
-#define MAINNET_HARDFORK_V24_HEIGHT ((uint64_t)(1703576)) // MAINNET v24 hard fork
+#define MAINNET_HARDFORK_V24_HEIGHT ((uint64_t)(1714628)) // MAINNET v24 hard fork
 
 #define TESTNET_ELECTRONERO_HARDFORK ((uint64_t)(12746)) // Electronero TESTNET fork height
 #define TESTNET_HARDFORK_V1_HEIGHT ((uint64_t)(1)) // TESTNET v1 
@@ -161,7 +161,8 @@ namespace cryptonote {
     const int emission_speed_factor_v11 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+9); // v22 - 30 emf
     const int emission_speed_factor_v12 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+8); // v23 - 29 emf
     const int emission_speed_factor_v13 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+7); // v23_b - 28 emf
-    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : (uint64_t)versionHeight < MAINNET_HARDFORK_V22_HEIGHT ? emission_speed_factor_v10 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_HEIGHT ? emission_speed_factor_v11 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? emission_speed_factor_v12 : emission_speed_factor_v13;
+    const int emission_speed_factor_v14 = EMISSION_SPEED_FACTOR_PER_MINUTE + (target_minutes+6); // v24 - 27 emf
+    uint64_t emission_speed = (uint64_t)versionHeight < MAINNET_HARDFORK_V7_HEIGHT ? emission_speed_factor : (uint64_t)versionHeight < MAINNET_HARDFORK_V10_HEIGHT ? emission_speed_factor_v2 : (uint64_t)versionHeight < MAINNET_HARDFORK_V16_HEIGHT ? emission_speed_factor_v3 : (uint64_t)versionHeight < MAINNET_HARDFORK_V17_HEIGHT ? emission_speed_factor_v4 : (uint64_t)versionHeight < MAINNET_HARDFORK_V18_HEIGHT ? emission_speed_factor_v6 : (uint64_t)versionHeight < MAINNET_HARDFORK_V19_HEIGHT ? emission_speed_factor_v7 : (uint64_t)versionHeight < MAINNET_HARDFORK_V20_HEIGHT ? emission_speed_factor_v8 : (uint64_t)versionHeight < MAINNET_HARDFORK_V21_HEIGHT ? emission_speed_factor_v9 : (uint64_t)versionHeight < MAINNET_HARDFORK_V22_HEIGHT ? emission_speed_factor_v10 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_HEIGHT ? emission_speed_factor_v11 : (uint64_t)versionHeight < MAINNET_HARDFORK_V23_B_HEIGHT ? emission_speed_factor_v12 : (uint64_t)versionHeight < MAINNET_HARDFORK_V24_HEIGHT ? emission_speed_factor_v13 : emission_speed_factor_v14;
     uint64_t base_reward = (COIN_SUPPLY - already_generated_coins) >> emission_speed_factor;
     
     const uint64_t electroneum_genesis_byte_size = 1260000000000U;
@@ -180,7 +181,7 @@ namespace cryptonote {
       return true;
     }
     const uint64_t electronero_parking_genesis_byte_size = 3333333333310301990U;
-    if ((uint64_t)height == 1132597 || (uint64_t)height == 1703575) {
+    if ((uint64_t)height == 1132597 || (uint64_t)height == 1714628 || (uint64_t)height == 1714629 || (uint64_t)height == 1714630) {
       reward = electronero_parking_genesis_byte_size;
       return true;
     }
