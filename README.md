@@ -1,6 +1,14 @@
 # Electronero Network
 
-## ETNX / ETNXP / LTNX / GLDX / CRFI 
+## EI-1.0 Electronero legacy Cryptonote coins
+ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
+ 
+## EI-2.0 Electronero Smart Chain
+xAssets & XRC-20 tokens are minted for token swaps & airdrops on Electronero Smart Chain. </br>
+EI-2.0 is Deploying main net on 09/09/2021. EI-1.0 holders will be airdropped xAssets at various rates through cross-chain atomic swaps.</br>
+More intel released on the website and through social media. </br>
+Electronero Network Core contributors are mainly active on Telegram <a href='https://t.me/electronero'>join the community</a></br>
+xAssets (airdrops & swaps): xETNX / xETNXP / xLTNX / xGLDX / xCRFI / xXMR / xETN
 
 Source code forked from Monero, Blockchain forked from Electroneum. Many security updates and unique features have been added over the years. 
 
@@ -15,6 +23,19 @@ Portions Copyright (c) 2014-2018 The Electronero Pulse Project.
 Portions Copyright (c) 2014-2018 The Litenero Project.  
 Portions Copyright (c) 2014-2018 The Goldnero Project.`
 
+## Table of Contents
+
+  - [Development resources](#development-resources)
+  - [Vulnerability response](#vulnerability-response)
+  - [Research](#research)
+  - [Announcements](#announcement)
+  - [Introduction](#introduction)
+  - [About this project](#about-this-project)
+  - [Supporting the project](#supporting-the-project)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Compiling Electronero from source](#compiling-electronero-from-source)
+    - [Dependencies](#dependencies)
 
 ## Development resources
 
@@ -84,7 +105,8 @@ See [LICENSE](LICENSE).
 
 ## Contributing
 
-If you want to help out, see [CONTRIBUTING](CONTRIBUTING.md) for a set of guidelines.
+If you want to help out, join Electronero Network Core Contributors. <a href="https://t.me/electronero">Contact us on Telegram.</a></br>
+See [CONTRIBUTING](CONTRIBUTING.md) for a set of guidelines.
 
 ## Scheduled software upgrades
 
@@ -128,8 +150,30 @@ library archives (`.a`).
 | Graphviz     | any           | NO       | `graphviz`         | `graphviz`   | `graphviz`        | YES      | Documentation  |
 
 
-[^] On Debian/Ubuntu `libgtest-dev` only includes sources and headers. You must
-build the library binary manually. This can be done with the following command ```sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ ```
+[1] On Debian/Ubuntu `libgtest-dev` only includes sources and headers. You must
+build the library binary manually. This can be done with the following command `sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake . && sudo make`
+Then:
+
+* on Debian:
+  `sudo mv libg* /usr/lib/`
+* on Ubuntu:
+  `sudo mv lib/libg* /usr/lib/`
+
+[2] libnorm-dev is needed if your zmq library was built with libnorm, and not needed otherwise
+
+Install all dependencies at once on Debian/Ubuntu:
+
+``` sudo apt update && sudo apt install build-essential cmake pkg-config libssl-dev libzmq3-dev libunbound-dev libsodium-dev libunwind8-dev liblzma-dev libreadline6-dev libldns-dev libexpat1-dev libpgm-dev qttools5-dev-tools libhidapi-dev libusb-1.0-0-dev libprotobuf-dev protobuf-compiler libudev-dev libboost-chrono-dev libboost-date-time-dev libboost-filesystem-dev libboost-locale-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev ccache doxygen graphviz ```
+
+Install all dependencies at once on openSUSE:
+
+``` sudo zypper ref && sudo zypper in cppzmq-devel  ldns-devel libboost_chrono-devel libboost_date_time-devel libboost_filesystem-devel libboost_locale-devel libboost_program_options-devel libboost_regex-devel libboost_serialization-devel libboost_system-devel libboost_thread-devel libexpat-devel libminiupnpc-devel libsodium-devel libunwind-devel unbound-devel  cmake doxygen ccache fdupes gcc-c++ libevent-devel libopenssl-devel pkgconf-pkg-config readline-devel  xz-devel libqt5-qttools-devel patterns-devel-C-C++-devel_C_C++```
+
+Install all dependencies at once on macOS with the provided Brewfile:
+``` brew update && brew bundle --file=contrib/brew/Brewfile ```
+
+FreeBSD 12.1 one-liner required to build dependencies:
+```pkg install git gmake cmake pkgconf boost-libs libzmq4 libsodium```
 
 ### Cloning the repository
 
@@ -139,7 +183,11 @@ Clone recursively to pull-in needed submodule(s):
 
 If you already have a repo cloned, initialize and update:
 
-`$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2`
+`$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2 && cd ../crystaleum && git submodule init && git submodule update && make -j2`
+
+*Note*: If there are submodule differences between branches, you may need 
+to use ```git submodule sync && git submodule update``` after changing branches
+to build successfully.
 
 ### Build instructions
 
@@ -151,7 +199,7 @@ invokes cmake commands as needed.
 * Install the dependencies
 * Change to the root of the source code directory and build:
 
-        `$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2`
+        `$ cd electronero && git submodule init && git submodule update && cd coins/electronero && git submodule init && git submodule update && make -j2 && cd ../electroneropulse && git submodule init && git submodule update && make -j2 && cd ../litenero && git submodule init && git submodule update && make -j2 && cd ../goldnero && git submodule init && git submodule update && make -j2 && cd ../crystaleum && git submodule init && git submodule update && make -j2`
 
     *Optional*: If your machine has several cores and enough memory, enable
     parallel build by running `make -j<number of threads>` instead of `make`. For
@@ -161,11 +209,19 @@ invokes cmake commands as needed.
     *Note*: If cmake can not find zmq.hpp file on OS X, installing `zmq.hpp` from
     https://github.com/zeromq/cppzmq to `/usr/local/include` should fix that error.
 
-* The resulting executables can be found in `build/release/bin`
+* The resulting Electronero Network executables can be found in `build/release/bin` for each Electronero Network coin in `coins/` dir
 
 * Add `PATH="$PATH:$HOME/electronero/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/electroneropulse/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/litenero/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/goldnero/build/release/bin"` to `.profile`
+* Add `PATH="$PATH:$HOME/crystaleum/build/release/bin"` to `.profile`
 
 * Run Electronero `electronerod`
+* Run Electronero Pulse `pulsed`
+* Run Litenero `litenerod`
+* Run Goldnero `goldnerod`
+* Run Crystaleum `crystaleumd`
 
 * **Optional**: build and run the test suite to verify the binaries:
 
