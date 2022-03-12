@@ -1,15 +1,5 @@
-# Electronero Network
-
-## EI-1.0 Electronero legacy Cryptonote coins
-ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
- 
-## EI-2.0 Electronero Smart Chain
-xAssets & XRC-20 tokens are minted for token swaps & airdrops on Electronero Smart Chain. </br>
-EI-2.0 is Deploying main net on 09/09/2021. EI-1.0 holders will be airdropped xAssets at various rates through cross-chain atomic swaps.</br>
-More intel released on the website and through social media. </br>
-Electronero Network Core contributors are mainly active on Telegram <a href='https://t.me/electronero'>join the community</a></br>
-xAssets (airdrops & swaps): xETNX / xETNXP / xLTNX / xGLDX / xCRFI / xXMR / xETN
-
+## Electronero Network 
+   Electronero Network Core contributors are mainly active on Telegram <a href='https://t.me/electronero'>join the community</a></br>
 Source code forked from Monero, Blockchain forked from Electroneum. Many security updates and unique features have been added over the years. 
 
 `Copyright (c) 2014-2018 The Monero Project.
@@ -22,6 +12,93 @@ Portions Copyright (c) 2014-2018 The Electronero Project.
 Portions Copyright (c) 2014-2018 The Electronero Pulse Project.  
 Portions Copyright (c) 2014-2018 The Litenero Project.  
 Portions Copyright (c) 2014-2018 The Goldnero Project.`
+
+## EI-1.0 Electronero legacy Cryptonote coins
+ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
+
+   All claims, content, designs, algorithms, estimates, roadmaps, specifications, terms, concepts, and performance measurements described in this project are done with good faith efforts. Contributors do their best to keep information accurate, and up to date. As an open source community project we are limited with resources, and therefore the information is expected to be accurate during the timeline produced. However we do not take responsibility to maintain it's accuracy. It is up to the reader to check, and validate the information for accuracy. Furthermore, nothing in this project constitutes a solicitation for investment. 
+
+Join Webnero at https://webnero.electronero.org
+Email Electronero core development at support@electronero.org 
+Limited technical support is available on Telegram.
+ETNX: https://t.me/etnxsupport
+ETNXP: https://t.me/etnxpsupport
+
+   Any content produced by Electronero Network or developer resources that Electronero provides are for educational and inspirational purposes only. Electronero Network does not encourage, induce or sanction the deployment, integration or use of any such applications (including the code comprising the Electronero and/or Crystaleum blockchain protocol) in violation of applicable laws or regulations and hereby prohibits any such deployment, integration or use.
+
+--------------------------------
+ **Electronero Network centralized exchange listings (that we know of)**: 
+_____________________________________________________
+https://TradeOgre.com (lowest rates to buy for ETNX & ETNXP)
+https://Vindax.com
+https://Bitexlive.com
+https://Finexbox.com (*wallet in maintenance, will support swap Electronero 2.0 and "Crystaleum")
+https://Indoex.io (*wallet in maintenance, will support listing Electronero 2.0 aka "Crystaleum")
+
+**Term:                              Meaning:**
+**- "EI-1.0"**                       "Electronero 1.0 / Electronero Network native cryptonote coins"
+**- "EI-2.0"**                       "Electronero 2.0 / Electronero Network native EVM, alt-eth, and off-chain assets"
+**- "xAssets"**                      "xAssets are 'Electronero R&D experiments' consisting of alt-electronero, and/or DeFi strategies deployed to EVM compatible chains. Research & development, or maintenance, and support is limited to funding availability which varies depending on scope of work, topics of research, and development, profitability of the underlying strategy. Due to rapid development, limited community funding, and community interests among a variety of factors Electronero xAssets are subject to change without warning. Please exercise caution, and research the underlying cryptoasset before making any decisions. Remember, it is always a smart idea to read the smart contracts in full and request an audit on any DeFi project before entering or trading a crypto. Cryptocurrency is highly volatile, and it's not for everyone. Please be safe."
+**- "Crystaleum"**                   "Layer-1 cryptonote native blockchain launched several years ago as a result of partnership with Electronero Network. Genesis block of Crystaleum from ETN, up to block 500k where a chain split of sidechain Goldnero, combined with the blockchain raw of Litenero, which inherits blocks from parent chain Electroneum, and makes use of the Monero source code base which follows privacy-centric cryptonote protocols. Crystaleum has been Interchained with an L2 compatible with the Ethereum Virtual Machine."
+**- "CRFI"**                         "Crystaleum Layer-1 cryptonote blockchain"
+**- "Golden Palace"**                "Crystaleum Layer-2 EVM sidechain, network 1 chain ID 103090"
+**- "(LP)"**                         "Generally 2 crypto-assets, could be more in complex DeFi strategies, are added in equal amounts of each cryptocurrency to form a single pair which will generate a certain amount of LP for owner. The amount of LP minted to _msgSender() is relevant to amount of the supply owned by the holder. How much of each asset the holder can withdraw varies based on quantity of cryptoassets[A], and cryptoassets[B]. LP is decentralized, adjusted autonomously, and synchronized on-chain during each transaction interacting with a particular pool."
+**- "Yield Farming"**                "Yield farming is the DeFi strategy which involves staking crypto liquidity pairs. In order to generate yields from the farm, otherwise known as harvests or rewards which are processed generally in the form of additional cryptocurrency of another or the same project. Usually LP is required to stake at a yield farm which would reward another cryptoasset with each block that passes."
+**- "Masterchef"**                   "A MasterChef is a smart contract that controls what a yield farm, and/or staking pool can do, and how."
+**- "Sidechained AIO"**              "Interchained's all-in-one. SideChained is a NodeJS based portable, interoperable, "cross-chain" ledger utlility which enables simultaneous or exclusive transaction support for ERC20/BEP20/COINS. Sidechain Web3 Support for 0x (BSC/ETH) && native support for Cryptonote out of the box. SideChained is based on a combination of two main components. SideChained open source package, and Electronero Passport, a Private API on server interacting with wallets."
+
+Check out some of Electronero community research, and development projects. Have an idea? Contact us on Telegram for help starting your project https://t.me/cryptocurrencydevs. We're working on some interesting contracts for Electronero Network 2.0 including "xAssets" DeFi strategies and decentralized exchange listings. Track smart contracts through verified sources such as Etherscan, Polygonscan, BSCScan, or trustless charting utilities such as Bogged Finance, Dextools. Liquidity pools are popping up all the time on decentralized exchanges such as [Interswap.finance](https://Interswap.finance), [Pancakeswap.finance](https://Pancakeswap.finance) on Binance Smart Chain, and [DoDoEx.io](https://DoDoEx.io) on Binance Smart Chain. For Polygon deployments we like [QuickSwap.exchange](https://QuickSwap.exchange)
+
+--------------------------------
+ **Electronero Network "xAssets" official list**: 
+_____________________________________________________
+
+**Wrapped xMatic [WxMATIC]**: Community members along with Interchained upgraded the Wrapped BNB contract to 0.8.5 solidity, and deployed to Polygon mainnet. This experiment brought valuable resources in knowledge of understanding of wrapping native coins to tokens and vice-versa. This experience was amazing and brought us great results in our research. The WxMATIC public contract is on Polygon and it's a clone of WBNB, updated to solidity 0.8.5.
+Contract: https://polygonscan.com/token/0xfad504ce36a7a5ce50fbab4b2be673cb517a1b1d
+
+**Interswap**: [Interswap.finance](https://interswap.finance) a yield farm, and convenient decentralized exchange on Binance Smart Chain with liquidity powered by Pancakeswap.finance. This rewards project is a fun way to learn about DeFi and start earning rewards on the Binance Smart Chain. It taught us how liquidity pairs function, and proved decentralized finance could be very useful. The underlying core is mostly a fork of PancakeSwap, with higher rewards per block. PancakeSwap itself was a fork of Uniswap.
+"Masterchef" Contract: https://bscscan.com/token/0xbc33c8ad9756b669f5abfe6ce9b9cb132c3aff47
+
+**XSC**:  a yield farming rewards DeFi protocol is deployed on Binance Smart Chain
+Chart: https://charts.bogged.finance/?c=bsc&t=0x7155aff27df20f9b0ecf8406a5a60c30043894ec
+Contract: https://bscscan.com/token/0x7155aff27df20f9b0ecf8406a5a60c30043894ec
+
+**CRYSTAL**: a yield farming rewards DeFi protocol is deployed on Binance Smart Chain 
+Chart: https://charts.bogged.finance/?c=bsc&t=0x4ca6b6b8f10eb17dbd1f8c3f313eca2f779c6e0b
+Contract: https://bscscan.com/token/0x4ca6b6b8f10eb17dbd1f8c3f313eca2f779c6e0b
+
+**CRYSTAL**: a liquidity mining reflections DeFi protocol is deployed on Polygon
+Chart: https://charts.bogged.finance/?c=polygon&t=0x7d1B624588cE16953e30B0e9001A72c854532991
+Contract: https://polygonscan.com/token/0x7d1B624588cE16953e30B0e9001A72c854532991
+
+--------------------------------
+Electronero Network Releases
+_____________________________________________________
+Electronero [ETNX] release "Electric Desert" version 12.5.7
+To restore ETNX compile release branches and synchronize the blockchain. 
+ETNX Oracle release branch ETNX release branch https://github.com/electronero-project/electronero/releases/tag/12.5.7
+ETNX official Github https://github.com/electronero-project/electronero/
+
+Electronero Pulse [ETNXP] release "Yellow Bricks" version 12.4.1 
+To restore ETNXP compile release branches and synchronize the blockchain. 
+ETNXP Oracle release branch ETNXP release branch https://github.com/electronero-pulse/electroneropulse/releases/tag/12.4.1
+ETNXP official Github https://github.com/electronero-pulse/electroneropulse/
+
+Litenero [LTNX]
+To restore LTNX compile release branches and synchronize the blockchain. 
+LTNX Oracle release branch LTNX release branch https://github.com/litenero/litenero/releases/tag/1.0.3
+LTNX official Github https://github.com/litenero/litenero/
+
+Goldnero [GLDX]
+To restore GLDX compile release branches and synchronize the blockchain. 
+GLDX Oracle release branch GLDX release branch https://github.com/goldnero/goldnero/releases/tag/1.0.2
+GLDX official Github https://github.com/goldnero/goldnero/
+
+Crystaleum [CRFI]
+To restore CRFI compile release branches and synchronize the blockchain. 
+CRFI Oracle release branch CRFI release branch https://github.com/crystaleum/crystaleum/releases/tag/1.1
+CRFI official Github https://github.com/crystaleum/crystaleum/
+ 
 
 ## Table of Contents
 
