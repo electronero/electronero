@@ -47,6 +47,8 @@ https://Indoex.io (*wallet in maintenance, will support listing Electronero 2.0 
 <li>**- "Masterchef"**                   "A MasterChef is a smart contract that controls what a yield farm, and/or staking pool can do, and how."</li>
 <li>**- "Sidechained AIO"**              "Interchained's all-in-one. SideChained is a NodeJS based portable, interoperable, "cross-chain" ledger utlility which enables simultaneous or exclusive transaction support for ERC20/BEP20/COINS. Sidechain Web3 Support for 0x (BSC/ETH) && native support for Cryptonote out of the box. SideChained is based on a combination of two main components. SideChained open source package, and Electronero Passport, a Private API on server interacting with wallets."</li>
 </ul>
+
+
 Check out some of Electronero community research, and development projects. Have an idea? Contact us on Telegram for help starting your project https://t.me/cryptocurrencydevs. We're working on some interesting contracts for Electronero Network 2.0 including "xAssets" DeFi strategies and decentralized exchange listings. Track smart contracts through verified sources such as Etherscan, Polygonscan, BSCScan, or trustless charting utilities such as Bogged Finance, Dextools. Liquidity pools are popping up all the time on decentralized exchanges such as [Interswap.finance](https://Interswap.finance), [Pancakeswap.finance](https://Pancakeswap.finance) on Binance Smart Chain, and [DoDoEx.io](https://DoDoEx.io) on Binance Smart Chain. For Polygon deployments we like [QuickSwap.exchange](https://QuickSwap.exchange)
 
 --------------------------------
