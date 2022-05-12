@@ -16,9 +16,11 @@ Portions Copyright (c) 2014-2018 The Goldnero Project.`
 
 ## EI-1.0 Electronero legacy Cryptonote coins
 ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
+https://github.com/electronero/electronero/tree/network/coins
 
 ## EI-2.0 Go-Electronero ethereuem coins
 ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
+https://github.com/electronero-project/go-electronero/tree/d78dfe145066a5b101ff6dcce90109ef878fc585
 
 ## NOTICE
 
