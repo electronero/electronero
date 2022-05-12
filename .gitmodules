@@ -66,3 +66,6 @@
 [submodule "coins/crystaleum"]
 	path = coins/crystaleum
 	url = https://github.com/crystaleum/crystaleum
+[submodule "go-electronero"]
+	path = go-electronero
+	url = https://github.com/electronero-project/go-electronero
