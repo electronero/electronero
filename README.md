@@ -13,12 +13,21 @@ Portions Copyright (c) 2014-2018 The Electronero Pulse Project.
 Portions Copyright (c) 2014-2018 The Litenero Project.  
 Portions Copyright (c) 2014-2018 The Goldnero Project.`
 
+
 ## EI-1.0 Electronero legacy Cryptonote coins
 ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
 
-   All claims, content, designs, algorithms, estimates, roadmaps, specifications, terms, concepts, and performance measurements described in this project are done with good faith efforts. Contributors do their best to keep information accurate, and up to date. As an open source community project we are limited with resources, and therefore the information is expected to be accurate during the timeline produced. However we do not take responsibility to maintain it's accuracy. It is up to the reader to check, and validate the information for accuracy. Furthermore, nothing in this project constitutes a solicitation for investment. 
+## EI-2.0 Go-Electronero ethereuem coins
+ETNX / ETNXP / LTNX / GLDX / CRFI  </br>
 
+## NOTICE
+
+   All claims, content, designs, algorithms, estimates, roadmaps, specifications, terms, concepts, and performance measurements described in this project are done with good faith efforts. Contributors do their best to keep information accurate, and up to date. As an open source community project we are limited with resources, and therefore the information is expected to be accurate during the timeline produced. However we do not take responsibility to maintain it's accuracy. It is up to the reader to check, and validate the information for accuracy. Furthermore, nothing in this project constitutes a solicitation for investment. 
+   
+## Webnero (official web services)
 Join Webnero at https://webnero.electronero.org
+
+## Contact Electronero Network core development
 Email Electronero core development at support@electronero.org 
 Limited technical support is available on Telegram.
 ETNX: https://t.me/etnxsupport
